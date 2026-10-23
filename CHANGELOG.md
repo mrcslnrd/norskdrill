@@ -1,5 +1,8 @@
 # Norsk drill – changelog
 
+## v5.5.1 · 23 Oct 2026
+- **Layout.** Text, buttons, the answer area and tiles are restored to their v5.4 vertical positions.
+
 ## v5.5 · 23 Oct 2026
 - **Calmer look.** A quiet 1990s green-phosphor screen: near-black green background, soft phosphor text with a faint glow, IBM Plex Mono (embedded, no outside requests), very faint scanlines and vignette. Hairline borders and no bevels, shadows or emoji. Buttons are outlined rows. The home intro is just "Tap until it clicks". Light theme = "daylight": dark green ink on pale paper.
 - **The action sits lower.** The home actions are about 12% lower, and so is the question area in a session. The space above the question shrinks first when a sentence is long, so nothing gets pushed off screen.
