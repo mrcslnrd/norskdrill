@@ -212,6 +212,16 @@ input.typed{width:100%;font:18px var(--mono);padding:12px 2px;border:0;border-bo
 /* home buttons: same heights as v5.4 so every row sits where it did */
 #v-home .btn:not(.day){padding-top:5px;padding-bottom:5px;min-height:56px}
 #v-home .btn.day{min-height:76px}
+/* v5.5.3: the second stat is the practise button; the whole cell is the tap target */
+.statbtn{display:block;width:100%;min-height:44px;font:inherit;color:inherit;background:transparent;border:0;border-left:1px solid var(--ln);cursor:pointer;text-align:center}
+.statbtn:active{background:var(--s2)}
+.statbtn.clear b{color:var(--mu);text-shadow:none}
+.statbtn:not(.clear) span{color:var(--ac)}
+.practh button{font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;background:transparent;border:0;padding:0;min-height:44px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.practh #weak-go{color:var(--ac);letter-spacing:.4px;text-transform:none}
+.weaklist.tap.on{cursor:pointer}
+.weaklist.tap.on:active{background:var(--s1)}
+.btn.b1line{font-size:14px;font-weight:400;color:var(--mu);min-height:48px}
 .stats.two{grid-template-columns:1fr 1fr;margin-bottom:14px}.stats.two .stat{padding:8px 4px}
 .lead{margin:17px 0 86px;font-size:15px;color:var(--tx)}
 </style>
@@ -229,14 +239,13 @@ input.typed{width:100%;font:18px var(--mono);padding:12px 2px;border:0;border-bo
     <div class="savedrow"><span class="saved" id="saved">checking storage…</span><span class="lowkey" id="s-day"></span></div>
     <div class="stats two">
       <div class="stat"><b id="s-tally">0 / 0</b><span>right / answered</span></div>
-      <div class="stat"><b id="s-weak">0</b><span>weak patterns</span></div>
+      <button class="stat statbtn" id="go-weak" type="button"><b id="s-weak">0</b><span id="s-weak-l">to practise</span></button>
     </div>
     <button class="btn pri day" id="go-day"></button>
     <button class="btn" id="go-drill">Just drill<small id="go-drill-sub">pick patterns · endless</small></button>
-    <button class="btn warn" id="go-weak">Weak spots only</button>
-    <button class="btn" id="go-check">B1 Progress</button>
-    <h2>My mistakes</h2>
-    <div id="weaklist" class="weaklist"></div>
+    <button class="btn b1line" id="go-check">B1 Progress</button>
+    <h2 class="practh"><button type="button" id="go-weak-h">To practise<span id="weak-go"></span></button></h2>
+    <div id="weaklist" class="weaklist tap"></div>
     <div class="homefoot"><div class="tools"><button class="tlink" id="theme">Night mode</button><span class="sep" aria-hidden="true">·</span><button class="tlink" id="go-set">Settings</button></div></div>
     <p class="foot">Works offline. Progress is saved on this device only.</p>
     <p class="foot" id="ver"></p>
@@ -276,13 +285,13 @@ input.typed{width:100%;font:18px var(--mono);padding:12px 2px;border:0;border-bo
   <section class="view" id="v-check"><div class="scroll">
     <button class="x back" id="chk-back" aria-label="Back">←</button>
     <h1>B1 Progress</h1>
-    <div class="seg"><button class="btn sm on" id="tab-pat" type="button">Patterns</button><button class="btn sm" id="tab-chk" type="button">B1 checklist</button></div>
     <div id="prog-pat">
       <p class="sub">Status comes from your last 20 answers per pattern: mastered at 18 or more right, needs work under 75% or with 2 misses in the last 10. Mastered patterns rest and share one review item per lesson. Tap a pattern to drill it.</p>
       <div class="ptscard" id="pat-sum"></div>
       <div id="patterns"></div>
     </div>
-    <div id="prog-chk" hidden>
+    <div id="prog-chk">
+      <h2>Your own checklist</h2>
       <p class="sub">Grammar areas for A2 → B1. The bar shows how far you are in the matching drill. Tick an area yourself when you feel it is solid. Tap the name to drill it.</p>
       <div class="ptscard" id="chk-sum"></div>
       <div id="chk-list"></div>
@@ -308,7 +317,7 @@ input.typed{width:100%;font:18px var(--mono);padding:12px 2px;border:0;border-bo
     <div id="sum-miss"></div>
     <div style="margin-top:22px"></div>
     <button class="btn pri" id="again">Practise more</button>
-    <button class="btn warn" id="sum-weak">Weak spots only</button>
+    <button class="btn" id="sum-weak">To practise</button>
     <button class="btn sm" id="sum-exp">Export my mistakes</button>
     <button class="btn sm" id="sum-home">Home</button>
   </div></section>
@@ -336,7 +345,7 @@ const ITEMS=[{"type": "order", "s": "Etter at vi hadde spist middag, vasket vi o
 <script>
 (function(){
 "use strict";
-var VERSION="5.5.2",VERSION_NOTE="",VERSION_DATE="23 Oct 2026";
+var VERSION="5.5.3",VERSION_NOTE="",VERSION_DATE="23 Oct 2026";
 var KEY="norskdrill.v1",SESSION_SIZE=16,NEED=3,EXTRA_CAP=8;
 /* v5.5 adaptive picker: status per pattern from its last 20 answers */
 var WIN=20,MAST_OK=18,WEAK_ACC=0.75,HOLD=10,WEAK_SHARE=0.6;
@@ -486,14 +495,15 @@ function renderHome(){
   var w=weakItems(),wp=weakPats();
   var ds=dayStreak();$("s-day").textContent=ds?"· "+ds+"-day streak":"";
   $("s-tally").textContent=tallyTxt();
-  $("s-weak").textContent=wp.length;
+  /* the practise cell: weak patterns first; if none, the sentences waiting for another go; 0 = all clear (tap does nothing) */
+  var nP=wp.length||w.length,gw=$("go-weak");$("s-weak").textContent=nP;$("s-weak-l").textContent=nP?"to practise":"all clear";
+  gw.classList.toggle("clear",!nP);gw.setAttribute("aria-label",nP?nP+" to practise. Tap to practise.":"All clear");
+  $("weak-go").textContent=(wp.length||w.length)?"› tap to start":"";$("weaklist").classList.toggle("on",!!(wp.length||w.length));
   $("sw-typed").classList.toggle("on",D.set.typed);
   var wl=$("weaklist");
-  if(!w.length)wl.innerHTML='<div>No weak sentences right now. Mistakes you make will show up here.</div>';
-  else wl.innerHTML=w.map(function(i){var s=D.items[i.id];return'<div><b>'+esc(fullText(i))+'</b><small>'+esc(PBY[i.t].label)+' · missed '+s.wrong+'×</small></div>'}).join("");
-  $("go-weak").innerHTML="Weak spots only<small>"+wp.length+" pattern"+(wp.length===1?"":"s")+" · "+w.length+" sentence"+(w.length===1?"":"s")+"</small>";
-  $("go-weak").disabled=!wp.length&&!w.length;
-  var nt=CHECK_IDS.filter(function(k){return D.chk[k]}).length;var nm=PIDS.filter(function(p){return patStatus(p)==="mastered"}).length;$("go-check").innerHTML="B1 Progress<small>"+nm+" / "+PIDS.length+" patterns mastered · "+nt+" / "+CHECK_IDS.length+" ticked</small>";
+  if(!w.length)wl.innerHTML='<div>'+(wp.length?'No sentences waiting. Tap above to practise the patterns that need another look.':'Nothing waiting right now. Sentences that need another go will gather here.')+'</div>';
+  else wl.innerHTML=w.map(function(i){return'<div><b>'+esc(fullText(i))+'</b><small>'+esc(PBY[i.t].label)+'</small></div>'}).join("");
+  var nm=PIDS.filter(function(p){return patStatus(p)==="mastered"}).length;$("go-check").textContent="B1 · "+nm+" / "+PIDS.length+" patterns mastered";
   $("go-drill-sub").textContent="pick patterns · endless";
 }
 
@@ -610,10 +620,12 @@ function startRound(pids){
   if(!ids.length){toast("Nothing to practise");return}
   S=newS("drill",ids,ids.length);buildSet.rev.forEach(function(id){S.rev[id]=1});S.endless=false;S.round=true;S.patsSel=pids.slice();LAST={kind:"round",pids:pids.slice()};begin();
 }
+/* v5.5.3: practise what's open: missed sentences + weak patterns first, then endless on those patterns */
 function startWeak(){
   var ids=buildSet(Math.random,12,{weakOnly:true,weakShare:12,maxMissed:5});
-  if(!ids.length){toast("No weak spots yet");return}
-  S=newS("weak",ids,ids.length);LAST={kind:"weak"};begin();
+  if(!ids.length)return; /* all clear: a quiet no-op */
+  var pats=[];weakPats().concat(ids.map(function(id){return byId(id).t})).forEach(function(p){if(pats.indexOf(p)<0)pats.push(p)});
+  S=newS("drill",ids,0);S.practise=true;S.patsSel=pats;LAST={kind:"weak"};begin();
 }
 function startDrill(){
   var sel=D.set.drill.filter(function(p){return PBY[p]});
@@ -840,7 +852,7 @@ function finish(){
     sub="Today's lesson is complete and saved. "+dayStreak()+(dayStreak()===1?" day":" days")+" in a row. Come back tomorrow for a new one, or keep going below.";
     stats='<div class="stat"><b>'+S.correct+' / '+S.answers+'</b><span>right this session</span></div><div class="stat"><b>'+tallyTxt()+'</b><span>right in total</span></div><div class="stat"><b>'+S.best+'</b><span>best run in a row</span></div><div class="stat"><b>'+Object.keys(S.missed).length+'</b><span>items missed</span></div>';
   }else if(kind==="drill"){
-    emoji="✓";title=S.round?"Round finished":"Drill finished";
+    emoji="✓";title=S.round?"Round finished":S.practise?"Practice done":"Drill finished";
     sub=S.answers+" answer"+(S.answers===1?"":"s")+".";
     stats='<div class="stat"><b>'+S.correct+' / '+S.answers+'</b><span>right this session</span></div><div class="stat"><b>'+tallyTxt()+'</b><span>right in total</span></div><div class="stat"><b>'+S.best+'</b><span>best run in a row</span></div><div class="stat"><b>'+S.masteredNow.length+'</b><span>patterns mastered</span></div>';
     if(S.masteredNow.length)extra='<div class="ptscard"><small>Mastered: '+S.masteredNow.map(function(p){return esc(PBY[p].label)}).join(", ")+'</small></div>';
@@ -853,7 +865,7 @@ function finish(){
   var ids=Object.keys(S.missed);
   $("sum-miss").innerHTML=ids.length?'<h2>You missed</h2><div class="weaklist">'+ids.map(function(id){var it=byId(id);return'<div><b>'+esc(fullText(it))+'</b><small>'+esc(it.why||"")+'</small></div>'}).join("")+'</div>':'<p class="sub" style="text-align:center">No mistakes this round.</p>';
   $("sum-weak").disabled=!weakPats().length&&!weakItems().length;
-  $("again").textContent=S.round?"Another round":kind==="drill"?"Drill again":"Practise more";
+  $("again").textContent=S.round?"Another round":S.practise?"Practise more":kind==="drill"?"Drill again":"Practise more";
   S=null;show("v-sum");
 }
 
@@ -1020,10 +1032,7 @@ function renderProgress(){
   $("patterns").innerHTML=PIDS.map(function(p){return patCard(p)}).join("");
   renderCheck();
 }
-function progTab(t){$("tab-pat").classList.toggle("on",t==="pat");$("tab-chk").classList.toggle("on",t==="chk");$("prog-pat").hidden=t!=="pat";$("prog-chk").hidden=t!=="chk";window.scrollTo(0,0)}
-$("go-check").addEventListener("click",function(){renderProgress();progTab("pat");show("v-check")});
-$("tab-pat").addEventListener("click",function(){progTab("pat")});
-$("tab-chk").addEventListener("click",function(){progTab("chk")});
+$("go-check").addEventListener("click",function(){renderProgress();show("v-check");var sc=document.querySelector("#v-check .scroll");if(sc)sc.scrollTop=0});
 $("sw-round").addEventListener("click",function(){D.set.round=!D.set.round;save();var y=window.scrollY;renderDrill();window.scrollTo(0,y)});
 $("chk-back").addEventListener("click",function(){renderHome();show("v-home")});
 $("chk-list").addEventListener("click",function(e){
@@ -1042,7 +1051,9 @@ $("set-back").addEventListener("click",function(){renderHome();show("v-home")});
 $("patterns").addEventListener("click",function(e){var c=e.target.closest(".pcard");if(!c||!PBY[c.dataset.p])return;D.set.drill=[c.dataset.p];save();startDrill()});
 $("go-day").addEventListener("click",startLesson);
 $("go-weak").addEventListener("click",startWeak);
-$("again").addEventListener("click",function(){var k=LAST.kind;if(k==="drill")startDrill();else if(k==="round")startRound(LAST.pids);else if(k==="weak"&&weakPats().length)startWeak();else startRound(PIDS)});
+$("go-weak-h").addEventListener("click",startWeak);
+$("weaklist").addEventListener("click",startWeak);
+$("again").addEventListener("click",function(){var k=LAST.kind;if(k==="drill")startDrill();else if(k==="round")startRound(LAST.pids);else if(k==="weak"&&(weakPats().length||weakItems().length))startWeak();else startRound(PIDS)});
 $("sum-weak").addEventListener("click",startWeak);
 $("sum-home").addEventListener("click",function(){renderHome();show("v-home")});
 $("exp").addEventListener("click",doExport);$("sum-exp").addEventListener("click",doExport);
