@@ -347,7 +347,7 @@ const ITEMS=[{"type": "order", "s": "Etter at vi hadde spist middag, vasket vi o
 <script>
 (function(){
 "use strict";
-var VERSION="5.5.5",VERSION_NOTE="",VERSION_DATE="29 Oct 2026";
+var VERSION="5.5.6",VERSION_NOTE="",VERSION_DATE="30 Oct 2026";
 var KEY="norskdrill.v1",SESSION_SIZE=16,NEED=3,EXTRA_CAP=8;
 /* v5.5 adaptive picker: status per pattern from its last 20 answers */
 var WIN=20,MAST_OK=18,WEAK_ACC=0.75,HOLD=10,WEAK_SHARE=0.6;
@@ -553,7 +553,7 @@ function buildSet(r,n,opts){
   var of=function(k){return PS.filter(function(p){return ST[p]===k})};
   var wp=of("weak"),mp=of("mastered"),lp=PS.filter(function(p){return ST[p]==="learning"||ST[p]==="new"});
   /* 1. missed sentences, oldest first, max 2 per pattern (not from mastered patterns) */
-  var missed=shuffle(weakItems().filter(function(i){return inP(i.t)&&ST[i.t]!=="mastered"&&(typedOk()||i.type!=="typed")}),r).sort(function(a,b){return D.items[a.id].last-D.items[b.id].last});
+  var missed=shuffle(weakItems().filter(function(i){return inP(i.t)&&(opts.weakOnly||ST[i.t]!=="mastered")&&(typedOk()||i.type!=="typed")}),r).sort(function(a,b){return D.items[a.id].last-D.items[b.id].last});
   var perPat={};
   missed.forEach(function(i){if(chosen.length>=(opts.maxMissed||4))return;if((perPat[i.t]||0)>=2)return;if(keys[keyOf(i)])return;perPat[i.t]=(perPat[i.t]||0)+1;take(i)});
   function preTags(){var o={};chosen.forEach(function(id){var g=byId(id).g;if(g)o[g]=(o[g]||0)+1});return o}
@@ -625,6 +625,7 @@ function startRound(pids){
 /* v5.5.3: practise what's open: missed sentences + weak patterns first, then endless on those patterns */
 function startWeak(){
   var ids=buildSet(Math.random,12,{weakOnly:true,weakShare:12,maxMissed:5});
+  if(!ids.length)ids=weakItems().map(function(i){return i.id}).slice(0,12); /* v5.5.6: never a dead tap while sentences are listed */
   if(!ids.length)return; /* all clear: a quiet no-op */
   var pats=[];weakPats().concat(ids.map(function(id){return byId(id).t})).forEach(function(p){if(pats.indexOf(p)<0)pats.push(p)});
   S=newS("drill",ids,0);S.practise=true;S.patsSel=pats;LAST={kind:"weak"};begin();
