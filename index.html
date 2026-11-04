@@ -161,6 +161,28 @@ input.typed{width:100%;font:18px var(--mono);padding:12px 2px;border:0;border-bo
 .ptscard{border-top:1px solid var(--ln);border-bottom:1px solid var(--ln);padding:12px 0;margin:12px 0}
 .ptscard b.l{font-size:15px;font-weight:500;color:var(--hi)}.ptscard small{color:var(--mu);display:block;font-size:12px;margin-top:2px}
 .lvbar{height:2px;background:var(--ln);margin-top:10px;overflow:hidden}.lvbar i{display:block;height:100%;background:var(--wa)}
+/* v5.6.1 B1 Progress: one list, grouped by status; one bar per pattern = right answers in the last 20 (tick = 18, mastered) */
+#pat-sum .lvbar i{background:var(--ac);box-shadow:var(--glow)}
+#pat-sum small{margin-top:10px;line-height:1.5}
+.pgrp{display:flex;justify-content:space-between;align-items:baseline}.pgrp span{letter-spacing:1px}
+.prow{display:flex;align-items:center;gap:6px}
+.prow .pgo{flex:1;min-width:0;display:block;text-align:left;padding:12px 0 10px}
+.prow .pgo:active{background:var(--s2)}
+.prow .pout{flex:none;width:44px;height:48px;display:grid;place-items:center;margin-right:-10px}
+.prow .pout span{display:grid;place-items:center;width:18px;height:18px;border:1px solid var(--ln2);border-radius:2px;font-size:12px;line-height:1;color:var(--ac)}
+.prow .pout[aria-pressed="true"] span{border-color:var(--ac);text-shadow:var(--glow)}
+.prow.out .pgo{opacity:.5}.prow.out .pgo .pb i{background:var(--mu);box-shadow:none}.prow.out .pgo .pv{color:var(--mu)}
+#pat-sum small.pdn{margin-top:2px}
+.prow .pt{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.prow .pn{font-size:15px;font-weight:500;color:var(--hi)}
+.prow .pv{font-size:12px;color:var(--mu);white-space:nowrap;font-variant-numeric:tabular-nums}
+.prow .pb{display:block;position:relative;height:2px;background:var(--ln);margin-top:9px}
+.prow .pb i{display:block;height:100%;background:var(--ac);box-shadow:var(--glow)}
+.prow .pb::after{content:"";position:absolute;left:90%;top:-3px;width:1px;height:8px;background:var(--ln2)}
+.prow.st-weak .pb i{background:var(--wa);box-shadow:none}.prow.st-weak .pv{color:var(--wa)}
+.prow.st-mastered .pv{color:var(--ok)}
+.prow.st-new .pn{color:var(--tx)}
+.pnote{color:var(--dim);font-size:12px;line-height:1.6;margin:22px 0 0}
 .pcard{display:block;width:100%;text-align:left;border-bottom:1px solid var(--ln);padding:14px 0 12px;position:relative}
 .pcard .r1{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .pcard .r1 b{font-size:15px;font-weight:500;color:var(--hi)}
@@ -288,15 +310,9 @@ input.typed{width:100%;font:18px var(--mono);padding:12px 2px;border:0;border-bo
     <button class="x back" id="chk-back" aria-label="Back">←</button>
     <h1>B1 Progress</h1>
     <div id="prog-pat">
-      <p class="sub">Status comes from your last 20 answers per pattern: mastered at 18 or more right, needs work under 75% or with 2 misses in the last 10. Mastered patterns rest and share one review item per lesson. Tap a pattern to drill it.</p>
       <div class="ptscard" id="pat-sum"></div>
       <div id="patterns"></div>
-    </div>
-    <div id="prog-chk">
-      <h2>Your own checklist</h2>
-      <p class="sub">Grammar areas for A2 → B1. The bar shows how far you are in the matching drill. Tick an area yourself when you feel it is solid. Tap the name to drill it.</p>
-      <div class="ptscard" id="chk-sum"></div>
-      <div id="chk-list"></div>
+      <p class="pnote" id="pat-more"></p>
     </div>
   </div></section>
 
@@ -347,7 +363,7 @@ const ITEMS=[{"type": "order", "s": "Etter at vi hadde spist middag, vasket vi o
 <script>
 (function(){
 "use strict";
-var VERSION="5.6.0",VERSION_NOTE="",VERSION_DATE="2 Nov 2026";
+var VERSION="5.6.1",VERSION_NOTE="",VERSION_DATE="4 Nov 2026";
 var KEY="norskdrill.v1",SESSION_SIZE=16,NEED=3,EXTRA_CAP=8;
 /* v5.6 lesson of the day: 32 items, half on one daily focus pattern, at most 2 mastered reviews, no very short basics */
 var LESSON_SIZE=32,FOCUS_SHARE=0.5,LESSON_REV=2,EASY_WORDS=5,FLOG_KEEP=40;
@@ -398,6 +414,8 @@ function normalize(d){
   d=d&&typeof d==="object"?d:{};
   d.items=d.items&&typeof d.items==="object"?d.items:{};
   d.stats=d.stats||{};d.set=d.set||{};d.chk=d.chk&&typeof d.chk==="object"?d.chk:{};
+  /* v5.6.1: checked-out patterns {pid:true}: left out of every lesson, drill and practice */
+  var oo=d.out&&typeof d.out==="object"&&!Array.isArray(d.out)?d.out:{};d.out={};Object.keys(oo).forEach(function(k){if(oo[k]&&PBY[k])d.out[k]=true});
   var s=d.stats;s.best=s.best||0;s.days=s.days||{};s.total=s.total||0;s.done=s.done||{};
   if(typeof d.set.typed!=="boolean")d.set.typed=false;
   if(!Array.isArray(d.set.drill))d.set.drill=[];
@@ -447,8 +465,10 @@ function paintSaved(){
 function st(id){return D.items[id]||(D.items[id]={seen:0,right:0,wrong:0,streak:0,weak:false,last:0,lastWrong:""})}
 function lessonDoneToday(){return !!(D.lesson&&D.lesson.date===today()&&D.lesson.done)}
 function dayStreak(){var t=today(),n=0,d=D.stats.days[t]?t:dayShift(t,-1);while(D.stats.days[d]){n++;d=dayShift(d,-1)}return n}
-function weakItems(){return ITEMS.filter(function(i){return D.items[i.id]&&D.items[i.id].weak})}
-function weakPats(){return PIDS.filter(function(p){return patStatus(p)==="weak"})}
+function isOut(p){return !!(D.out&&D.out[p])}
+function activePids(){return PIDS.filter(function(p){return !isOut(p)})}
+function weakItems(){return ITEMS.filter(function(i){return D.items[i.id]&&D.items[i.id].weak&&!isOut(i.t)})}
+function weakPats(){return PIDS.filter(function(p){return !isOut(p)&&patStatus(p)==="weak"})}
 function patAcc(pid){var P=D.pat[pid];return P.n?Math.round(P.ok/P.n*100):null}
 function patSolved(pid){return ITEMS.filter(function(i){var s=D.items[i.id];return i.t===pid&&s&&s.right>0}).length}
 /* v5.5: a plain tally instead of points: right / answered, all patterns, all time */
@@ -496,12 +516,14 @@ function paintDayBtn(){
   var b=$("go-day"),L=D.lesson&&D.lesson.date===today()?D.lesson:null,n=dayStreak();
   /* v5.6: today's focus, quietly in the subtitle (an older lesson without a focus shows none) */
   var fp=L?(L.focus&&PBY[L.focus]?L.focus:null):todayFocus(),ft=fp?'Today: '+esc(PBY[fp].short||PBY[fp].label):'';
+  if(!activePids().length&&!(L&&L.done)){b.className="btn pri day";b.innerHTML='Lesson of the day<small>everything is checked out</small>';return}
   if(L&&L.done){b.className="btn pri day done";b.innerHTML='✓ Day done<small>tap to practise more</small>'}
   else if(L&&L.cleared.length){b.className="btn pri day";b.innerHTML='Continue today\'s lesson<small>'+L.cleared.length+' / '+L.ids.length+(ft?' · '+ft:' cleared')+'</small>'}
   else{b.className="btn pri day";b.innerHTML='Lesson of the day<small>'+(L?L.ids.length:LESSON_SIZE)+' items'+(ft?' · '+ft:' · same lesson all day')+'</small>'}
 }
+function doneCount(){var o=PIDS.filter(isOut).length,m=PIDS.filter(function(p){return !isOut(p)&&patStatus(p)==="mastered"}).length;return{n:o+m,out:o,m:m}}
 function renderHome(){
-  paintDayBtn();paintSaved();
+  purgeLesson();paintDayBtn();paintSaved();
   var w=weakItems(),wp=weakPats();
   var ds=dayStreak();$("s-day").textContent=ds?"· "+ds+"-day streak":"";
   $("s-tally").textContent=tallyTxt();
@@ -513,7 +535,7 @@ function renderHome(){
   var wl=$("weaklist");
   if(!w.length)wl.innerHTML='<div>'+(wp.length?'No sentences waiting. Tap above to practise the patterns that need another look.':'Nothing waiting right now. Sentences that need another go will gather here.')+'</div>';
   else wl.innerHTML=w.map(function(i){return'<div><b>'+esc(fullText(i))+'</b><small>'+esc(PBY[i.t].label)+'</small></div>'}).join("");
-  var nm=PIDS.filter(function(p){return patStatus(p)==="mastered"}).length;$("go-check").textContent="B1 · "+nm+" / "+PIDS.length+" patterns mastered";
+  var dn=doneCount();$("go-check").textContent="B1 · "+dn.n+" / "+PIDS.length+" patterns "+(dn.out?"done":"mastered");
   $("go-drill-sub").textContent="pick patterns · endless";
 }
 
@@ -556,7 +578,7 @@ function alloc(pids,n,wf){
 function buildSet(r,n,opts){
   opts=opts||{};var chosen=[],keys={},rev=[];
   function take(it){chosen.push(it.id);keys[keyOf(it)]=1}
-  var PS=opts.pids||PIDS,inP=function(p){return PS.indexOf(p)>-1};
+  var PS=(opts.pids||PIDS).filter(function(p){return !isOut(p)}),inP=function(p){return PS.indexOf(p)>-1};
   var ST={};PS.forEach(function(p){ST[p]=patStatus(p)});
   var of=function(k){return PS.filter(function(p){return ST[p]===k})};
   var wp=of("weak"),mp=of("mastered"),lp=PS.filter(function(p){return ST[p]==="learning"||ST[p]==="new"});
@@ -611,10 +633,12 @@ function focusScore(p){
 }
 function todayFocus(t){
   t=t||today();
-  if(D.flog[t]&&PBY[D.flog[t]])return D.flog[t];
+  if(D.flog[t]&&PBY[D.flog[t]]&&!isOut(D.flog[t]))return D.flog[t];
+  var act=activePids();if(!act.length)return null;
   var y=D.flog[dayShift(t,-1)],recent=[1,2,3].map(function(k){return D.flog[dayShift(t,-k)]}).filter(Boolean);
-  var c=PIDS.filter(function(p){return recent.indexOf(p)<0});
-  if(!c.length)c=PIDS.filter(function(p){return p!==y});
+  var c=act.filter(function(p){return recent.indexOf(p)<0});
+  if(!c.length)c=act.filter(function(p){return p!==y});
+  if(!c.length)c=act;
   var sc=c.map(function(p){return{p:p,w:focusScore(p)}}).sort(function(a,b){return(b.w-a.w)||(a.p<b.p?-1:1)});
   var top=sc.slice(0,4),r=rng(hashStr("norsk-focus|"+t)),x=r()*sum(top.map(function(o){return o.w})),pick=top[0].p;
   for(var i=0;i<top.length;i++){x-=top[i].w;if(x<=0){pick=top[i].p;break}}
@@ -625,7 +649,7 @@ function todayFocus(t){
 /* v5.6 lesson: missed sentences (max 4), ~half the focus pattern, at most 2 reviews from mastered patterns,
    the rest weak, learning and new patterns; sentences of 5 words or fewer only as a last resort */
 function buildLesson(r,n,F){
-  var chosen=[],keys={},rev=[];
+  var chosen=[],keys={},rev=[];if(F&&isOut(F))F=null;
   function take(it){chosen.push(it.id);keys[keyOf(it)]=1}
   var ST={};PIDS.forEach(function(p){ST[p]=patStatus(p)});
   function preTags(){var o={};chosen.forEach(function(id){var g=byId(id).g;if(g)o[g]=(o[g]||0)+1});return o}
@@ -642,8 +666,8 @@ function buildLesson(r,n,F){
       if(!any)break;
     }
   }
-  var mp=PIDS.filter(function(p){return ST[p]==="mastered"&&p!==F});
-  var mix=PIDS.filter(function(p){return p!==F&&ST[p]!=="mastered"}).sort(function(a,b){
+  var mp=activePids().filter(function(p){return ST[p]==="mastered"&&p!==F});
+  var mix=activePids().filter(function(p){return p!==F&&ST[p]!=="mastered"}).sort(function(a,b){
     var o={weak:0,learning:1,"new":2};return(o[ST[a]]-o[ST[b]])||(weakness(b)-weakness(a))||(a<b?-1:1)});
   /* 1. missed sentences, oldest first, max 2 per pattern, not from mastered patterns */
   var missed=shuffle(weakItems().filter(function(i){return(ST[i.t]!=="mastered"||i.t===F)&&(typedOk()||i.type!=="typed")}),r).sort(function(a,b){return D.items[a.id].last-D.items[b.id].last});
@@ -666,8 +690,24 @@ function buildLesson(r,n,F){
   rr(F?[F].concat(mp):mp,n,true);
   buildLesson.rev=rev;return shuffle(chosen,r);
 }
+/* v5.6.1: today's lesson drops the not-yet-cleared items of checked-out patterns and refills from the rest (cleared items stay, so counts hold) */
+function purgeLesson(){
+  var L=D.lesson;if(!L||L.date!==today()||L.done||!Array.isArray(L.ids))return false;
+  L.cleared=L.cleared||[];
+  var bad=function(id){var it=byId(id);return it&&isOut(it.t)&&L.cleared.indexOf(id)<0};
+  var fOut=!!(L.focus&&isOut(L.focus)),nb=L.ids.filter(bad).length;
+  if(!nb&&!fOut)return false;
+  var target=L.ids.length;
+  L.ids=L.ids.filter(function(id){return !bad(id)});
+  L.rev=(L.rev||[]).filter(function(id){return L.ids.indexOf(id)>-1});
+  if(fOut){delete D.flog[L.date];L.focus=todayFocus(L.date)}
+  var keys={};L.ids.forEach(function(id){keys[keyOf(byId(id))]=1});
+  var cand=buildLesson(rng(hashStr("norsk-refill|"+L.date+"|"+target+"|"+L.ids.length)),LESSON_SIZE,L.focus);
+  for(var i=0;i<cand.length&&L.ids.length<target;i++){var it=byId(cand[i]);if(!keys[keyOf(it)]){L.ids.push(it.id);keys[keyOf(it)]=1}}
+  save();return true;
+}
 function ensureLesson(){
-  var t=today();
+  var t=today();purgeLesson();
   if(D.lesson&&D.lesson.ids)D.lesson.ids=D.lesson.ids.filter(byId);
   var L=D.lesson,old=L&&L.date===t&&!L.focus&&!L.done&&!(L.cleared&&L.cleared.length); /* an untouched pre-5.6 lesson from today is rebuilt */
   if(!L||L.date!==t||!L.ids||!L.ids.length||old){
@@ -687,9 +727,13 @@ function newS(kind,ids,total){
 function begin(){S.queue.forEach(function(id){S.base[id]=1});show("v-play");$("quit").textContent=S.kind==="drill"?"Stop":"✕";$("quit").classList.toggle("wide",S.kind==="drill");next()}
 function startLesson(){
   if(lessonDoneToday()){startRound(PIDS);return}
+  if(!activePids().length){toast("Everything is checked out. Bring a pattern back on B1 Progress.");return}
   var L=ensureLesson();
   var left=L.ids.filter(function(id){return L.cleared.indexOf(id)<0});
+  if(!left.length&&L.cleared.length&&L.ids.some(function(id){return byId(id)&&isOut(byId(id).t)})){ /* the rest was checked out: the day is done */
+    L.done=true;D.stats.days[L.date]=1;D.stats.done[L.date]=1;save();renderHome();toast("Today's lesson is done ✓");return}
   if(!left.length){left=L.ids.slice();L.cleared=[]}
+  if(!left.length){toast("Nothing to practise right now");return}
   S=newS("lesson",left,L.ids.length);S.done=L.ids.length-left.length;(L.rev||[]).forEach(function(id){S.rev[id]=1});LAST={kind:"lesson"};begin();
 }
 /* Just drill, "Mixed round" option: fixed 16 items, weak spots and missed sentences first */
@@ -707,7 +751,7 @@ function startWeak(){
   S=newS("drill",ids,0);S.practise=true;S.patsSel=pats;LAST={kind:"weak"};begin();
 }
 function startDrill(){
-  var sel=D.set.drill.filter(function(p){return PBY[p]});
+  var sel=D.set.drill.filter(function(p){return PBY[p]&&!isOut(p)});
   if(!sel.length){toast("Pick at least one pattern");return}
   if(D.set.round){startRound(sel);return}
   S=newS("drill",[],0);S.patsSel=sel;LAST={kind:"drill"};
@@ -952,20 +996,21 @@ function finish(){
 
 /* ---------- Just drill: pattern picker ---------- */
 function renderDrill(){
-  $("drill-list").innerHTML=PIDS.map(function(p){return patCard(p,{check:true,sel:D.set.drill.indexOf(p)>-1})}).join("");
+  D.set.drill=D.set.drill.filter(function(p){return !isOut(p)});
+  $("drill-list").innerHTML=activePids().map(function(p){return patCard(p,{check:true,sel:D.set.drill.indexOf(p)>-1})}).join("");
   $("drill-go").disabled=!D.set.drill.length;
   $("sw-round").classList.toggle("on",D.set.round);
   $("drill-go").textContent=D.set.round?"Start round (16)":"Start drilling";
 }
 function openDrill(){
-  if(!D.set.drill.length){var wp=weakPats();D.set.drill=wp.length?wp.slice():[PIDS.slice().sort(function(a,b){var x=patAcc(a),y=patAcc(b);return(x===null?-1:x)-(y===null?-1:y)})[0]]}
+  D.set.drill=D.set.drill.filter(function(p){return !isOut(p)});if(!D.set.drill.length&&activePids().length){var wp=weakPats();D.set.drill=wp.length?wp.slice():[activePids().sort(function(a,b){var x=patAcc(a),y=patAcc(b);return(x===null?-1:x)-(y===null?-1:y)})[0]]}
   renderDrill();show("v-drill");
 }
 $("go-drill").addEventListener("click",openDrill);
 $("drill-back").addEventListener("click",function(){renderHome();show("v-home")});
 $("drill-list").addEventListener("click",function(e){var b=e.target.closest(".pcard");if(!b)return;var p=b.dataset.p,i=D.set.drill.indexOf(p);if(i>-1)D.set.drill.splice(i,1);else D.set.drill.push(p);save();renderDrill()});
 $("dr-weak").addEventListener("click",function(){var wp=weakPats();if(!wp.length){toast("No weak patterns right now");return}D.set.drill=wp.slice();save();renderDrill()});
-$("dr-all").addEventListener("click",function(){D.set.drill=PIDS.slice();save();renderDrill()});
+$("dr-all").addEventListener("click",function(){D.set.drill=activePids();save();renderDrill()});
 $("drill-go").addEventListener("click",startDrill);
 
 /* ---------- export mistakes ---------- */
@@ -1004,7 +1049,7 @@ $("modal").addEventListener("click",function(e){if(e.target===$("modal"))$("moda
 /* ---------- backup code (includes all progress) ---------- */
 function makeCode(){
   var items={};Object.keys(D.items).forEach(function(k){if(D.items[k].seen)items[k]=D.items[k]});
-  var o={v:4,app:"norsk-drill",at:new Date().toISOString(),items:items,stats:D.stats,set:D.set,lesson:D.lesson,pat:D.pat,pts:D.pts,chk:D.chk,tag:D.tag,flog:D.flog};
+  var o={v:4,app:"norsk-drill",at:new Date().toISOString(),items:items,stats:D.stats,set:D.set,lesson:D.lesson,pat:D.pat,pts:D.pts,chk:D.chk,tag:D.tag,flog:D.flog,out:D.out};
   return "ND1:"+btoa(unescape(encodeURIComponent(JSON.stringify(o))));
 }
 function readCode(txt){
@@ -1042,7 +1087,7 @@ $("bk-do").addEventListener("click",function(){
   var n=Object.keys(o.items).length;
   if(!confirm("Replace the progress on this device with this backup ("+n+" sentences, saved "+String(o.at||"").slice(0,10)+")?"))return;
   var theme=D.set.theme;
-  var nd={items:o.items,stats:o.stats,set:o.set||{},lesson:o.lesson||null,pat:o.pat,pts:o.pts,chk:o.chk,tag:o.tag,flog:o.flog};
+  var nd={items:o.items,stats:o.stats,set:o.set||{},lesson:o.lesson||null,pat:o.pat,pts:o.pts,chk:o.chk,tag:o.tag,flog:o.flog,out:o.out};
   nd.set.theme=theme;
   D=normalize(nd);if(!o.set||!o.set.drill)D.set.drill=[];
   save();$("bk").classList.remove("on");renderHome();toast("Progress imported ✓");
@@ -1089,50 +1134,42 @@ var CHECK=[
  {id:"w-time",l:"Time expressions: i morges, i fjor, på mandag, om sommeren …",p:"time-expressions"},
  {id:"w-ord",l:"Ordinals and dates (første … trettiførste)",p:"ordinals"}]}];
 var CHECK_IDS=[];CHECK.forEach(function(g){g.items.forEach(function(i){CHECK_IDS.push(i.id)})});
-function chkStatus(pid){
-  var P=D.pat[pid],acc=patAcc(pid),tot=PTOTAL[pid],solved=patSolved(pid);
-  var ps=patStatus(pid),st=!P.n?"Not started":STATUS_L[ps];
-  var cls=!P.n?"":ps==="weak"?"need":ps==="mastered"?"good":"";
-  return {txt:st+(P.n?" · "+acc+"% accuracy":"")+" · "+solved+" / "+tot+" solved",cls:cls,pct:Math.round(solved/tot*100)};
-}
-function renderCheck(){
-  var nt=CHECK_IDS.filter(function(k){return D.chk[k]}).length;
-  $("chk-sum").innerHTML='<b class="l">'+nt+' of '+CHECK_IDS.length+' ticked</b><small>Tick an area when you feel it is solid. Tap the name to drill that pattern.</small><div class="lvbar"><i style="width:'+Math.round(nt/CHECK_IDS.length*100)+'%"></i></div>';
-  var h="";
-  CHECK.forEach(function(g){
-    h+='<h2>'+esc(g.g)+'</h2>';
-    g.items.forEach(function(it){
-      var on=!!D.chk[it.id];
-      h+='<div class="crow'+(on?" on":"")+'"><button class="ck" data-k="'+it.id+'" aria-label="Tick '+esc(it.l)+'" aria-pressed="'+on+'">'+(on?"✓":"")+'</button>';
-      if(it.p){var s=chkStatus(it.p);h+='<button class="cbody" data-p="'+it.p+'"><b>'+esc(it.l)+'</b><small class="'+s.cls+'">'+esc(s.txt)+(it.part?" · partly covered":"")+'</small><span class="mini"><i style="width:'+s.pct+'%"></i></span></button></div>'}
-      else h+='<button class="cbody none" data-p=""><b>'+esc(it.l)+'</b><small>No drill yet</small></button></div>';
-    });
-  });
-  $("chk-list").innerHTML=h;
+/* v5.6.1: B1 Progress is one list. Groups follow the home screen's words: To practise (= weak), Learning, New, Mastered.
+   Each row has one bar: right answers in the last 20 (the tick marks 18, where a pattern is mastered). The old checklist ticks stay in D.chk (export/import) but are no longer shown. */
+var PGROUPS=[["weak","To practise"],["learning","Learning"],["new","New"],["mastered","Mastered"],["out","Checked out"]];
+function progRow(pid){
+  var out=isOut(pid),st=patStatus(pid),h=D.pat[pid].hist.slice(-WIN),ok=sum(h),pct=Math.round(ok/WIN*100),nm=esc(PBY[pid].label);
+  var pv=st==="new"&&!h.length?"new":st==="mastered"?"✓ "+ok+" / "+WIN:ok+" / "+WIN;
+  return '<div class="prow st-'+st+(out?" out":"")+'" data-p="'+pid+'"><button class="pgo" aria-label="'+nm+', '+(out?"checked out":esc(STATUS_L[st])+', '+ok+' of the last '+WIN+' right. Tap to practise')+'."><span class="pt"><span class="pn">'+nm+'</span><span class="pv">'+pv+'</span></span><span class="pb"><i style="width:'+pct+'%"></i></span></button>'+
+   '<button class="pout" aria-pressed="'+out+'" aria-label="'+(out?"Bring back "+nm:"Check out "+nm)+'"><span>'+(out?"✓":"")+'</span></button></div>';
 }
 function renderProgress(){
-  var nm=PIDS.filter(function(p){return patStatus(p)==="mastered"}).length,wp=weakPats().length;
-  $("pat-sum").innerHTML='<b class="l">'+nm+' of '+PIDS.length+' patterns mastered</b><small>'+wp+' need'+(wp===1?"s":"")+' work · '+ITEMS.filter(function(i){var s=D.items[i.id];return s&&s.right>0}).length+' of '+ITEMS.length+' sentences solved</small>';
-  $("patterns").innerHTML=PIDS.map(function(p){return patCard(p)}).join("");
-  renderCheck();
+  var by={};PGROUPS.forEach(function(g){by[g[0]]=[]});
+  PIDS.forEach(function(p){by[isOut(p)?"out":patStatus(p)].push(p)});
+  by.weak.sort(function(x,y){return weakness(y)-weakness(x)});
+  by.learning.sort(function(x,y){return sum(D.pat[y].hist.slice(-WIN))-sum(D.pat[x].hist.slice(-WIN))});
+  var dn=doneCount(),top=dn.out?dn.n+' of '+PIDS.length+' patterns done':dn.m+' of '+PIDS.length+' patterns mastered';
+  $("pat-sum").innerHTML='<b class="l">'+top+'</b>'+(dn.out?'<small class="pdn">'+dn.m+' mastered · '+dn.out+' checked out</small>':'')+'<div class="lvbar"><i style="width:'+Math.round(dn.n/PIDS.length*100)+'%"></i></div><small>Each bar is your last '+WIN+' answers. '+MAST_OK+' right = mastered. Tap a pattern to practise it. Tick the box when you know it well: it stops coming up.</small>';
+  var h="";
+  PGROUPS.forEach(function(g){var l=by[g[0]];if(!l.length)return;h+='<h2 class="pgrp">'+g[1]+'<span>'+l.length+'</span></h2>'+l.map(progRow).join("")});
+  $("patterns").innerHTML=h;
+  var nd=[];CHECK.forEach(function(g){g.items.forEach(function(i){if(!i.p)nd.push(i.l)})});
+  $("pat-more").textContent=nd.length?"Not in the drills yet: "+nd.join(" · ")+".":"";
 }
+function toggleOut(pid){if(!PBY[pid])return;if(D.out[pid])delete D.out[pid];else D.out[pid]=true;D.set.drill=D.set.drill.filter(function(p){return !isOut(p)});purgeLesson();save()}
 $("go-check").addEventListener("click",function(){renderProgress();show("v-check");var sc=document.querySelector("#v-check .scroll");if(sc)sc.scrollTop=0});
 $("sw-round").addEventListener("click",function(){D.set.round=!D.set.round;save();var y=window.scrollY;renderDrill();window.scrollTo(0,y)});
 $("chk-back").addEventListener("click",function(){renderHome();show("v-home")});
-$("chk-list").addEventListener("click",function(e){
-  var k=e.target.closest(".ck");
-  if(k){var id=k.dataset.k;D.chk[id]=!D.chk[id];if(!D.chk[id])delete D.chk[id];save();var y=window.scrollY;renderCheck();window.scrollTo(0,y);return}
-  var b=e.target.closest(".cbody");if(!b)return;
-  if(!b.dataset.p){toast("No drill for this yet");return}
-  D.set.drill=[b.dataset.p];save();startDrill();
-});
 
 /* ---------- wiring ---------- */
 $("sw-typed").addEventListener("click",function(){D.set.typed=!D.set.typed;save();renderHome()});
 $("go-set").addEventListener("click",function(){renderHome();show("v-set")});
 $("set-back").addEventListener("click",function(){renderHome();show("v-home")});
 /* B1 Progress > Patterns: tap a card to start Just drill on that pattern */
-$("patterns").addEventListener("click",function(e){var c=e.target.closest(".pcard");if(!c||!PBY[c.dataset.p])return;D.set.drill=[c.dataset.p];save();startDrill()});
+$("patterns").addEventListener("click",function(e){var c=e.target.closest(".prow");if(!c||!PBY[c.dataset.p])return;var p=c.dataset.p;
+  if(e.target.closest(".pout")){var sc=document.querySelector("#v-check .scroll"),y=sc?sc.scrollTop:0;toggleOut(p);renderProgress();if(sc)sc.scrollTop=y;toast(isOut(p)?"Checked out: "+PBY[p].label:"Back in practice: "+PBY[p].label);return}
+  if(isOut(p)){toast("Checked out. Tap the box to bring it back.");return}
+  D.set.drill=[p];save();startDrill()});
 $("go-day").addEventListener("click",startLesson);
 $("go-weak").addEventListener("click",startWeak);
 $("go-weak-h").addEventListener("click",startWeak);
@@ -1163,7 +1200,7 @@ function hostBadge(){var x=document.querySelector("ship-page-badge"),on=false;if
 hostBadge();
 try{new MutationObserver(hostBadge).observe(document.body,{childList:true});new MutationObserver(hostBadge).observe(document.documentElement,{childList:true})}catch(e){}
 $("ver").textContent="Norsk drill v"+VERSION+(VERSION_NOTE?" "+VERSION_NOTE:"")+" · "+VERSION_DATE;
-window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,fullText:fullText,missBg:missBg,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);return{ids:buildLesson(rng(hashStr("norsk-drill|"+t)),LESSON_SIZE,f),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},CHECK:CHECK,CHECK_IDS:CHECK_IDS};
+window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,fullText:fullText,missBg:missBg,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);return{ids:buildLesson(rng(hashStr("norsk-drill|"+t)),LESSON_SIZE,f),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS};
 if(location.protocol==="file:")$("filewarn").style.display="block";
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 (function(){var ok=false;try{localStorage.setItem("nd.probe","1");ok=localStorage.getItem("nd.probe")==="1";localStorage.removeItem("nd.probe")}catch(e){}SV.ok=ok;SV.t=Date.now()})();
