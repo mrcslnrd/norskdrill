@@ -159,6 +159,8 @@ input.typed{width:100%;font:18px var(--mono);padding:12px 2px;border:0;border-bo
 .warnbox{border:1px solid var(--no);border-radius:3px;padding:10px 14px;margin:0 0 12px;font-size:13px;display:none;color:var(--no)}
 .sheet input,.sheet textarea.ed{width:100%}
 .foot{color:var(--dim);font-size:11px;text-align:center;margin-top:20px;letter-spacing:.3px}
+.sync-st{text-align:left;margin:0 0 12px;line-height:1.7;font-size:12px;color:var(--mu)}.sync-st a{color:var(--mu);text-decoration:underline;text-underline-offset:2px;word-break:break-all}
+input.sync-in{font-size:15px;margin-top:0}
 .ptscard{border-top:1px solid var(--ln);border-bottom:1px solid var(--ln);padding:12px 0;margin:12px 0}
 .ptscard b.l{font-size:15px;font-weight:500;color:var(--hi)}.ptscard small{color:var(--mu);display:block;font-size:12px;margin-top:2px}
 .lvbar{height:2px;background:var(--ln);margin-top:10px;overflow:hidden}.lvbar i{display:block;height:100%;background:var(--wa)}
@@ -289,6 +291,16 @@ input.typed{width:100%;font:18px var(--mono);padding:12px 2px;border:0;border-bo
     <button class="btn sm" id="bk-exp">Export progress (code)</button>
     <button class="btn sm" id="bk-imp">Import progress (code)</button>
     <p class="foot" style="margin-top:10px;text-align:left">Safari and the Home Screen app keep separate storage. Use a code to move progress (including points) between them, to a new web address, or after clearing browser data.</p>
+    <h2>Sync</h2>
+    <div id="sync-off">
+      <input class="typed sync-in" id="sync-tok" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Paste GitHub token (github_pat_…)" aria-label="GitHub token">
+      <button class="btn sm" id="sync-save" style="margin-top:12px">Turn on sync</button>
+      <p class="foot" style="margin-top:10px;text-align:left">Optional. Saves your progress to a secret GitHub gist so your tutor can read it. The token stays on this device only.</p>
+    </div>
+    <div id="sync-on" style="display:none">
+      <p class="foot sync-st" id="sync-st"></p>
+      <button class="btn sm" id="sync-stop">Turn off sync</button>
+    </div>
     <h2>Danger zone</h2>
     <button class="btn sm" id="reset" style="color:var(--no)">Reset progress</button>
   </div></section>
@@ -364,7 +376,7 @@ const ITEMS=[{"type": "order", "s": "Etter at vi hadde spist middag, vasket vi o
 <script>
 (function(){
 "use strict";
-var VERSION="5.6.2",VERSION_NOTE="",VERSION_DATE="5 Nov 2026";
+var VERSION="5.6.3",VERSION_NOTE="",VERSION_DATE="5 Nov 2026";
 var KEY="norskdrill.v1",SESSION_SIZE=16,NEED=3,EXTRA_CAP=8;
 /* v5.6 lesson of the day: 32 items, half on one daily focus pattern, at most 2 mastered reviews, no very short basics */
 var LESSON_SIZE=32,FOCUS_SHARE=0.5,LESSON_REV=2,EASY_WORDS=5,FLOG_KEEP=40;
@@ -456,7 +468,7 @@ var SV={ok:null,t:0};
 function save(){
   mem=D;var ok=false;
   try{var j=JSON.stringify(D);localStorage.setItem(KEY,j);ok=localStorage.getItem(KEY)===j}catch(e){}
-  SV.ok=ok;SV.t=Date.now();paintSaved();return ok;
+  SV.ok=ok;SV.t=Date.now();paintSaved();SY.dirty=true;return ok;
 }
 function paintSaved(){
   var t=new Date(SV.t),hm=pad(t.getHours())+":"+pad(t.getMinutes());
@@ -975,7 +987,7 @@ function finish(){
   if(kind==="drill"&&!S.attempts){S=null;renderHome();show("v-home");return}
   var n=S.first+S.firstWrong,acc=S.answers?Math.round(S.correct/S.answers*100):100;
   if(kind==="lesson"&&D.lesson){D.lesson.done=true;var ld=D.lesson.date||today();D.stats.days[ld]=1;D.stats.done[ld]=1} /* credit the lesson's own day (a lesson started before midnight no longer marks the next day done) */
-  save();
+  save();syncSoon("finish");
   var title,sub,emoji,stats,extra="";
   if(kind==="lesson"){
     emoji="✓";title="Day done";
@@ -1099,6 +1111,77 @@ $("bk-do").addEventListener("click",function(){
 });
 
 
+/* ---------- v5.6.3 sync: progress to a secret GitHub gist, so the tutor can read it ----------
+   The token lives only in localStorage under its own key (never in D, the export code, the repo or the build).
+   No token = nothing happens. Every failure is silent; the last error shows quietly in Settings only. */
+var SYNC_KEY="norskdrill.sync",SY={busy:false,t:null,again:false,dirty:false};
+function syncGet(){try{var o=JSON.parse(localStorage.getItem(SYNC_KEY)||"{}");return o&&typeof o==="object"?o:{}}catch(e){return{}}}
+function syncSet(o){try{localStorage.setItem(SYNC_KEY,JSON.stringify(o))}catch(e){}}
+function isoT(ms){return ms?new Date(ms).toISOString():null}
+function syncSummary(){
+  var L=D.lesson&&D.lesson.date===today()?D.lesson:null,c={mastered:0,learning:0,"to-practise":0,"new":0,"checked-out":0};
+  var pats=PIDS.map(function(p){var P=D.pat[p],st=isOut(p)?"checked-out":patStatus(p);st=st==="weak"?"to-practise":st;c[st]++;
+    return{id:p,label:PBY[p].label,status:st,last20:sum(P.hist)+"/"+P.hist.length,answered:P.n,right:P.ok,lastPractised:isoT(P.last)}});
+  var miss=ITEMS.filter(function(i){var x=D.items[i.id];return x&&x.wrong>0}).sort(function(a,b){return D.items[b.id].last-D.items[a.id].last}).slice(0,15)
+    .map(function(i){var x=D.items[i.id];return{id:i.id,pattern:i.t,answer:fullText(i),lastGiven:x.lastWrong||"",stillOpen:!!x.weak&&!isOut(i.t),right:x.right,wrong:x.wrong,lastSeen:isoT(x.last)}});
+  var n=new Date();
+  return{app:"norsk-drill",kind:"summary",version:VERSION,at:n.toISOString(),local:today()+" "+pad(n.getHours())+":"+pad(n.getMinutes()),
+    lessonToday:L?{date:L.date,done:!!L.done,cleared:(L.cleared||[]).length,total:L.ids.length,focus:L.focus||null,focusLabel:L.focus&&PBY[L.focus]?PBY[L.focus].label:null}:null,
+    streakDays:dayStreak(),tally:tally(),counts:c,toPractise:weakPats(),checkedOut:PIDS.filter(isOut),
+    daysPractised:Object.keys(D.stats.days).sort().slice(-14),patterns:pats,recentMisses:miss};
+}
+function syncNow(why){
+  var c=syncGet();if(!c.token||!window.fetch)return Promise.resolve(false);
+  if(SY.busy){SY.again=true;return Promise.resolve(false)}
+  SY.busy=true;var wasDirty=SY.dirty;SY.dirty=false;
+  var create=!c.gist,body;
+  try{var o={description:"Norsk drill progress (auto-sync)",files:{"norskdrill-summary.json":{content:JSON.stringify(syncSummary(),null,1)},"norskdrill-progress.txt":{content:makeCode()}}};
+    if(create)o["public"]=false;body=JSON.stringify(o)}catch(e){SY.busy=false;SY.dirty=wasDirty;return Promise.resolve(false)}
+  var opt={method:create?"POST":"PATCH",headers:{"Authorization":"Bearer "+c.token,"Accept":"application/vnd.github+json","Content-Type":"application/json"},body:body};
+  if(why==="hidden"&&body.length<60000)opt.keepalive=true;
+  return fetch("https://api.github.com/gists"+(create?"":"/"+c.gist),opt).then(function(r){
+    if(r.status===404&&!create){var c3=syncGet();if(c3.gist===c.gist){delete c3.gist;syncSet(c3)}throw new Error("gist not found, a new one is made next time")}
+    if(r.status===401)throw new Error("token not accepted (expired or wrong)");
+    if(r.status===403)throw new Error("token lacks Gists read/write");
+    if(!r.ok)throw new Error("GitHub said "+r.status);
+    return r.json();
+  }).then(function(j){
+    var c2=syncGet();if(c2.token!==c.token)return false;
+    if(create&&j&&j.id)c2.gist=j.id;c2.at=Date.now();c2.err="";syncSet(c2);return true;
+  }).catch(function(e){
+    SY.dirty=SY.dirty||wasDirty;var c2=syncGet();if(c2.token){c2.err=String(e&&e.message||e).slice(0,90);c2.errAt=Date.now();syncSet(c2)}return false;
+  }).then(function(ok){
+    SY.busy=false;try{paintSync()}catch(e){}
+    if(SY.again){SY.again=false;syncSoon("again")}
+    return ok;
+  });
+}
+function syncSoon(why){if(!syncGet().token)return;clearTimeout(SY.t);SY.t=setTimeout(function(){syncNow(why)},3000)}
+function paintSync(){
+  var c=syncGet(),on=!!c.token;$("sync-off").style.display=on?"none":"";$("sync-on").style.display=on?"":"none";
+  if(!on)return;
+  var t=c.at?new Date(c.at):null,hm=t?pad(t.getHours())+":"+pad(t.getMinutes()):"";
+  var when=!t?"Not synced yet":(today()===t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate())?"Synced "+hm:"Synced "+t.getDate()+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][t.getMonth()]+" "+hm);
+  var h=esc(when)+(c.gist?' · gist <a href="https://gist.github.com/'+esc(c.gist)+'" target="_blank" rel="noopener">'+esc(c.gist)+'</a>':'');
+  if(c.err&&(!c.at||(c.errAt||0)>c.at))h+='<br>Last try failed: '+esc(c.err);
+  $("sync-st").innerHTML=h;
+}
+$("sync-save").addEventListener("click",function(){
+  var v=String($("sync-tok").value||"").trim();
+  if(!/^(github_pat_|ghp_)[A-Za-z0-9_]{20,}$/.test(v)){toast("That doesn't look like a GitHub token");return}
+  var c=syncGet();if(c.token!==v){c={token:v,gist:c.gist||""};if(!c.gist)delete c.gist}syncSet(c);$("sync-tok").value="";paintSync();toast("Sync on");
+  syncNow("first").then(function(ok){toast(ok?"Synced ✓":"Saved. Sync will retry quietly.")});
+});
+$("sync-stop").addEventListener("click",function(){
+  if(!confirm("Turn off sync on this device? The token is removed from this device. The gist stays on GitHub."))return;
+  try{localStorage.removeItem(SYNC_KEY)}catch(e){}paintSync();toast("Sync off");
+});
+document.addEventListener("visibilitychange",function(){
+  if(!syncGet().token)return;
+  if(document.visibilityState==="hidden"){if(SY.dirty){clearTimeout(SY.t);syncNow("hidden")}}
+  else{var c=syncGet();if(SY.dirty||!c.at||Date.now()-c.at>30*60000)syncSoon("visible")}
+});
+
 /* ---------- B1 checklist ---------- */
 var CHECK=[
 {g:"Verbs",items:[
@@ -1168,7 +1251,7 @@ $("chk-back").addEventListener("click",function(){renderHome();show("v-home")});
 
 /* ---------- wiring ---------- */
 $("sw-typed").addEventListener("click",function(){D.set.typed=!D.set.typed;save();renderHome()});
-$("go-set").addEventListener("click",function(){renderHome();show("v-set")});
+$("go-set").addEventListener("click",function(){renderHome();paintSync();show("v-set")});
 $("set-back").addEventListener("click",function(){renderHome();show("v-home")});
 /* B1 Progress > Patterns: tap a card to start Just drill on that pattern */
 $("patterns").addEventListener("click",function(e){var c=e.target.closest(".prow");if(!c||!PBY[c.dataset.p])return;var p=c.dataset.p;
@@ -1205,12 +1288,13 @@ function hostBadge(){var x=document.querySelector("ship-page-badge"),on=false;if
 hostBadge();
 try{new MutationObserver(hostBadge).observe(document.body,{childList:true});new MutationObserver(hostBadge).observe(document.documentElement,{childList:true})}catch(e){}
 $("ver").textContent="Norsk drill v"+VERSION+(VERSION_NOTE?" "+VERSION_NOTE:"")+" · "+VERSION_DATE;
-window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,fullText:fullText,missBg:missBg,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);return{ids:buildLesson(rng(hashStr("norsk-drill|"+t)),LESSON_SIZE,f),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS};
+window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,fullText:fullText,missBg:missBg,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);return{ids:buildLesson(rng(hashStr("norsk-drill|"+t)),LESSON_SIZE,f),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},syncSummary:syncSummary,syncNow:syncNow,syncGet:syncGet,isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS};
 if(location.protocol==="file:")$("filewarn").style.display="block";
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 (function(){var ok=false;try{localStorage.setItem("nd.probe","1");ok=localStorage.getItem("nd.probe")==="1";localStorage.removeItem("nd.probe")}catch(e){}SV.ok=ok;SV.t=Date.now()})();
 save();   /* writes the migrated v2 data back (the v1 copy stays under norskdrill.v1.v1backup) */
 renderHome();
+try{if(syncGet().token)syncSoon("open")}catch(e){}
 if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol)){navigator.serviceWorker.register("sw.js").catch(function(){})}
 })();
 
