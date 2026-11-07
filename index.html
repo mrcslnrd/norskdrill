@@ -376,7 +376,7 @@ const ITEMS=[{"type": "order", "s": "Etter at vi hadde spist middag, vasket vi o
 <script>
 (function(){
 "use strict";
-var VERSION="5.6.3",VERSION_NOTE="",VERSION_DATE="5 Nov 2026";
+var VERSION="5.6.4",VERSION_NOTE="",VERSION_DATE="7 Nov 2026";
 var KEY="norskdrill.v1",SESSION_SIZE=16,NEED=3,EXTRA_CAP=8;
 /* v5.6 lesson of the day: 32 items, half on one daily focus pattern, at most 2 mastered reviews, no very short basics */
 var LESSON_SIZE=32,FOCUS_SHARE=0.5,LESSON_REV=2,EASY_WORDS=5,FLOG_KEEP=40;
@@ -385,7 +385,7 @@ var WIN=20,MAST_OK=18,WEAK_ACC=0.75,HOLD=10,WEAK_SHARE=0.6;
 var PTAGS=[{id:"agreement",l:"min / mitt / mine"},{id:"sin-basic",l:"sin or hans"},{id:"in-subject",l:"never sin in the subject"},{id:"sub-clause",l:"at / fordi / når clauses"}],PTAG_L={};PTAGS.forEach(function(t){PTAG_L[t.id]=t.l});
 var PIDS=PATTERNS.map(function(p){return p.id}),PBY={};PATTERNS.forEach(function(p){PBY[p.id]=p});
 var BY={};ITEMS.forEach(function(i){BY[i.id]=i});
-var PTOTAL={};PIDS.forEach(function(p){PTOTAL[p]=ITEMS.filter(function(i){return i.t===p}).length});
+var PTOTAL={};PIDS.forEach(function(p){PTOTAL[p]=ITEMS.filter(function(i){return i.t===p&&!basicPoss(i)}).length});
 var $=function(id){return document.getElementById(id)};
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function shuffle(a,r){r=r||Math.random;a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
@@ -481,10 +481,27 @@ function lessonDoneToday(){return !!(D.lesson&&D.lesson.date===today()&&D.lesson
 function dayStreak(){var t=today(),n=0,d=D.stats.days[t]?t:dayShift(t,-1);while(D.stats.days[d]){n++;d=dayShift(d,-1)}return n}
 function isOut(p){return !!(D.out&&D.out[p])}
 function activePids(){return PIDS.filter(function(p){return !isOut(p)})}
-function weakItems(){return ITEMS.filter(function(i){return D.items[i.id]&&D.items[i.id].weak&&!isOut(i.t)})}
+/* v5.6.4: first/second-person possessive agreement (min/mitt/mine, din/ditt/dine, vår/vårt/våre) is out of practice.
+   sin/sitt/sine versus hans/hennes/deres stays, including clauses and genitives, even when min, din or vår is only mentioned.
+   "dere takes deres, not sin" stays too: that is the ownership distinction, not the basic agreement drill. */
+function basicPoss(it){
+  if(!it||it.t!=="possessives"||it.g!=="agreement")return false;
+  var why=it.why||"";
+  if(/\bdere\b/.test(why)&&/\bderes\b/.test(why))return false;
+  return true;
+}
+function dropBasicQueue(){
+  if(!S||!S.queue)return;
+  while(S.queue.length&&basicPoss(byId(S.queue[0]))){
+    var id=S.queue.shift();
+    if(S.base[id]&&!S.baseDone[id]){S.baseDone[id]=1;S.done++}
+    if(S.kind==="lesson"&&D.lesson&&D.lesson.cleared.indexOf(id)<0)D.lesson.cleared.push(id);
+  }
+}
+function weakItems(){return ITEMS.filter(function(i){return D.items[i.id]&&D.items[i.id].weak&&!isOut(i.t)&&!basicPoss(i)})}
 function weakPats(){return PIDS.filter(function(p){return !isOut(p)&&patStatus(p)==="weak"})}
 function patAcc(pid){var P=D.pat[pid];return P.n?Math.round(P.ok/P.n*100):null}
-function patSolved(pid){return ITEMS.filter(function(i){var s=D.items[i.id];return i.t===pid&&s&&s.right>0}).length}
+function patSolved(pid){return ITEMS.filter(function(i){var s=D.items[i.id];return i.t===pid&&!basicPoss(i)&&s&&s.right>0}).length}
 /* v5.5: a plain tally instead of points: right / answered, all patterns, all time */
 function tally(){var ok=0,n=0;PIDS.forEach(function(p){ok+=D.pat[p].ok||0;n+=D.pat[p].n||0});return{ok:ok,n:n}}
 function tallyTxt(){var t=tally();return t.ok.toLocaleString("en")+" / "+t.n.toLocaleString("en")}
@@ -575,7 +592,7 @@ function byTag(pool,pre){pre=pre||{};
 }
 /* fresh candidates of a pattern, best first: unseen, then least recently seen (possessives: weakest sub-pattern first) */
 function ranked(pid,blockKeys,r,pre){
-  var pool=ITEMS.filter(function(i){return i.t===pid&&(typedOk()||i.type!=="typed")&&!blockKeys[keyOf(i)]});
+  var pool=ITEMS.filter(function(i){return i.t===pid&&!basicPoss(i)&&(typedOk()||i.type!=="typed")&&!blockKeys[keyOf(i)]});
   pool=freshSort(shuffle(pool,r));
   return pid==="possessives"?byTag(pool,pre):pool;
 }
@@ -708,11 +725,12 @@ function buildLesson(r,n,F){
 function purgeLesson(){
   var L=D.lesson;if(!L||L.date!==today()||L.done||!Array.isArray(L.ids))return false;
   L.cleared=L.cleared||[];
-  var bad=function(id){var it=byId(id);return it&&isOut(it.t)&&L.cleared.indexOf(id)<0};
+  var bad=function(id){var it=byId(id);return it&&(basicPoss(it)||(isOut(it.t)&&L.cleared.indexOf(id)<0))};
   var fOut=!!(L.focus&&isOut(L.focus)),nb=L.ids.filter(bad).length;
   if(!nb&&!fOut)return false;
   var target=L.ids.length;
   L.ids=L.ids.filter(function(id){return !bad(id)});
+  L.cleared=L.cleared.filter(function(id){return L.ids.indexOf(id)>-1});
   L.rev=(L.rev||[]).filter(function(id){return L.ids.indexOf(id)>-1});
   if(fOut){delete D.flog[L.date];L.focus=todayFocus(L.date)}
   var keys={};L.ids.forEach(function(id){keys[keyOf(byId(id))]=1});
@@ -743,10 +761,10 @@ function startLesson(){
   if(lessonDoneToday()){startRound(PIDS);return}
   if(!activePids().length){toast("Everything is checked out. Bring a pattern back on B1 Progress.");return}
   var L=ensureLesson();
-  var left=L.ids.filter(function(id){return L.cleared.indexOf(id)<0});
+  var left=L.ids.filter(function(id){var it=byId(id);return L.cleared.indexOf(id)<0&&!(it&&basicPoss(it))});
   if(!left.length&&L.cleared.length&&L.ids.some(function(id){return byId(id)&&isOut(byId(id).t)})){ /* the rest was checked out: the day is done */
     L.done=true;D.stats.days[L.date]=1;D.stats.done[L.date]=1;save();renderHome();toast("Today's lesson is done ✓");return}
-  if(!left.length){left=L.ids.slice();L.cleared=[]}
+  if(!left.length){L.ids=L.ids.filter(function(id){var it=byId(id);return !(it&&basicPoss(it))});L.cleared=[];left=L.ids.slice()}
   if(!left.length){toast("Nothing to practise right now");return}
   S=newS("lesson",left,L.ids.length);S.done=L.ids.length-left.length;(L.rev||[]).forEach(function(id){S.rev[id]=1});LAST={kind:"lesson"};begin();
 }
@@ -776,7 +794,7 @@ function queueKeys(){var k={};S.queue.forEach(function(id){k[keyOf(byId(id))]=1}
 /* pick a fresh sentence of the pattern: not shown yet this session; second showing only as a fallback */
 function pickFresh(pid,tag){
   var qk=queueKeys();
-  var all=ITEMS.filter(function(i){return i.t===pid&&(typedOk()||i.type!=="typed")});
+  var all=ITEMS.filter(function(i){return i.t===pid&&!basicPoss(i)&&(typedOk()||i.type!=="typed")});
   /* possessives: same sub-pattern as the miss, otherwise a sub-pattern drawn by weakness */
   if(pid==="possessives"){
     var gs=PTAGS.map(function(t){return t.id}).filter(function(g){return all.some(function(i){return i.g===g&&!qk[keyOf(i)]&&(S.shown[keyOf(i)]||0)<2})});
@@ -839,7 +857,9 @@ function setAct(label,enabled,cls){var a=$("act");a.textContent=label;a.disabled
 function missBg(on){document.documentElement.classList.toggle("miss",!!on)}
 function next(){
   missBg(false);
+  dropBasicQueue();
   if(S.endless&&!S.queue.length)genNext();
+  dropBasicQueue();
   if(!S.queue.length)return finish();
   var it=byId(S.queue[0]);S.cur=it;S.answered=false;S.state={};
   var k=keyOf(it);S.shown[k]=(S.shown[k]||0)+1;
@@ -1288,7 +1308,7 @@ function hostBadge(){var x=document.querySelector("ship-page-badge"),on=false;if
 hostBadge();
 try{new MutationObserver(hostBadge).observe(document.body,{childList:true});new MutationObserver(hostBadge).observe(document.documentElement,{childList:true})}catch(e){}
 $("ver").textContent="Norsk drill v"+VERSION+(VERSION_NOTE?" "+VERSION_NOTE:"")+" · "+VERSION_DATE;
-window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,fullText:fullText,missBg:missBg,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);return{ids:buildLesson(rng(hashStr("norsk-drill|"+t)),LESSON_SIZE,f),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},syncSummary:syncSummary,syncNow:syncNow,syncGet:syncGet,isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS};
+window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,fullText:fullText,missBg:missBg,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);return{ids:buildLesson(rng(hashStr("norsk-drill|"+t)),LESSON_SIZE,f),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},syncSummary:syncSummary,syncNow:syncNow,syncGet:syncGet,isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS,basicPoss:basicPoss};
 if(location.protocol==="file:")$("filewarn").style.display="block";
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 (function(){var ok=false;try{localStorage.setItem("nd.probe","1");ok=localStorage.getItem("nd.probe")==="1";localStorage.removeItem("nd.probe")}catch(e){}SV.ok=ok;SV.t=Date.now()})();
