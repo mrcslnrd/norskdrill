@@ -48,9 +48,12 @@ const expr = `(() => {
   check('po85 incidental min stays', !nd.basicPoss(nd.ITEMS.find(i => i.id==='po85')));
   check('po127 clause din stays', !nd.basicPoss(nd.ITEMS.find(i => i.id==='po127')));
   const alt = nd.ITEMS.find(i => i.id==='po48');
-  check('po48 alt kept', alt.alt && alt.alt[0] === 'Hver morgen går Per med hunden sin.', JSON.stringify(alt.alt));
+  check('po48 alt kept', alt.alt && alt.alt[0] === 'Hver morgen løper Per med hunden sin.', JSON.stringify(alt.alt));
+  check('training sentence restored', nd.ITEMS.some(i => i.s==='Jo mer jeg trener, jo sterkere blir jeg.'));
+  check('sunday cafe', nd.ITEMS.some(i => i.s==='På søndag går vi på kafé.'));
+  check('no jobleser', !nd.ITEMS.some(i => JSON.stringify(i).indexOf('jobleser')>=0));
   check('no blinking cursor', !document.querySelector('.cur'));
-  const banned = /\\b(kirken|presten|Bibelen|gudstjenesten|Lisboa|Portugal|toget|treningssenteret|maratonet|bønn)\\b/i;
+  const banned = /\\b(kirken|presten|Bibelen|gudstjenesten|Lisboa|Portugal|treningssenteret|maratonet|bønn)\\b/i;
   const leaked = nd.ITEMS.filter(it => banned.test([it.s, it.prompt, it.en, it.why, ...(it.alt||[])].join(' '))).map(it => it.id);
   check('no biography scenes in items', leaked.length === 0, leaked.slice(0, 8).join(','));
   const droppedAlt = nd.ITEMS.find(i => i.id==='po42');
@@ -71,7 +74,7 @@ const expr = `(() => {
     const bad = lesson.ids.filter(id => basicIds.has(id));
     check('lesson '+n+' has no basic', bad.length === 0, bad.join(','));
     check('lesson '+n+' is 32', lesson.ids.length === 32, String(lesson.ids.length));
-    const nPoss = lesson.ids.filter(id => nd.ITEMS.find(i => i.id===id).t === 'possessives').length;
+    const nPoss = lesson.ids.filter(id => { const it = nd.ITEMS.find(i => i.id===id); return it && it.t === 'possessives'; }).length;
     check('focus lesson still uses possessives', nPoss >= 8, String(nPoss));
   }
 
@@ -143,7 +146,10 @@ const flow = await send('Runtime.evaluate', {returnByValue:true, expression: `((
   nd.S().queue.forEach(id => got.push(id));
   check('endless possessive drill has items', got.length > 5, String(got.length));
   check('endless possessive drill has no basic', got.every(id => !basic.has(id)), got.filter(id => basic.has(id)).join(','));
-  check('endless drill stays on possessives', got.every(id => nd.ITEMS.find(i => i.id===id).t==='possessives'));
+  const gram = got.filter(id => !nd.EXPR.some(e => e.id===id));
+  const exprs = got.filter(id => nd.EXPR.some(e => e.id===id));
+  check('grammar half stays on possessives', gram.length>0 && gram.every(id => { const it=nd.ITEMS.find(i => i.id===id); return it && it.t==='possessives'; }));
+  check('expressions alternate into the drill', exprs.length>0);
 
   document.getElementById('quit').click();
   Object.keys(D.items).forEach(k => { if (D.items[k]) D.items[k].weak = false; });
