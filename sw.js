@@ -1,5 +1,5 @@
 /* Norsk drill service worker: network-first (fresh when online), cached fallback (works offline). VERSION is replaced at build time. */
-const VERSION = "5f22a84b07";
+const VERSION = "d76d504897";
 const CACHE = "norsk-drill-" + VERSION;
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 self.addEventListener("install", e => {
