@@ -35,7 +35,7 @@ const expr = `(() => {
   const fail = [];
   function check(name, ok, detail){ if(!ok) fail.push(name + (detail ? ': ' + detail : '')); }
 
-  check('version', nd.VERSION === '5.6.4', nd.VERSION);
+  check('version', nd.VERSION === '5.6.4' && document.getElementById('ver').textContent === 'Norsk drill v5.6.4 · 8 Nov 2026', document.getElementById('ver').textContent);
   check('excluded count', basic.length === 22, String(basic.length));
   check('retained count', kept.length === 111, String(kept.length));
   check('po1 basic agreement', nd.basicPoss(nd.ITEMS.find(i => i.id==='po1')));
@@ -48,7 +48,11 @@ const expr = `(() => {
   check('po85 incidental min stays', !nd.basicPoss(nd.ITEMS.find(i => i.id==='po85')));
   check('po127 clause din stays', !nd.basicPoss(nd.ITEMS.find(i => i.id==='po127')));
   const alt = nd.ITEMS.find(i => i.id==='po48');
-  check('po48 alt kept', alt.alt && alt.alt[0] === 'Hver morgen løper Per med hunden sin.', JSON.stringify(alt.alt));
+  check('po48 alt kept', alt.alt && alt.alt[0] === 'Hver morgen går Per med hunden sin.', JSON.stringify(alt.alt));
+  check('no blinking cursor', !document.querySelector('.cur'));
+  const banned = /\\b(kirken|presten|Bibelen|gudstjenesten|Lisboa|Portugal|toget|treningssenteret|maratonet|bønn)\\b/i;
+  const leaked = nd.ITEMS.filter(it => banned.test([it.s, it.prompt, it.en, it.why, ...(it.alt||[])].join(' '))).map(it => it.id);
+  check('no biography scenes in items', leaked.length === 0, leaked.slice(0, 8).join(','));
   const droppedAlt = nd.ITEMS.find(i => i.id==='po42');
   check('excluded item still in the bank', !!droppedAlt && droppedAlt.alt && droppedAlt.alt.length === 1);
 
