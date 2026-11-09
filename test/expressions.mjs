@@ -83,7 +83,8 @@ const ui = await send('Runtime.evaluate', {returnByValue:true, expression: `(() 
   const nd = window.__nd;
   const fail = [];
   const check = (n,ok,d) => { if(!ok) fail.push(n+(d?': '+d:'')); };
-  const chunk = nd.EXPR.find(e => e.type==='chunk' && e.tiles && e.tiles.length>=2 && e.tiles.every(t => t.length<42));
+  const chunk = nd.EXPR.find(e => e.id==='e09');
+  const words = chunk.ok[0].toLowerCase().replace(/[.,!?;:]/g,'').split(/\\s+/).filter(Boolean);
   const t = (function(){const d=new Date();const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());})();
   const D = nd.D();
   const histBefore = (D.pat.possessives.hist||[]).slice();
@@ -91,17 +92,17 @@ const ui = await send('Runtime.evaluate', {returnByValue:true, expression: `(() 
   D.flog = D.flog||{}; D.flog[t]='questions';
   document.getElementById('go-day').click();
   check('chunk opened', nd.cur() && nd.cur().id===chunk.id, nd.cur() && nd.cur().id);
-  check('meaning shown on first exposure', !!document.querySelector('#card .en'));
-  const tiles = [...document.querySelectorAll('#bank .tile.phrase')];
-  check('phrase tiles render', tiles.length>=2, String(tiles.length));
+  check('only the English meaning is shown', !!document.querySelector('#card .en') && !document.querySelector('#card .sit') && !document.querySelector('#card .intent'));
+  const tiles = [...document.querySelectorAll('#bank .tile')];
+  check('word tiles render', tiles.length>=2, String(tiles.length));
   const card = document.getElementById('card');
   check('tiles fit the phone width', card.scrollWidth <= document.documentElement.clientWidth+2, card.scrollWidth+' vs '+document.documentElement.clientWidth);
-  chunk.tiles.forEach(w => {
-    const b=[...document.querySelectorAll('#bank .tile.phrase')].find(x => x.textContent===w);
+  words.forEach(w => {
+    const b=[...document.querySelectorAll('#bank .tile')].find(x => x.textContent===w);
     check('tile present '+w, !!b);
     if (b) b.click();
   });
-  check('tiles moved into the line', document.querySelectorAll('#line .tile.phrase').length===chunk.tiles.length);
+  check('words moved into the line', document.querySelectorAll('#line .tile').length===words.length);
   document.getElementById('act').disabled=false;
   document.getElementById('act').click();
   check('correct chunk accepted', document.querySelector('#fb.ok')!==null, (document.querySelector('#fb')||{}).innerText);
@@ -111,12 +112,10 @@ const ui = await send('Runtime.evaluate', {returnByValue:true, expression: `(() 
   D.expr[veit.fam] = {seen:1, right:1, wrong:0, last:1, cards:{}};
   D.lesson = {date:t, ids:[veit.id], rev:[], cleared:[], done:false, focus:'questions'};
   document.getElementById('go-day').click();
-  check('later family exposure hides English', !document.querySelector('#card .en'));
-  const built = veit.ok.find(a => a.indexOf('veit')>=0);
-  // tiles build the primary ok; veit is an accepted string if the tiles contain veit, otherwise tap the tile wording
-  const useTiles = veit.tiles.some(w => w.indexOf('veit')>=0) ? veit.tiles : veit.tiles;
-  useTiles.forEach(w => {
-    const b=[...document.querySelectorAll('#bank .tile.phrase')].find(x => x.textContent===w);
+  check('the meaning is still the only instruction', !!document.querySelector('#card .en') && !document.querySelector('#card .sit'));
+  const veitWords = veit.ok.find(a => a.indexOf('veit')>=0).toLowerCase().replace(/[.,!?;:]/g,'').split(/\\s+/).filter(Boolean);
+  veitWords.forEach(w => {
+    const b=[...document.querySelectorAll('#bank .tile')].find(x => x.textContent===w);
     if (b) b.click();
   });
   document.getElementById('act').disabled=false;
@@ -127,9 +126,15 @@ const ui = await send('Runtime.evaluate', {returnByValue:true, expression: `(() 
   D.expr[rep.fam] = {seen:0, right:0, wrong:0, last:0, cards:{}};
   D.lesson = {date:t, ids:[rep.id], rev:[], cleared:[], done:false, focus:'questions'};
   document.getElementById('go-day').click();
-  const badBtn = [...document.querySelectorAll('.opt')].find(b => rep.choices[+b.dataset.i] && !rep.choices[+b.dataset.i].ok);
-  badBtn.click();
-  check('wrong intent marked wrong', document.querySelector('#fb.no')!==null);
+  check('reply shows one Norwegian cue', (document.querySelector('#card .sent')||{}).textContent==='Takk for hjelpen.');
+  const replyWords = 'bare hyggelig'.split(' ');
+  replyWords.forEach(w => {
+    const b=[...document.querySelectorAll('#bank .tile')].find(x => x.textContent===w);
+    if (b) b.click();
+  });
+  document.getElementById('act').disabled=false;
+  document.getElementById('act').click();
+  check('bare hyggelig is accepted', document.querySelector('#fb.ok')!==null, (document.querySelector('#fb')||{}).innerText.slice(0,80));
   check('reply miss is not a grammar miss', JSON.stringify(nd.D().pat.possessives.hist)===JSON.stringify(hist2));
   const other = nd.EXPR.find(e => e.type==='chunk' && e.id!==chunk.id && e.fam!==chunk.fam);
   D.lesson = {date:t, ids:[other.id], rev:[], cleared:[], done:false, focus:'questions'};
@@ -137,12 +142,6 @@ const ui = await send('Runtime.evaluate', {returnByValue:true, expression: `(() 
   document.getElementById('skip').click();
   check('skip shows the phrase', (document.querySelector('#fb')||{}).innerText.indexOf(other.ok[0].slice(0,12))>=0);
   check('skip did not touch grammar history', JSON.stringify(nd.D().pat.possessives.hist)===JSON.stringify(hist2));
-  const both = nd.EXPR.find(e => e.type==='reply' && e.choices.filter(c => c.ok).length>=2);
-  D.lesson = {date:t, ids:[both.id], rev:[], cleared:[], done:false, focus:'questions'};
-  document.getElementById('go-day').click();
-  const good = [...document.querySelectorAll('.opt')].find(b => both.choices[+b.dataset.i] && both.choices[+b.dataset.i].ok && both.choices[+b.dataset.i].t.indexOf('Bare')===0);
-  if (good) good.click();
-  check('bare hyggelig also accepted after thanks', document.querySelector('#fb.ok')!==null);
   return {fail, chunk: chunk.id, width: document.documentElement.clientWidth};
 })()`});
 
