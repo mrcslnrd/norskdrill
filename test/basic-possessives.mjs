@@ -35,7 +35,7 @@ const expr = `(() => {
   const fail = [];
   function check(name, ok, detail){ if(!ok) fail.push(name + (detail ? ': ' + detail : '')); }
 
-  check('version', nd.VERSION === '5.6.6' && document.getElementById('ver').textContent === 'Norsk drill v5.6.6 · 10 Nov 2026', document.getElementById('ver').textContent);
+  check('version', nd.VERSION === '5.6.7' && document.getElementById('ver').textContent === 'Norsk drill v5.6.7 · 10 Nov 2026', document.getElementById('ver').textContent);
   check('excluded count', basic.length === 22, String(basic.length));
   check('retained count', kept.length === 111, String(kept.length));
   check('po1 basic agreement', nd.basicPoss(nd.ITEMS.find(i => i.id==='po1')));
