@@ -103,11 +103,10 @@ const flow = await send('Runtime.evaluate', {returnByValue:true, expression: `((
   if(spellHit) spellHit.click();
   check('9 spelling feedback is its own word', fb().indexOf('skip')>=0 && fb().indexOf('kommer an')<0);
   document.getElementById('act').click();
-  assertClean('10 bridge', ['situação']);
-  const bridge=[...document.querySelectorAll('.chip')];
-  const bridgeHit=bridge.find(b=>b.textContent.indexOf('en situasjon')>=0 && b.textContent.indexOf('situasjonen')<0 && b.textContent.indexOf('et ')!==0);
-  check('10 bridge choices', !!bridgeHit, bridge.map(b=>JSON.stringify(b.textContent)).join(' '));
-  if(bridgeHit) bridgeHit.click();
+  assertClean('10 clicks prep', ['tre år']);
+  const prep=[...document.querySelectorAll('.chip')].find(b=>b.textContent==='på');
+  check('10 preposition choices', !!prep, [...document.querySelectorAll('.chip')].map(b=>b.textContent).join('|'));
+  if(prep) prep.click();
   document.getElementById('skip') && document.getElementById('skip').click();
   if(nd.cur()&&nd.cur().expr){
     document.getElementById('act').click();
