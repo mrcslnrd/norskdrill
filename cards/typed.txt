@@ -1,0 +1,46 @@
+# id | typed | english | sentence | accepted / accepted | why
+etter28 | typed | After we had trained for an hour, we showered. | Etter at vi hadde ___ (trene) i en time, dusjet vi. | trent | hadde + participle: trene – trente – trent.
+etter29 | typed | After I had seen the film, I went to bed. | Etter at jeg hadde ___ (se) filmen, la jeg meg. | sett | Strong verb: se – så – sett, so hadde sett.
+ikke39 | typed | I'm tired because I haven't slept well. | Add ikke: Jeg er sliten fordi jeg har sovet godt. | Jeg er sliten fordi jeg ikke har sovet godt. | ikke goes right after the subject jeg in the fordi clause.
+ikke40 | typed | We're grilling tonight if it doesn't rain. | Add ikke: Vi griller i kveld hvis det regner. | Vi griller i kveld hvis det ikke regner. | After hvis: subject det, then ikke, then the verb.
+jo26 | typed | The more I train, the stronger I get. | Jo mer jeg trener, jo ___ blir jeg. (sterk) | sterkere | Comparative: sterk – sterkere.
+jo27 | typed | The more I eat, the fuller I get. | Jo mer jeg spiser, jo ___ blir jeg. (mett) | mettere / mer mett | Comparative: mett – mettere.
+v231 | typed | Yesterday I was at home. | I går ___ jeg hjemme. (være) | var | Preterite of være: var. The verb comes right after i går.
+v232 | typed | Next week we're travelling to Spain. | Neste uke ___ vi til Spania. (reise, present tense) | reiser | Present tense, verb in 2nd position after neste uke: reiser vi.
+jj8 | typed | The more he practises, the more confident he gets on the guitar. | Jo mer han øver, jo ___ blir han på gitaren. | tryggere | jo + comparative (short adjectives: -ere); the second part inverts: comparative, verb, subject.
+jj18 | typed | The more humour we have, the easier it is to live together. | Jo mer humor vi har, jo ___ er det å leve sammen. | lettere | jo + comparative (short adjectives: -ere); the second part inverts: comparative, verb, subject.
+cp8 | typed | The cheesecake was better than I thought. | Ostekaken var ___ enn jeg trodde. | bedre | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst.
+cp18 | typed | The dog is as happy as a lark. | Hunden er like ___ som en lerke. | glad | like … som = as … as; the adjective stays in its basic form and agrees with the noun (-t for et-words).
+cp28 | typed | He is the youngest in the family. | Han er den ___ i familien. | yngste | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst.
+cd28 | typed | If I had been at home, I would have helped you. | Hvis jeg hadde vært hjemme, ville jeg ha ___ deg. | hjulpet | hadde + participle: the helping verb hadde, then the participle (not the preterite).
+cd38 | typed | If I had known you were coming, I would have baked a cake. | Hvis jeg hadde visst at du kom, hadde jeg ___ en kake. | bakt | hadde + participle: the helping verb hadde, then the participle (not the preterite).
+lw8 | typed | When it rains, I take the bus. | ___ det regner, tar jeg bussen. | Når / Hvis | når = every time something happens, or in the future. ("Den gang da, hver gang når.")
+lw28 | typed | I like coffee, but I only drink tea in the evening. | Jeg liker kaffe, ___ jeg drikker bare te om kvelden. | men | men = but; it links two main clauses and does not change the word order.
+lw38 | typed | She was nervous because she was going to speak in the meeting. | Hun var nervøs ___ hun skulle snakke i møtet. | fordi / da | fordi = because; it starts a subordinate clause (subject, then verb).
+lw48 | typed | Grandma called before she went to bed. | Mormor ringte ___ hun la seg. | før / da | før = before; it starts a subordinate clause (subject, then verb).
+qs50 | typed | She asked whether we should come tomorrow. | Hun spurte ___ vi skulle komme i morgen. | om | Indirect yes/no question: om + subject + verb. Use om, not hvis.
+qs51 | typed | Where did you live last year? | Hvor ___ du i fjor? (bo) | bodde | Past tense of bo is bodde. Question word first, then the verb.
+qs52 | typed | Do you like fish? | ___ du fisk? (like) | Liker | Yes/no question: the verb comes first (V1), then the subject.
+qs53 | typed | Do you know who called? | Vet du ___ som ringte? | hvem | hvem som + verb.
+rs50 | typed | I have an aunt who lives in Canada. | Jeg har en tante ___ bor i Canada. | som | som is the subject of the relative clause, so it cannot be left out.
+rs51 | typed | Who is the man who called yesterday? | Hvem er mannen ___ ringte i går? | som | som is the subject of the relative clause, so it cannot be left out.
+as47 | typed | I like to dance. | Jeg liker ___ danse. | å | å goes in front of an infinitive, when there is no new subject (liker å, begynner å, glemmer å, prøver å).
+as48 | typed | She has a sister who lives in Canada. | Hun har en søster ___ bor i Canada. | som | som links a noun to a clause (relative clause) or means 'as' or 'than ... as'.
+as49 | typed | We think the weather will be nice. | Vi tror ___ det blir pent vær. | at | at starts a subordinate clause with its own subject and verb (after verbs like tro, vite, si, mene, håpe).
+rp50 | typed | He said that he lived in Bergen. | Han sa at han ___ i Bergen. (bo) | bodde | Reported speech normally moves one step back in time: present → past, perfect → pluperfect (hadde + participle).
+rp51 | typed | She said that she had eaten. | Hun sa at hun ___ spist. (ha) | hadde | Reported speech normally moves one step back in time: present → past, perfect → pluperfect (hadde + participle).
+ad50 | typed | I know that he is never at home. | Jeg vet at han ___ er hjemme. (aldri) | aldri | In a subordinate clause the adverb (ikke, aldri, alltid, ofte, også, bare, sjelden …) stands before the finite verb, after the subject.
+od64 | typed | 3 October (write the ordinal) | Skriv ordenstallet: 3. oktober = den ___ oktober | tredje | 3. = tredje. 1–6 are irregular: første, andre, tredje, fjerde, femte, sjette. Dates: den + ordinal + month.
+od65 | typed | 7 May (write the ordinal) | Skriv ordenstallet: 7. mai = den ___ mai | sjuende / syvende | 7. = sjuende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month.
+od66 | typed | 12 December (write the ordinal) | Skriv ordenstallet: 12. desember = den ___ desember | tolvte | 12. = tolvte. 11 and 12 end in -te: ellevte, tolvte. Dates: den + ordinal + month.
+od67 | typed | 19 June (write the ordinal) | Skriv ordenstallet: 19. juni = den ___ juni | nittende | 19. = nittende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month.
+od68 | typed | 21 December (write the ordinal) | Skriv ordenstallet: 21. desember = den ___ desember | tjueførste / tyveførste | 21. = tjueførste. 21–29 = tjue + the ordinal of the last digit: tjue + første → tjueførste. Dates: den + ordinal + month.
+od69 | typed | 24 December (write the ordinal) | Skriv ordenstallet: 24. desember = den ___ desember | tjuefjerde / tyvefjerde | 24. = tjuefjerde. 21–29 = tjue + the ordinal of the last digit: tjue + fjerde → tjuefjerde. Dates: den + ordinal + month.
+od70 | typed | 27 November (write the ordinal) | Skriv ordenstallet: 27. november = den ___ november | tjuesjuende / tyvesyvende | 27. = tjuesjuende. 21–29 = tjue + the ordinal of the last digit: tjue + sjuende → tjuesjuende. Dates: den + ordinal + month.
+od71 | typed | 31 August (write the ordinal) | Skriv ordenstallet: 31. august = den ___ august | trettiførste | 31. = trettiførste. 31 = trettiførste (tretti + første). Dates: den + ordinal + month.
+te49 | typed | She called an hour ago. | Hun ringte for en time ___. | siden | for … siden = … ago. Always for + time + siden.
+te50 | typed | We are leaving in two weeks. | Vi reiser ___ to uker. | om | om + time = in …, a point in the future.
+te51 | typed | I woke up early this morning. | Jeg våknet tidlig i ___. (this morning) | morges | i morges = this morning, and the morning has already passed. Past tense.
+sw50 | typed | You are tired, aren't you? | Du er trøtt, ikke ___? | sant | ikke sant? at the end = 'right? / isn't it?'. sant by itself also means 'true'.
+sw51 | typed | Don't you eat meat? – Yes, I eat everything. | Spiser du ikke kjøtt? – ___, jeg spiser alt. | Jo | jo / nei: answer a negative question with jo (yes, I do) or nei (no, I don't). Ja is not used after a negative question.
+sw52 | typed | I only took a small piece. | Jeg tok ___ en liten bit. (only) | bare | bare = only / just (bare en bit = just a bit; bare å prøve = just try).

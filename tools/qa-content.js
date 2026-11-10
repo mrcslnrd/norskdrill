@@ -3,25 +3,20 @@
 */
 const fs = require("fs");
 const path = require("path");
-const html = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
-
-function grab(name) {
-  const i = html.indexOf(name);
-  if (i < 0) throw new Error("missing " + name);
-  const k = html.indexOf("[", i);
-  let d = 0;
-  for (let n = k; n < html.length; n++) {
-    if (html[n] === "[") d++;
-    else if (html[n] === "]") {
-      d--;
-      if (d === 0) return JSON.parse(html.slice(k, n + 1));
-    }
-  }
-  throw new Error("unterminated " + name);
+const root = path.join(__dirname, "..");
+const html = fs.readFileSync(path.join(root, "app.js"), "utf8");
+const { parseAll } = require(path.join(root, "cards.js"));
+const dir = path.join(root, "cards");
+const names = fs.readFileSync(path.join(dir, "index.txt"), "utf8").split(/\n/).map(s => s.trim()).filter(s => s && s[0] !== "#");
+let parsed;
+try {
+  parsed = parseAll(names.map(name => ({ name, body: fs.readFileSync(path.join(dir, name), "utf8") })));
+} catch (err) {
+  console.log("FAIL parse: " + err.message);
+  process.exit(1);
 }
-
-const ITEMS = grab("const ITEMS=");
-const EXPR = grab("const EXPR=");
+const ITEMS = parsed.items;
+const EXPR = parsed.expr;
 
 function tileWord(w) {
   return String(w).toLocaleLowerCase("nb").replace(/[,;:]/g, "");

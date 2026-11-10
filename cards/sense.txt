@@ -1,0 +1,49 @@
+# id | sense | word | sentence with *word* | correct / wrong / wrong | why
+# Example: vc02 | sense | skrubbsulten | Han gikk glipp av lunsj, og ved middagstid var han *skrubbsulten*. | veldig sulten / veldig trøtt / litt kald | ...
+# The first option is correct. The app shuffles. These cards belong to the vocab pattern.
+vc01 | sense | knusktørr | Etter tre uker uten regn er jorden *knusktørr*. | helt tørr / gjennomvåt / nylig vannet | Knusk is tinder. Knusktørr means so dry that almost no moisture is left.
+vc02 | sense | skrubbsulten | Han gikk glipp av lunsj, og ved middagstid var han *skrubbsulten*. | veldig sulten / veldig trøtt / litt kald | A skrubb is a wolf. Skrubbsulten means hungry as a wolf.
+vc03 | sense | stappmett | Etter to porsjoner og en dessert var han *stappmett*. | helt mett / fremdeles sulten / bare tørst | Stappmett means so full that there is no room for more food.
+vc04 | sense | stuptrøtt | Etter et langt skift sovnet han i stolen, for han var *stuptrøtt*. | svært trøtt / svært sulten / helt våken | Stuptrøtt means tired enough to drop.
+vc05 | sense | livredd | Da lyset i tunnelen sluknet, ble hun *livredd*. | veldig redd / veldig glad / bare nysgjerrig | Livredd means frightened for one's life, not merely uneasy.
+vc06 | sense | bitteliten | Koppen er *bitteliten* og rommer knapt en slurk. | svært liten / svært stor / ganske vid | Bitte strengthens liten. Bitteliten means tiny.
+vc07 | sense | syltynn | Osteskiven er *syltynn* og knekker når en bøyer den. | svært tynn / svært tykk / ganske seig | A syl is an awl. Syltynn means extremely thin.
+vc08 | sense | blytung | Sekken er *blytung*, og han må sette den ned etter ti skritt. | svært tung / svært lett / nesten tom | Bly is lead. Blytung means heavy as lead.
+vc09 | sense | steinhard | Madrassen er *steinhard*, og han våkner støl i ryggen. | svært hard / svært myk / godt polstret | Steinhard means hard as stone.
+vc10 | sense | bunnsolid | Avtalen er *bunnsolid*, og ingen av punktene er uklare. | helt solid / ganske svak / full av hull | Bunnsolid means solid all the way through.
+vc11 | sense | lynraskt | Svaret kom *lynraskt*, før hun rakk å sette fra seg koppen. | svært rask / svært sen / ganske nølende | Lynrask means fast as lightning.
+vc12 | sense | bekmørk | Uten lommelykt er stien *bekmørk*, og en ser ikke hånden foran seg. | helt uten lys / bare skumring / godt opplyst | Bekmørk means pitch-dark, almost no light. It is not the same as tussmørk.
+vc13 | sense | tussmørk | Like etter solnedgang er hagen *tussmørk*, men en ser fortsatt stien. | dempet skumring / helt uten lys / sterkt dagslys | Tussmørk is twilight, dim but not pitch-dark. Bekmørk is the opposite.
+vc14 | sense | kritthvit | Etter bleking er skjorten *kritthvit*. | helt hvit / mørk grå / gulnet | Kritthvit means white as chalk.
+vc15 | sense | beinkaldt | Vannet i springen er *beinkaldt* om morgenen. | svært kald / svært varm / bare lunken | Beinkald means cold right through.
+vc16 | sense | iskald | Drikken har stått i fryseren og er *iskald*. | kald som is / varm / bare romtemperert | Iskald means cold as ice.
+vc17 | sense | glovarm | Pannen er *glovarm*, så han tar en gryteklut. | svært varm / svært kald / bare lunken | A glo is a glowing coal. Glovarm means scorching hot.
+vc18 | sense | bikkjekald | Vinden fra fjorden er *bikkjekald*, og han knapper jakken. | bittert kald / behagelig mild / ganske varm | Bikkjekald is the everyday word for a bitter cold.
+vc19 | sense | søkkvåt | Etter regnet er genseren *søkkvåt*, og vannet drypper fra ermet. | gjennomvåt / helt tørr / bare lett fuktig | Søkkvåt means soaked through.
+vc20 | sense | klissvått | Håret er *klissvått* og klistrer seg til pannen. | så vått at det klistrer / helt tørt / bare nykjemmet | Klissvåt means wet enough to cling, not merely damp.
+vc21 | sense | svindyr | Billetten er *svindyr*, så de velger et billigere tog. | altfor dyr / svært billig / omtrent gratis | Svindyr means so expensive that the price feels unreasonable.
+vc22 | sense | søkkrik | Etter salget av firmaet er han *søkkrik* og kjøper et hus uten lån. | svært rik / nesten blakk / omtrent middels | Søkkrik means rich by a wide margin.
+vc23 | sense | lutfattig | Familien var *lutfattig* etter at fabrikken stengte. | helt uten penger / ganske rik / bare forsiktig | Lutfattig means genuinely poor.
+vc24 | sense | dødsviktig | Å få med nøklene er *dødsviktig*, ellers kommer ingen inn. | helt avgjørende / helt uviktig / bare fint å ha | Dødsviktig means it really matters. It does not by itself mean dangerous.
+vc25 | sense | livsfarlig | Isen på vannet er tynn, og det er *livsfarlig* å gå utpå. | kan koste livet / helt trygt / bare litt glatt | Livsfarlig means someone could lose their life.
+vc26 | sense | knivskarp | Analysen er *knivskarp* og peker på det ene svake punktet. | svært presis / svært vag / litt rotete | Knivskarp describes something that cuts cleanly, including a line of thought.
+vc27 | sense | spinnvill | Ideen er *spinnvill*, men den kan faktisk fungere. | helt vill / helt vanlig / ganske forsiktig | Spinnvill means completely wild, not merely unusual.
+vc28 | sense | ramse opp | Han kan *ramse opp* alle holdeplassene uten å se på kartet. | si dem etter hverandre / glemme dem / tegne dem | Ramse opp means to reel something off in order.
+vc29 | sense | føye til | Hun vil *føye til* ett punkt før de skriver under. | legge til / stryke ut / lese høyt | Føye til means to add something. Tilføye is the prefixed form.
+vc30 | sense | hører til | Denne nøkkelen *hører til* døren i enden av gangen. | hører hjemme der / passer ikke i / er helt ny | Høre til means to belong. Tilhøre is the prefixed form.
+vc31 | sense | gjøre om | Planen fungerer ikke, så de må *gjøre om* opplegget før fredag. | endre det / beholde det / skrive det ut | Gjøre om means to change something. Omgjøre is the prefixed form with the same core.
+vc32 | sense | slappe av | Etter møtet setter han seg i stolen og skal *slappe av* en time. | hvile / jobbe videre / rydde mer | Slappe av means to rest. Avslappet is the adjective.
+vc33 | sense | finne opp | Hun klarte å *finne opp* en enkel lås som ingen hadde sett før. | skape noe nytt / miste noe / reparere noe gammelt | Finne opp means to create something that did not exist. Oppfinne is the prefixed form.
+vc34 | sense | muntre opp | Etter den dårlige nyheten prøver hun å *muntre opp* kollegaen med en kopp te. | gjøre kollegaen gladere / gjøre kollegaen tristere / la kollegaen være | Muntre opp means to lift someone's mood. Oppmuntre is the prefixed form.
+vc35 | sense | trappe opp | Køen er lang, så de må *trappe opp* bemanningen i kassen. | øke den / redusere den / stenge kassen | Trappe opp means to increase something step by step.
+vc36 | sense | trappe ned | Mot jul skal de *trappe ned* produksjonen. | redusere den / øke den / flytte den | Trappe ned means to scale the activity down, the opposite of trappe opp.
+vc37 | sense | legge ned | De må *legge ned* butikken når leien blir for høy. | stenge den for godt / åpne en til / male den | Legge ned means to shut something down for good. Nedlegge is the prefixed form.
+vc38 | sense | starte opp | De skal *starte opp* det nye verkstedet på mandag. | sette det i gang / stenge det / utsette det | Starte opp means to get something going. Oppstart is the noun.
+vc39 | sense | legge opp | Treneren skal *legge opp* økten før laget møtes. | planlegge den / avlyse den / glemme den | Legge opp means here to plan a session. Opplegg is the noun. The verb can also mean to quit, but this sentence is the plan.
+vc40 | sense | skrur av | Hun *skrur av* lyset når rommet er tomt. | slå det av / slå det på / skifte pæren | Skru av means to switch something off. Skru på is the opposite.
+vc41 | sense | dra opp | Han må *dra opp* bøtten fra brønnen. | trekke den opp / fostre et barn / slippe den ned | Dra opp means to pull something up. It is not the same as oppdra.
+vc42 | sense | oppdra | De skal *oppdra* barnet med faste måltider og ro i huset. | fostre det / trekke det opp / sende det bort | Oppdra means to raise a child. It has nothing to do with pulling something up.
+vc43 | sense | går an | Det *går an* å betale med kort her. | er mulig / angår noen / er forbudt | Gå an means that something is possible. It is not the same as angå.
+vc44 | sense | angår | Saken *angår* bare de to som skrev under. | vedkommer / er mulig / er ferdig | Angå means to concern someone. It has nothing to do with gå an.
+vc45 | sense | tatt opp | Spørsmålet ble *tatt opp* i møtet i går. | ble brakt frem / var opptatt / ble glemt | Tatt opp means the topic was raised. It is not the same as being opptatt.
+vc46 | sense | opptatt | Linjen er *opptatt*, så hun ringer igjen om en time. | allerede i bruk / nettopp nevnt / helt ledig | Opptatt means taken or not free. It is not the same as tatt opp.
