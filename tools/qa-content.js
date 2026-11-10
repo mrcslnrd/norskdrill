@@ -122,6 +122,16 @@ served.forEach(it => {
     if (new Set(opts).size !== opts.length) bad(it.id, "duplicate options");
     if ((it.wrong || []).indexOf(it.ans) >= 0) bad(it.id, "correct option also listed as wrong");
     agree(it.id, it.s, it.ans, it.wrong || []);
+  } else if (it.type === "sense") {
+    const opts = it.options || [];
+    if (opts.length !== 3) bad(it.id, "sense card needs 3 options");
+    if (new Set(opts.map(o => String(o).trim())).size !== opts.length) bad(it.id, "duplicate options");
+    if (!String(opts[0] || "").trim()) bad(it.id, "empty correct option");
+    if (!(it.s || "").trim() || !(it.word || "").trim()) bad(it.id, "missing sentence or target");
+    if (String(it.s).indexOf(it.word) < 0) bad(it.id, "target not in sentence");
+    opts.forEach(o => {
+      if (/\b(the|very|and|with|that|this|hungry|tired|cold|hot|wet|dry|busy|possible|mean)\b/i.test(o)) bad(it.id, "option is not Norwegian: " + o);
+    });
   } else if (it.type === "mc") {
     const opts = it.options || [];
     if (!opts.length || !(it.prompt || it.en)) bad(it.id, "empty prompt or options");
