@@ -162,6 +162,51 @@ if (!/function drillOut\(it\)\{return basicPoss\(it\)\|\|basicInf\(it\)\|\|bridg
   bad("drillOut", "Portuguese bridge items are not excluded from serving");
 }
 
+/* English pronouns, negation and numbers must show up in the Norwegian answer. */
+const FN = "in|on|at|to|for|from|with|about|into|over|after|before|of|the|a|an|and|or|but|if|when|that|this|it|him|me|us|them|you|again|too|also|here|there|now|then|today|yesterday|tomorrow|still|just|even|not|so|as|by|up|out|off|away|next|time|well";
+const PRON = {
+  i: [/\b(i|me|i'm|i've|i'll|i'd)\b/i, /\b(jeg|meg)\b/i],
+  we: [/\b(we|us|we're|we'll|let's)\b/i, /\b(vi|oss)\b/i],
+  you: [/\byou('re|'ll|'ve)?\b/i, /\b(du|deg|dere|man)\b/i],
+  he: [/\b(he|him|he's)\b/i, /\b(han|ham)\b/i],
+  she: [new RegExp("\\b(she|she's)\\b|\\bher\\b(?=\\s*(?:$|[.,!?;:]|(?:" + FN + ")\\b))", "i"), /\b(hun|henne)\b/i],
+  they: [/\b(they|them|they're)\b/i, /\bdem\b|\bde\b(?!\s+(?:\d+|tre|to|fire|fem|seks|sju|syv|åtte|ni|ti|en|et|nye|andre|gamle|små|store|første|samme|fleste|neste|siste|unge|eldre)\b)/i]
+};
+const ALLOW = { e74: 1, e133: 1, e133b: 1 };
+const NEG_EN = /\b(not|never|no|nobody|nothing|cannot)\b|n't\b/i;
+const NEG_NO = /\b(ikke|aldri|ingen|ingenting|slipper)\b|\bla være\b/i;
+function englishNeg(s) {
+  const t = s.replace(/,?\s*(?:isn't it|aren't you|don't you|won't you|haven't you|hasn't she|hasn't he)\b[^?]*\??/ig, "");
+  if (/\bnever mind\b/i.test(t)) return false;
+  return NEG_EN.test(t);
+}
+const NUM = { two: ["to"], three: ["tre", "tredje"], four: ["fire", "fjerde"], five: ["fem", "femte"], six: ["seks", "sjette"], seven: ["sju", "syv", "sjuende", "syvende"], eight: ["åtte", "åttende"], nine: ["ni", "niende"], ten: ["ti", "tiende"], eleven: ["elleve"], twelve: ["tolv", "tolvte"], twenty: ["tjue", "tjuende"], thirty: ["tretti"], hundred: ["hundre"] };
+
+function accepted(it) {
+  if (it.expr || it.type === "chunk" || it.type === "reply") return (it.ok || []).concat(it.alt || []).join(" ");
+  if (it.type === "order") return [it.s || ""].concat(it.alt || []).join(" ");
+  return "";
+}
+function english(it) { return it.en || ""; }
+
+EXPR.concat(ITEMS.filter(it => it.type === "order" && !excluded(it))).forEach(it => {
+  if (ALLOW[it.id]) return;
+  const e = english(it);
+  const a = accepted(it);
+  Object.keys(PRON).forEach(k => {
+    if (PRON[k][0].test(e) && !PRON[k][1].test(a)) bad(it.id, "English " + k + " has no Norwegian counterpart");
+  });
+  if (englishNeg(e) && !NEG_NO.test(a)) bad(it.id, "English negation has no ikke/aldri/ingen");
+  if (/\bhalf past\b/i.test(e) && /\bhalv\b/i.test(a)) return;
+  const low = a.toLowerCase();
+  Object.keys(NUM).forEach(w => {
+    if (new RegExp("\\b" + w + "\\b", "i").test(e) && !NUM[w].some(x => hasNo(low, x))) bad(it.id, "English " + w + " missing in Norwegian");
+  });
+});
+function hasNo(s, w) {
+  return new RegExp("(?<![A-Za-zÆØÅæøå])" + w + "(?![A-Za-zÆØÅæøå])", "i").test(s);
+}
+
 const summary = {
   items: ITEMS.length,
   served: served.length,

@@ -42,16 +42,18 @@ const value = await send('Runtime.evaluate', {returnByValue:true, expression: `(
   if(!again) return {fail};
   again.click();
   const fb=document.getElementById('fb');
-  check('fixing the miss adds the reward class', fb.classList.contains('ok') && fb.classList.contains('fix'), fb.className);
-  const glow=getComputedStyle(fb).animationName;
-  check('the bloom animation is attached', glow.indexOf('nd-bloom')>=0, glow);
+  check('fixing the miss lights the screen', document.documentElement.classList.contains('fixmiss') && fb.classList.contains('ok'), document.documentElement.className);
+  const veil=document.getElementById('nd-fix');
+  const vs=getComputedStyle(veil);
+  check('the veil does not block taps', vs.pointerEvents==='none');
+  check('the flood animation is attached', vs.animationName.indexOf('nd-flood')>=0, vs.animationName);
   // a first-try correct phrase must not glow
   nd.D().lesson={date:t, ids:['e161'], rev:[], cleared:[], done:false, focus:'questions'};
   document.getElementById('go-day').click();
   const words=nd.cur().ok[0].toLowerCase().replace(/[.,!?;:]/g,'').split(/\\s+/).filter(Boolean);
   words.forEach(w=>{ const b=[...document.querySelectorAll('#bank .tile')].find(x=>x.textContent===w); if(b) b.click(); });
   document.getElementById('act').click();
-  check('a first correct answer does not glow', document.getElementById('fb').classList.contains('ok') && !document.getElementById('fb').classList.contains('fix'), document.getElementById('fb').className);
+  check('a first correct answer does not light the screen', document.getElementById('fb').classList.contains('ok') && !document.documentElement.classList.contains('fixmiss'), document.documentElement.className);
   return {fail};
 })()`});
 const ex = events.filter(e => e.method==='Runtime.exceptionThrown').map(e => (e.params.exceptionDetails.exception&&e.params.exceptionDetails.exception.description)||e.params.exceptionDetails.text);
