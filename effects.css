@@ -1,0 +1,29 @@
+/* Fixed-miss reward. Tune the numbers; the app does not repeat them. */
+:root{--fx-flash-color:#eef6ff;--fx-blue:#60a5fa;--fx-cyan:#67e8f9;--fx-white:#fff;--fx-tint:rgba(96,165,250,.06);--fx-flash:80ms;--fx-shake:250ms;--fx-amp:3px;--fx-total:1.2s;--fx-pixel:8px}
+#nd-fix{position:fixed;inset:0;z-index:40;pointer-events:none;background:transparent}
+#nd-fix .fx-flash,#nd-fix .fx-scan,#nd-fix .fx-bits{position:absolute;inset:0;pointer-events:none}
+html.fixmiss #nd-fix{background:var(--fx-tint)}
+html.fixmiss #app{animation:fx-shake var(--fx-shake) linear 1}
+@keyframes fx-shake{0%,100%{transform:translate3d(0,0,0)}25%{transform:translate3d(var(--fx-amp),calc(var(--fx-amp)*-.5),0)}50%{transform:translate3d(calc(var(--fx-amp)*-1),var(--fx-amp),0)}75%{transform:translate3d(calc(var(--fx-amp)*.6),calc(var(--fx-amp)*-.4),0)}}
+.fx-flash{background:var(--fx-flash-color);opacity:0}
+html.fixmiss .fx-flash{animation:fx-flash var(--fx-flash) steps(1,end) 1}
+@keyframes fx-flash{0%{opacity:.92}100%{opacity:0}}
+.fx-scan{opacity:0;background:repeating-linear-gradient(to bottom,transparent 0 3px,rgba(180,220,255,.28) 3px 4px)}
+html.fixmiss .fx-scan{animation:fx-scan var(--fx-total) linear 1}
+@keyframes fx-scan{0%{opacity:0}15%{opacity:.7}100%{opacity:0}}
+.fx-bits i{position:absolute;width:var(--fx-pixel);height:var(--fx-pixel);left:var(--x);top:var(--y);opacity:0;background:#60a5fa}
+html.fixmiss .fx-bits i{animation:fx-bit var(--fx-total) linear 1}
+@keyframes fx-bit{0%{opacity:0;transform:translate3d(0,0,0)}12%{opacity:1}100%{opacity:0;transform:translate3d(var(--dx),var(--dy),0)}}
+.fx-bits i:nth-child(1){--x:50%;--y:46%;--dx:0px;--dy:-34vh;background:#fff}
+.fx-bits i:nth-child(2){--x:50%;--y:46%;--dx:22vw;--dy:-22vh;background:#67e8f9}
+.fx-bits i:nth-child(3){--x:50%;--y:46%;--dx:32vw;--dy:0px;background:#60a5fa}
+.fx-bits i:nth-child(4){--x:50%;--y:46%;--dx:20vw;--dy:24vh;background:#fff}
+.fx-bits i:nth-child(5){--x:50%;--y:46%;--dx:0px;--dy:32vh;background:#67e8f9}
+.fx-bits i:nth-child(6){--x:50%;--y:46%;--dx:-22vw;--dy:20vh;background:#60a5fa}
+.fx-bits i:nth-child(7){--x:50%;--y:46%;--dx:-34vw;--dy:0px;background:#fff}
+.fx-bits i:nth-child(8){--x:50%;--y:46%;--dx:-18vw;--dy:-24vh;background:#67e8f9}
+.fx-bits i:nth-child(9){--x:0%;--y:18%;--dx:28vw;--dy:8vh;background:#60a5fa}
+.fx-bits i:nth-child(10){--x:0%;--y:72%;--dx:24vw;--dy:-6vh;background:#fff}
+.fx-bits i:nth-child(11){--x:100%;--y:16%;--dx:-26vw;--dy:10vh;background:#67e8f9}
+.fx-bits i:nth-child(12){--x:100%;--y:70%;--dx:-22vw;--dy:-8vh;background:#60a5fa}
+@media (prefers-reduced-motion:reduce){html.fixmiss #app,html.fixmiss .fx-flash,html.fixmiss .fx-scan,html.fixmiss .fx-bits i{animation:none}html.fixmiss .fx-flash,html.fixmiss .fx-scan,html.fixmiss .fx-bits{display:none}html.fixmiss #nd-fix{background:var(--fx-tint)}}

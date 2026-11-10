@@ -1,7 +1,8 @@
-/* Norsk drill service worker: network-first (fresh when online), cached fallback (works offline). VERSION is replaced at build time. */
-const VERSION = "ca852a62b5";
+/* Norsk drill service worker: network-first (fresh when online), cached fallback (works offline).
+   VERSION is the first 10 hex chars of sha1 over index.html, app.js, cards.js, the stylesheets, and cards/*. */
+const VERSION = "d0d6c13a5f";
 const CACHE = "norsk-drill-" + VERSION;
-const SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
+const SHELL = ["./", "index.html", "app.js", "cards.js", "style.css", "effects.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "cards/index.txt", "cards/patterns.txt", "cards/sequence.txt", "cards/order.txt", "cards/fill.txt", "cards/mc.txt", "cards/gap.txt", "cards/typed.txt", "cards/sense.txt", "cards/expr.txt"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });
