@@ -1,28 +1,16 @@
 /* Hit effect: blue when a missed card is fixed (html.fixmiss), red on a mistake (html.wrongfx). Tune the numbers here. */
-:root{--fx-flash:160ms;--fx-flood:1s;--fx-shake:250ms;--fx-amp:3px;--fx-total:1.2s;--fx-glint:900ms}
-html.fixmiss{--fx-c:#3b82f6;--fx-hi:#a5f3fc;--fx-flash-color:#dbeafe;--fx-tint:rgba(59,130,246,.08)}
-html.wrongfx{--fx-c:#ef4444;--fx-hi:#fecaca;--fx-flash-color:#fee2e2;--fx-tint:rgba(239,68,68,.07)}
+:root{--fx-flash:120ms;--fx-shake:250ms;--fx-amp:3px;--fx-total:1.2s}
+html.fixmiss{--fx-flash-color:#e2efff;--fx-scan:rgba(160,210,255,.32);--fx-tint:rgba(80,155,250,.07)}
+html.wrongfx{--fx-flash-color:#ffe2e2;--fx-scan:rgba(255,165,165,.32);--fx-tint:rgba(245,80,80,.07)}
 #nd-fix{position:fixed;inset:0;z-index:40;pointer-events:none;background:transparent}
 #nd-fix>div{position:absolute;inset:0;pointer-events:none;opacity:0}
 html.fixmiss #nd-fix,html.wrongfx #nd-fix{background:var(--fx-tint)}
 html.fixmiss #app,html.wrongfx #app{animation:fx-shake var(--fx-shake) linear 1}
 @keyframes fx-shake{0%,100%{transform:translate3d(0,0,0)}25%{transform:translate3d(var(--fx-amp),calc(var(--fx-amp)*-.5),0)}50%{transform:translate3d(calc(var(--fx-amp)*-1),var(--fx-amp),0)}75%{transform:translate3d(calc(var(--fx-amp)*.6),calc(var(--fx-amp)*-.4),0)}}
-.fx-flood{background:radial-gradient(ellipse at 50% 45%,transparent 25%,var(--fx-c) 100%)}
-html.fixmiss .fx-flood,html.wrongfx .fx-flood{animation:fx-flood var(--fx-flood) ease-out 1}
-@keyframes fx-flood{0%{opacity:.8}25%{opacity:.6}100%{opacity:0}}
 .fx-flash{background:var(--fx-flash-color)}
-html.fixmiss .fx-flash,html.wrongfx .fx-flash{animation:fx-flash var(--fx-flash) steps(2,end) 1}
-@keyframes fx-flash{0%{opacity:1}50%{opacity:.6}100%{opacity:0}}
-.fx-scan{background:repeating-linear-gradient(to bottom,transparent 0 3px,var(--fx-hi) 3px 4px);mix-blend-mode:screen}
+html.fixmiss .fx-flash,html.wrongfx .fx-flash{animation:fx-flash var(--fx-flash) steps(1,end) 1}
+@keyframes fx-flash{0%{opacity:1}100%{opacity:0}}
+.fx-scan{background:repeating-linear-gradient(to bottom,transparent 0 3px,var(--fx-scan) 3px 4px)}
 html.fixmiss .fx-scan,html.wrongfx .fx-scan{animation:fx-scan var(--fx-total) linear 1}
-@keyframes fx-scan{0%{opacity:0}15%{opacity:.45}100%{opacity:0}}
-.fx-glint i{position:absolute;width:4px;height:4px;left:var(--x);top:var(--y);background:#fff;opacity:0;transform:scale(.2) rotate(45deg);box-shadow:0 0 6px 2px var(--fx-hi),0 0 14px 4px var(--fx-c)}
-html.fixmiss #nd-fix>.fx-glint,html.wrongfx #nd-fix>.fx-glint{opacity:1}
-html.fixmiss .fx-glint i,html.wrongfx .fx-glint i{animation:fx-glint var(--fx-glint) ease-out 1 both;animation-delay:var(--d)}
-@keyframes fx-glint{0%{opacity:0;transform:scale(.2) rotate(45deg)}25%{opacity:1;transform:scale(1.4) rotate(45deg)}100%{opacity:0;transform:scale(.4) rotate(45deg)}}
-.fx-glint i:nth-child(1){--x:14%;--y:9%;--d:60ms}
-.fx-glint i:nth-child(2){--x:86%;--y:22%;--d:180ms}
-.fx-glint i:nth-child(3){--x:8%;--y:63%;--d:280ms}
-.fx-glint i:nth-child(4){--x:91%;--y:78%;--d:120ms}
-.fx-glint i:nth-child(5){--x:52%;--y:4%;--d:340ms}
+@keyframes fx-scan{0%{opacity:0}15%{opacity:.75}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){html.fixmiss #app,html.wrongfx #app,#nd-fix *{animation:none!important}#nd-fix>div{display:none}}
