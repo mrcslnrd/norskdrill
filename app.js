@@ -176,7 +176,7 @@ var STATUS_L={new:"New",weak:"Needs work",learning:"Learning",mastered:"Mastered
 
 /* ---------- views ---------- */
 var VIEWS=["v-home","v-set","v-drill","v-check","v-play","v-sum"];
-function show(id){if(id!=="v-play"){missBg(false);document.documentElement.classList.remove("fixmiss")}VIEWS.forEach(function(v){$(v).classList.toggle("on",v===id)});document.documentElement.setAttribute("data-view",id);paintChrome();window.scrollTo(0,0)}
+function show(id){if(id!=="v-play"){missBg(false);hitFx(null)}VIEWS.forEach(function(v){$(v).classList.toggle("on",v===id)});document.documentElement.setAttribute("data-view",id);paintChrome();window.scrollTo(0,0)}
 /* browser/status-bar tint: the page background */
 function paintChrome(){var m=document.querySelector('meta[name="theme-color"]');if(!m)return;m.setAttribute("content",getComputedStyle(document.documentElement).getPropertyValue("--bg").trim()||"#050a07")}
 function toast(m,ms){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove("on")},ms||2200)}
@@ -559,7 +559,7 @@ function answerExpr(ok,userText){
   if(S.kind==="drill"){$("streak").textContent=S.correct+" / "+S.answers;if(S.round){$("bar").style.width=Math.round(S.done/Math.max(1,S.total)*100)+"%";$("m-left").textContent=S.done+" / "+S.total+" cleared"}}
   else{$("bar").style.width=Math.round(S.done/Math.max(1,S.total)*100)+"%";$("m-left").textContent=S.done+" / "+S.total+" cleared"}
   S.userText=userText||"";
-  document.documentElement.classList.toggle("fixmiss",!!fixedExpr);
+  hitFx(fixedExpr?"fixmiss":ok?null:"wrongfx");
   var fb=$("fb");fb.className=ok?"ok":"no";
   var accepted=(it.ok&&it.ok.length)?it.ok:(it.choices||[]).filter(function(c){return c.ok}).map(function(c){return c.t});
   var shown=ok&&userText?userText:accepted.join(" / ");
@@ -689,6 +689,7 @@ function updateTop(){
   }
 }
 function setAct(label,enabled,cls){var a=$("act");a.textContent=label;a.disabled=!enabled;a.className="btn "+(cls||"pri")}
+function hitFx(kind){var h=document.documentElement;h.classList.remove("fixmiss","wrongfx");if(!kind)return;void h.offsetWidth;h.classList.add(kind)}
 function missBg(on){document.documentElement.classList.toggle("miss",!!on)}
 function next(){
   dropBasicQueue();
@@ -698,7 +699,7 @@ function next(){
   var it=byId(S.queue[0]);
   /* Every new card starts clean. Phrases used to return before this, so the previous result stayed on screen. */
   missBg(false);
-  document.documentElement.classList.remove("fixmiss");
+  hitFx(null);
   S.userText="";
   var fb0=$("fb");if(fb0){fb0.className="";fb0.innerHTML=""}
   S.cur=it;S.answered=false;S.state={};
@@ -792,7 +793,7 @@ function answer(ok,userText){
   if(ok)buzz(15);else buzz([70,40,70]);
   save();updateTop();
   S.userText=userText||"";
-  document.documentElement.classList.toggle("fixmiss",!!fixed);
+  hitFx(fixed?"fixmiss":ok?null:"wrongfx");
   var fb=$("fb");fb.className=ok?"ok":"no";
   var alsoTxt=ok&&S.hit?S.hit:null;S.hit=null;
   fb.innerHTML='<div class="h">'+(ok?"✓ Riktig!":"✗ Not quite")+'</div><div class="c">'+esc(alsoTxt||fullText(it))+'</div>'+(alsoTxt?'<div class="also">Also right: '+esc(fullText(it))+'</div>':'')+'<div class="r">'+esc(it.why||"")+'</div>'+(msg?'<div class="q">'+msg+'</div>':"");
