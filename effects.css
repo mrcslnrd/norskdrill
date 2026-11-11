@@ -1,7 +1,7 @@
 /* Hit effect: blue when a missed card is fixed (html.fixmiss), red on a mistake (html.wrongfx). Tune the numbers here. */
 :root{--fx-flash:120ms;--fx-shake:250ms;--fx-amp:3px;--fx-total:1.2s}
-html.fixmiss{--fx-flash-color:#e2efff;--fx-scan:rgba(160,210,255,.32);--fx-tint:rgba(80,155,250,.07)}
-html.wrongfx{--fx-flash-color:#ffe2e2;--fx-scan:rgba(255,165,165,.32);--fx-tint:rgba(245,80,80,.07)}
+html.fixmiss{--fx-flash-color:#2563eb;--fx-scan:rgba(37,99,235,.35);--fx-tint:rgba(80,155,250,.07)}
+html.wrongfx{--fx-flash-color:#dc2626;--fx-scan:rgba(220,38,38,.35);--fx-tint:rgba(245,80,80,.07)}
 #nd-fix{position:fixed;inset:0;z-index:40;pointer-events:none;background:transparent}
 #nd-fix>div{position:absolute;inset:0;pointer-events:none;opacity:0}
 html.fixmiss #nd-fix,html.wrongfx #nd-fix{background:var(--fx-tint)}
