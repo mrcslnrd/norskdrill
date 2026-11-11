@@ -53,9 +53,12 @@
     <h2>For my tutor</h2>
     <button class="btn sm" id="exp">Export my mistakes (for my tutor)</button>
     <h2>Backup</h2>
+    <button class="btn sm" id="bk-file-exp">Export progress</button>
+    <button class="btn sm" id="bk-file-imp">Import progress</button>
+    <input type="file" id="bk-file" accept=".json,application/json" hidden>
     <button class="btn sm" id="bk-exp">Export progress (code)</button>
     <button class="btn sm" id="bk-imp">Import progress (code)</button>
-    <p class="foot" style="margin-top:10px;text-align:left">Safari and the Home Screen app keep separate storage. Use a code to move progress (including points) between them, to a new web address, or after clearing browser data.</p>
+    <p class="foot" style="margin-top:10px;text-align:left">Safari and the Home Screen app keep separate storage. Export progress downloads a file you can keep. Use a code if you would rather copy and paste. Either one moves progress (including points) between them, to a new web address, or after clearing browser data.</p>
     <h2>Sync</h2>
     <div id="sync-off">
       <input class="typed sync-in" id="sync-tok" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Paste GitHub token (github_pat_…)" aria-label="GitHub token">
