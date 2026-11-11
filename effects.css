@@ -1,16 +1,68 @@
-/* Hit effect: blue when a missed card is fixed (html.fixmiss), red on a mistake (html.wrongfx). Tune the numbers here. */
-:root{--fx-flash:120ms;--fx-shake:250ms;--fx-amp:3px;--fx-total:1.2s}
-html.fixmiss{--fx-flash-color:#2563eb;--fx-scan:rgba(37,99,235,.35);--fx-tint:rgba(80,155,250,.07)}
-html.wrongfx{--fx-flash-color:#dc2626;--fx-scan:rgba(220,38,38,.35);--fx-tint:rgba(245,80,80,.07)}
+/* Tuning: peak snaps at once, holds --fx-hold, eases --fx-fade to settled, then stays until the next card. */
+@property --fx-c{syntax:"<color>";inherits:true;initial-value:#8dffb0}
+:root{
+  --fx-hold:.6s;--fx-fade:.6s;--fx-shake:250ms;--fx-amp:3px;--fx-total:1.2s;
+  --fx-blue-peak:#2f6bff;--fx-blue-settled:#5a86d4;
+  --fx-red-peak:#ff2a2a;--fx-red-settled:#d45c5c;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme=dark]){
+  --fx-blue-peak:#1530c0;--fx-blue-settled:#2a4a8c;
+  --fx-red-peak:#c10a0a;--fx-red-settled:#8a2c2c;
+}}
+:root[data-theme=light]{
+  --fx-blue-peak:#1530c0;--fx-blue-settled:#2a4a8c;
+  --fx-red-peak:#c10a0a;--fx-red-settled:#8a2c2c;
+}
+html.fixmiss,html.wrongfx,:root.fixmiss,:root.wrongfx{
+  --ac:var(--fx-c);--ok:var(--fx-c);
+  --hi:color-mix(in srgb,var(--fx-c) 42%,#fff);
+  --tx:color-mix(in srgb,var(--fx-c) 62%,#fff);
+  --mu:color-mix(in srgb,var(--fx-c) 62%,#3d4450);
+  --dim:color-mix(in srgb,var(--fx-c) 42%,#2a3038);
+  --onac:color-mix(in srgb,var(--fx-c) 18%,#000);
+  --acx:color-mix(in srgb,var(--fx-c) 8%,transparent);
+  --okb:color-mix(in srgb,var(--fx-c) 6%,transparent);
+  --s1:color-mix(in srgb,var(--fx-c) 3.5%,transparent);
+  --s2:color-mix(in srgb,var(--fx-c) 7%,transparent);
+  --s3:color-mix(in srgb,var(--fx-c) 16%,transparent);
+  --ln:color-mix(in srgb,var(--fx-c) 13%,transparent);
+  --ln2:color-mix(in srgb,var(--fx-c) 30%,transparent);
+  --glow:0 0 6px color-mix(in srgb,var(--fx-c) 38%,transparent),0 0 1px color-mix(in srgb,var(--fx-c) 60%,transparent);
+  --glow2:0 0 10px color-mix(in srgb,var(--fx-c) 25%,transparent);
+  --fx-scan:color-mix(in srgb,var(--fx-c) 35%,transparent);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme=dark]).fixmiss,:root:not([data-theme=dark]).wrongfx{
+    --hi:color-mix(in srgb,var(--fx-c) 88%,#000);
+    --tx:color-mix(in srgb,var(--fx-c) 78%,#000);
+    --mu:color-mix(in srgb,var(--fx-c) 50%,#6a7180);
+    --dim:color-mix(in srgb,var(--fx-c) 35%,#8a9098);
+    --onac:color-mix(in srgb,var(--fx-c) 6%,#f4f4f0);
+    --glow:none;--glow2:none;
+  }
+}
+:root[data-theme=light].fixmiss,:root[data-theme=light].wrongfx{
+  --hi:color-mix(in srgb,var(--fx-c) 88%,#000);
+  --tx:color-mix(in srgb,var(--fx-c) 78%,#000);
+  --mu:color-mix(in srgb,var(--fx-c) 50%,#6a7180);
+  --dim:color-mix(in srgb,var(--fx-c) 35%,#8a9098);
+  --onac:color-mix(in srgb,var(--fx-c) 6%,#f4f4f0);
+  --glow:none;--glow2:none;
+}
+html.fixmiss{--fx-c:var(--fx-blue-settled);animation:fx-blue-settle var(--fx-fade) ease var(--fx-hold) 1 both}
+html.wrongfx{--fx-c:var(--fx-red-settled);animation:fx-red-settle var(--fx-fade) ease var(--fx-hold) 1 both}
+@keyframes fx-blue-settle{0%{--fx-c:var(--fx-blue-peak)}100%{--fx-c:var(--fx-blue-settled)}}
+@keyframes fx-red-settle{0%{--fx-c:var(--fx-red-peak)}100%{--fx-c:var(--fx-red-settled)}}
+html.fixmiss .btn.pri,html.wrongfx .btn.pri{box-shadow:var(--glow2),inset 0 0 12px color-mix(in srgb,var(--fx-c) 5%,transparent)}
 #nd-fix{position:fixed;inset:0;z-index:40;pointer-events:none;background:transparent}
 #nd-fix>div{position:absolute;inset:0;pointer-events:none;opacity:0}
-html.fixmiss #nd-fix,html.wrongfx #nd-fix{background:var(--fx-tint)}
 html.fixmiss #app,html.wrongfx #app{animation:fx-shake var(--fx-shake) linear 1}
 @keyframes fx-shake{0%,100%{transform:translate3d(0,0,0)}25%{transform:translate3d(var(--fx-amp),calc(var(--fx-amp)*-.5),0)}50%{transform:translate3d(calc(var(--fx-amp)*-1),var(--fx-amp),0)}75%{transform:translate3d(calc(var(--fx-amp)*.6),calc(var(--fx-amp)*-.4),0)}}
-.fx-flash{background:var(--fx-flash-color)}
-html.fixmiss .fx-flash,html.wrongfx .fx-flash{animation:fx-flash var(--fx-flash) steps(1,end) 1}
-@keyframes fx-flash{0%{opacity:1}100%{opacity:0}}
 .fx-scan{background:repeating-linear-gradient(to bottom,transparent 0 3px,var(--fx-scan) 3px 4px)}
 html.fixmiss .fx-scan,html.wrongfx .fx-scan{animation:fx-scan var(--fx-total) linear 1}
 @keyframes fx-scan{0%{opacity:0}15%{opacity:.75}100%{opacity:0}}
-@media (prefers-reduced-motion:reduce){html.fixmiss #app,html.wrongfx #app,#nd-fix *{animation:none!important}#nd-fix>div{display:none}}
+@media (prefers-reduced-motion:reduce){
+  html.fixmiss,html.wrongfx{animation:none!important}
+  html.fixmiss #app,html.wrongfx #app,#nd-fix *{animation:none!important}
+  #nd-fix>div{display:none}
+}
