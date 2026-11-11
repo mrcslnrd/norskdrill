@@ -992,6 +992,106 @@ $("bk-do").addEventListener("click",function(){
   save();$("bk").classList.remove("on");renderHome();toast("Progress imported ✓");
 });
 
+/* ---------- progress file (Settings: Export / Import progress) ---------- */
+function knownProgressKey(k){
+  return k===KEY||(typeof k==="string"&&k.indexOf(KEY+".v")===0&&k.slice(-6)==="backup");
+}
+function progressFileName(){return "norskdrill-progress-"+today()+".json"}
+function collectProgressKeys(){
+  save();
+  var keys={};keys[KEY]=D;
+  try{
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(k&&k!==KEY&&knownProgressKey(k)){
+        var raw=localStorage.getItem(k);
+        try{keys[k]=JSON.parse(raw)}catch(e){}
+      }
+    }
+  }catch(e){}
+  return keys;
+}
+function makeProgressFile(){
+  return {app:"norsk-drill",kind:"progress",version:VERSION,at:new Date().toISOString(),keys:collectProgressKeys()};
+}
+function exportProgressFile(){
+  var data=JSON.stringify(makeProgressFile(),null,2);
+  var blob=new Blob([data],{type:"application/json"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a");
+  a.href=url;a.download=progressFileName();a.rel="noopener";a.style.display="none";
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){if(a.parentNode)a.parentNode.removeChild(a);URL.revokeObjectURL(url)},1000);
+  toast("Saved "+progressFileName());
+}
+function validateProgressFile(o){
+  if(!o||typeof o!=="object"||Array.isArray(o))throw new Error("bad");
+  if(o.app!=="norsk-drill"||o.kind!=="progress")throw new Error("bad");
+  var keys=o.keys;
+  if(!keys||typeof keys!=="object"||Array.isArray(keys))throw new Error("bad");
+  var names=Object.keys(keys);
+  if(!names.length)throw new Error("bad");
+  for(var i=0;i<names.length;i++){
+    var k=names[i],v=keys[k];
+    if(!knownProgressKey(k)||!v||typeof v!=="object"||Array.isArray(v))throw new Error("bad");
+  }
+  var main=keys[KEY];
+  if(!main||!main.items||typeof main.items!=="object"||Array.isArray(main.items)||!main.stats||typeof main.stats!=="object"||Array.isArray(main.stats))throw new Error("bad");
+  return o;
+}
+function importProgressFile(txt){
+  var o;
+  try{o=typeof txt==="string"?JSON.parse(txt):txt;validateProgressFile(o)}catch(e){
+    alert("That file is not a Norsk drill progress backup.");
+    return false;
+  }
+  var main=o.keys[KEY],n=Object.keys(main.items).length;
+  if(!confirm("Replace the progress on this device with this backup ("+n+" sentences, saved "+String(o.at||"").slice(0,10)+")?"))return false;
+  var snap={};
+  try{
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(k&&knownProgressKey(k))snap[k]=localStorage.getItem(k);
+    }
+  }catch(e){}
+  var prev=D;
+  try{
+    var theme=D.set&&D.set.theme;
+    var nd={items:main.items,stats:main.stats,set:main.set||{},lesson:main.lesson||null,pat:main.pat,pts:main.pts,chk:main.chk,tag:main.tag,flog:main.flog,out:main.out,expr:main.expr};
+    nd.set=nd.set&&typeof nd.set==="object"?nd.set:{};
+    nd.set.theme=theme;
+    D=normalize(nd);if(!main.set||!main.set.drill)D.set.drill=[];
+    var json=JSON.stringify(D);
+    localStorage.setItem(KEY,json);
+    if(localStorage.getItem(KEY)!==json)throw new Error("verify");
+    Object.keys(o.keys).forEach(function(k){
+      if(k===KEY)return;
+      localStorage.setItem(k,JSON.stringify(o.keys[k]));
+    });
+    location.reload();
+    return true;
+  }catch(e){
+    D=prev;
+    try{Object.keys(snap).forEach(function(k){localStorage.setItem(k,snap[k])})}catch(e2){}
+    alert("Couldn't save the backup. Your current progress is unchanged.");
+    return false;
+  }
+}
+$("bk-file-exp").addEventListener("click",exportProgressFile);
+$("bk-file-imp").addEventListener("click",function(){var inp=$("bk-file");inp.value="";inp.click()});
+$("bk-file").addEventListener("change",function(){
+  var f=this.files&&this.files[0];this.value="";
+  if(!f)return;
+  var reader=new FileReader();
+  reader.onerror=function(){alert("That file is not a Norsk drill progress backup.")};
+  reader.onload=function(){
+    var t=reader.result;
+    if(typeof t!=="string"){alert("That file is not a Norsk drill progress backup.");return}
+    importProgressFile(t);
+  };
+  try{reader.readAsText(f)}catch(e){alert("That file is not a Norsk drill progress backup.")}
+});
+
 
 /* ---------- v5.6.3 sync: progress to a secret GitHub gist, so the tutor can read it ----------
    The token lives only in localStorage under its own key (never in D, the export code, the repo or the build).
@@ -1170,7 +1270,7 @@ function hostBadge(){var x=document.querySelector("ship-page-badge"),on=false;if
 hostBadge();
 try{new MutationObserver(hostBadge).observe(document.body,{childList:true});new MutationObserver(hostBadge).observe(document.documentElement,{childList:true})}catch(e){}
 $("ver").textContent="Norsk drill v"+VERSION+(VERSION_NOTE?" "+VERSION_NOTE:"")+" · "+VERSION_DATE;
-window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,fullText:fullText,missBg:missBg,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);var r=rng(hashStr("norsk-drill|"+t));return{ids:composeSession(r,LESSON_SIZE,function(nn){return buildLesson(r,nn,f)}),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},syncSummary:syncSummary,syncNow:syncNow,syncGet:syncGet,isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS,basicPoss:basicPoss,basicInf:basicInf,drillOut:drillOut,weakExprList:function(){return weakExprList().map(function(e){return e.id})},EXPR:EXPR,pickExprs:pickExprs,composeSession:composeSession};
+window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,makeProgressFile:makeProgressFile,progressFileName:progressFileName,validateProgressFile:validateProgressFile,importProgressFile:importProgressFile,exportProgressFile:exportProgressFile,fullText:fullText,missBg:missBg,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);var r=rng(hashStr("norsk-drill|"+t));return{ids:composeSession(r,LESSON_SIZE,function(nn){return buildLesson(r,nn,f)}),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},syncSummary:syncSummary,syncNow:syncNow,syncGet:syncGet,isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS,basicPoss:basicPoss,basicInf:basicInf,drillOut:drillOut,weakExprList:function(){return weakExprList().map(function(e){return e.id})},EXPR:EXPR,pickExprs:pickExprs,composeSession:composeSession};
 if(location.protocol==="file:")$("filewarn").style.display="block";
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 (function(){var ok=false;try{localStorage.setItem("nd.probe","1");ok=localStorage.getItem("nd.probe")==="1";localStorage.removeItem("nd.probe")}catch(e){}SV.ok=ok;SV.t=Date.now()})();
