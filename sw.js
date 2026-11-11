@@ -1,6 +1,6 @@
-/* Norsk drill service worker: network-first (fresh when online), cached fallback (works offline).
+/* Norsk drill service worker: cache-first for speed; every request also refreshes the cache in the background, so an edit shows up on the next open.
    VERSION is the first 10 hex chars of sha1 over index.html, app.js, cards.js, the stylesheets, and cards/*. */
-const VERSION = "d0d6c13a5f";
+const VERSION = "463ccc6cc2";
 const CACHE = "norsk-drill-" + VERSION;
 const SHELL = ["./", "index.html", "app.js", "cards.js", "style.css", "effects.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "cards/index.txt", "cards/patterns.txt", "cards/sequence.txt", "cards/order.txt", "cards/fill.txt", "cards/mc.txt", "cards/gap.txt", "cards/typed.txt", "cards/sense.txt", "cards/expr.txt"];
 self.addEventListener("install", e => {
@@ -12,10 +12,9 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
   const req = e.request;
   if (req.method !== "GET" || new URL(req.url).origin !== location.origin) return;
-  e.respondWith(
-    fetch(req).then(res => {
-      if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
-      return res;
-    }).catch(() => caches.match(req, { ignoreSearch: true }).then(hit => hit || caches.match("index.html")))
-  );
+  e.respondWith(caches.open(CACHE).then(c => c.match(req, { ignoreSearch: true }).then(hit => {
+    const net = fetch(req).then(res => { if (res && res.ok) c.put(req, res.clone()); return res; });
+    if (hit) { e.waitUntil(net.catch(() => {})); return hit; }
+    return net.catch(() => c.match("index.html"));
+  })));
 });
