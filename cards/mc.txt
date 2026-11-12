@@ -143,9 +143,9 @@ sh10 | mc | to shoot | to shoot | skyte / skjyte / sjyte / kjyte | Before y, sky
 sh11 | mc | a kitchen | kitchen | kjøkken / skjøkken / sjøkken / kjøken | English ch before ø is kj, and the k is doubled after the short vowel. | 
 sh12 | mc | a kettle | kettle | kjele / skjele / sjele / skele | English k before e is kj. | 
 sh13 | mc | a keel | keel | kjøl / skjøl / sjøl / skøl | English k before ø is kj. | 
-sh14 | mc | a boss | boss | sjef / skjef / kjef / chef | Portuguese ch becomes sj. Sjef is the boss, not a cook. | 
-sh15 | mc | chocolate | chocolate | sjokolade / chokolade / skjokolade / kjokolade | Portuguese and English ch here is sj, not ch. | 
-sh16 | mc | a chance | a chance | sjanse / skjanse / kjanse / chanse | Portuguese ch becomes sj. | 
+sh14 | mc | a boss | boss | sjef / skjef / kjef / chef | In Norwegian this ch sound is spelled sj. Sjef is the boss, not a cook. | 
+sh15 | mc | chocolate | chocolate | sjokolade / chokolade / skjokolade / kjokolade | The English ch here is spelled sj in Norwegian. | 
+sh16 | mc | a chance | a chance | sjanse / skjanse / kjanse / chanse | The ch sound is spelled sj in Norwegian. | 
 sh17 | mc | a garage | garage | garasje / garaskje / garashe / garage | The soft ending is sj, written sje. | 
 sh18 | mc | twenty | twenty | tjue / skjue / kjue / stjue | Tjue is one of the few words spelled tj. | 
 sh19 | mc | to earn | to earn | tjene / skjene / kjene / sjene | Tjene is spelled tj, not skj. | 

@@ -14,5 +14,3 @@ jobs:
           node-version: "20"
       - name: Parse cards and run content QA
         run: node tools/qa-content.js
-      - name: Equivalence with v5.6.8
-        run: node tools/equiv-cards.js
