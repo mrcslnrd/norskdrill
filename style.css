@@ -11,12 +11,19 @@
   --glow:0 0 6px rgba(141,255,176,.38),0 0 1px rgba(141,255,176,.6);--glow2:0 0 10px rgba(141,255,176,.25);
   --fr:#d4505f;--fw:rgba(225,240,230,.5);--fb:#5a7fdc;--scan:.045;--vig:.55;--miss:rgba(255,72,72,.16);
   --mono:"Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace}
-@media (prefers-color-scheme: light){:root:not([data-theme=dark]){--bg:#e8eee5;--bg2:#e1e9dd;--s1:rgba(20,70,40,.035);--s2:rgba(20,70,40,.06);--s3:rgba(20,70,40,.16);--ln:rgba(20,70,40,.14);--ln2:rgba(20,70,40,.32);
+@media (prefers-color-scheme: light){:root:not([data-theme=dark]):not([data-theme=amber]){--bg:#e8eee5;--bg2:#e1e9dd;--s1:rgba(20,70,40,.035);--s2:rgba(20,70,40,.06);--s3:rgba(20,70,40,.16);--ln:rgba(20,70,40,.14);--ln2:rgba(20,70,40,.32);
   --tx:#123a22;--hi:#06210f;--mu:#4c6c57;--dim:#7b9483;--ac:#0d6a33;--acx:rgba(13,106,51,.07);--onac:#eef5ea;--ok:#0d6a33;--okb:rgba(13,106,51,.06);--no:#a2470f;--nob:rgba(162,71,15,.06);--wa:#7f5d00;
   --glow:none;--glow2:none;--fr:#ba0c2f;--fw:rgba(255,255,255,1);--fb:#00205b;--scan:0;--vig:0;--miss:rgba(190,20,40,.11)}}
 :root[data-theme=light]{--bg:#e8eee5;--bg2:#e1e9dd;--s1:rgba(20,70,40,.035);--s2:rgba(20,70,40,.06);--s3:rgba(20,70,40,.16);--ln:rgba(20,70,40,.14);--ln2:rgba(20,70,40,.32);
   --tx:#123a22;--hi:#06210f;--mu:#4c6c57;--dim:#7b9483;--ac:#0d6a33;--acx:rgba(13,106,51,.07);--onac:#eef5ea;--ok:#0d6a33;--okb:rgba(13,106,51,.06);--no:#a2470f;--nob:rgba(162,71,15,.06);--wa:#7f5d00;
   --glow:none;--glow2:none;--fr:#ba0c2f;--fw:rgba(255,255,255,1);--fb:#00205b;--scan:0;--vig:0;--miss:rgba(190,20,40,.11)}
+/* v5.8.0 "amber": the same phosphor terminal in amber, like an old amber monitor. Wrong words stay red. */
+:root[data-theme=amber]{color-scheme:dark;--bg:#0a0602;--bg2:#130c03;--s1:rgba(255,176,0,.035);--s2:rgba(255,176,0,.07);--s3:rgba(255,176,0,.16);--ln:rgba(255,176,0,.14);--ln2:rgba(255,176,0,.32);
+  --tx:#ffc760;--hi:#ffe4ad;--mu:#b88a3e;--dim:#80602b;--ac:#ffb000;--acx:rgba(255,176,0,.08);--onac:#140c00;
+  --ok:#ffb000;--okb:rgba(255,176,0,.06);--no:#ff5a4a;--nob:rgba(255,90,74,.07);--wa:#fff0a8;
+  --glow:0 0 6px rgba(255,176,0,.4),0 0 1px rgba(255,176,0,.65);--glow2:0 0 10px rgba(255,176,0,.26);
+  --fr:#d4505f;--fw:rgba(240,230,215,.5);--fb:#5a7fdc;--scan:.05;--vig:.55;--miss:rgba(255,72,72,.16)}
+html[data-theme=amber]:not(.fixmiss):not(.wrongfx) .btn.pri{box-shadow:var(--glow2),inset 0 0 12px rgba(255,176,0,.05)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font:400 16px/1.5 var(--mono);touch-action:manipulation;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 body{background:radial-gradient(120% 90% at 50% 35%,var(--bg2),var(--bg) 70%)}
