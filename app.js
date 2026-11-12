@@ -47,7 +47,7 @@ function tileWord(w){return w.toLocaleLowerCase("nb").replace(/[,;:]/g,"")}
 function tileWords(s){var w=s.split(" ").map(tileWord);w[w.length-1]=w[w.length-1].replace(/[.?!]+$/,"");return w.filter(Boolean)}
 function tileX(x){return tileWord(x).replace(/[.?!]+$/,"")}
 function markWord(s,w){var i=s.indexOf(w);if(i<0)return esc(s);return esc(s.slice(0,i))+"<b>"+esc(w)+"</b>"+esc(s.slice(i+w.length))}
-function typeLabel(it){return{order:"Build the sentence",mc:"Pick the right form",sense:"What does the bold word mean?",gap:"Where does "+(it.adv||"ikke")+" go?",fill:"Tap the word that fits",typed:"Type it (optional)"}[it.type]}
+function typeLabel(it){return{order:"Build the sentence",mc:"Pick the right form",sense:"What does the bold word mean?",gap:"Where does "+(it.adv||"ikke")+" go? Pick the sentence",fill:"Tap the word that fits",typed:"Type it (optional)"}[it.type]}
 function isEasy(it){return fullText(it).split(/\s+/).length<=EASY_WORDS}
 function norm(s){return s.toLowerCase().replace(/[.,!?;:]/g,"").replace(/\s+/g," ").trim()}
 
@@ -728,10 +728,10 @@ function next(){
     h+='<div class="sent">'+markWord(it.s,it.word)+'</div><div class="lift" aria-hidden="true"></div>'+sopts.map(function(o,i){return'<button class="opt" data-i="'+i+'">'+esc(o.o)+'</button>'}).join("");
     c.innerHTML=h;setAct("Check",false);
   }else if(it.type==="gap"){
-    var g=parseGap(it);S.state={g:g};
-    h+='<div class="lift" aria-hidden="true"></div><div class="gaps">';
-    g.words.forEach(function(w,i){var last=i===g.words.length-1;h+='<span class="w">'+esc(w)+'</span>'+(last?'<span style="white-space:nowrap">':'')+'<button class="gap" data-i="'+(i+1)+'" aria-label="gap after '+esc(w)+'">+</button>'+(last?'<span class="w">'+esc(g.punct)+'</span></span>':'')});
-    h+='</div>';
+    var g=parseGap(it),adv=it.adv||"ikke",seen={},gopts=[];
+    [g.at,g.at-1,g.at+1].forEach(function(at){if(at<1||at>g.words.length)return;var w=g.words.slice();w.splice(at,0,adv);var t=w.join(" ")+g.punct;if(seen[t])return;seen[t]=1;gopts.push({o:t,ok:at===g.at})});
+    gopts=shuffle(gopts);S.state={g:g,opts:gopts};
+    h+='<div class="lift" aria-hidden="true"></div>'+gopts.map(function(o,i){return'<button class="opt" data-i="'+i+'">'+esc(o.o)+'</button>'}).join("");
     c.innerHTML=h;setAct("Check",false);
   }else if(it.type==="fill"){
     var chips=shuffle([it.ans].concat(it.wrong));S.state={chips:chips};
@@ -849,13 +849,9 @@ $("card").addEventListener("click",function(e){
     var sl=$("slot");if(sl){sl.textContent=pick.o;sl.classList.add(pick.ok?"ok":"no")}
     answer(pick.ok,it.prompt.indexOf("___")>-1?it.prompt.replace("___",pick.o):pick.o);
   }else if(it.type==="gap"&&b.dataset.i!==undefined){
-    var at=+b.dataset.i,g=S.state.g,ok=at===g.at;
-    document.querySelectorAll(".gap").forEach(function(x){x.disabled=true});
-    var gaps=document.querySelectorAll(".gap");
-    gaps[g.at-1].textContent=it.adv||"ikke";gaps[g.at-1].classList.add("ok");
-    if(!ok){b.textContent=it.adv||"ikke";b.classList.add("no")}
-    var w=g.words.slice();w.splice(at,0,it.adv||"ikke");
-    answer(ok,w.join(" ")+g.punct);
+    var gopts=S.state.opts,gpick=gopts[+b.dataset.i];
+    document.querySelectorAll(".opt").forEach(function(x,i){x.disabled=true;if(gopts[i].ok)x.classList.add("ok");else if(i===+b.dataset.i)x.classList.add("no")});
+    answer(gpick.ok,gpick.o);
   }else if(it.type==="fill"&&b.dataset.i!==undefined){
     var ch=S.state.chips,i=+b.dataset.i,ok3=ch[i]===it.ans;
     document.querySelectorAll(".chip").forEach(function(x,k){x.disabled=true;if(ch[k]===it.ans)x.classList.add("ok");else if(k===i)x.classList.add("no")});
