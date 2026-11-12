@@ -5,7 +5,7 @@
   --fx-blue-peak:#2f6bff;--fx-blue-settled:#5a86d4;
   --fx-red-peak:#ff2a2a;--fx-red-settled:#d45c5c;
 }
-@media (prefers-color-scheme: light){:root:not([data-theme=dark]){
+@media (prefers-color-scheme: light){:root:not([data-theme=dark]):not([data-theme=amber]){
   --fx-blue-peak:#1530c0;--fx-blue-settled:#2a4a8c;
   --fx-red-peak:#c10a0a;--fx-red-settled:#8a2c2c;
 }}
@@ -32,7 +32,7 @@ html.fixmiss,html.wrongfx,:root.fixmiss,:root.wrongfx{
   --fx-scan:color-mix(in srgb,var(--fx-c) 35%,transparent);
 }
 @media (prefers-color-scheme: light){
-  :root:not([data-theme=dark]).fixmiss,:root:not([data-theme=dark]).wrongfx{
+  :root:not([data-theme=dark]):not([data-theme=amber]).fixmiss,:root:not([data-theme=dark]):not([data-theme=amber]).wrongfx{
     --hi:color-mix(in srgb,var(--fx-c) 88%,#000);
     --tx:color-mix(in srgb,var(--fx-c) 78%,#000);
     --mu:color-mix(in srgb,var(--fx-c) 50%,#6a7180);

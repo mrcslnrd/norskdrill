@@ -983,7 +983,7 @@ $("bk-do").addEventListener("click",function(){
   if(!confirm("Replace the progress on this device with this backup ("+n+" sentences, saved "+String(o.at||"").slice(0,10)+")?"))return;
   var theme=D.set.theme;
   var nd={items:o.items,stats:o.stats,set:o.set||{},lesson:o.lesson||null,pat:o.pat,pts:o.pts,chk:o.chk,tag:o.tag,flog:o.flog,out:o.out,expr:o.expr};
-  nd.set.theme=theme;
+  nd.set.theme=theme;nd.set.night=D.set.night;
   D=normalize(nd);if(!o.set||!o.set.drill)D.set.drill=[];
   save();$("bk").classList.remove("on");renderHome();toast("Progress imported ✓");
 });
@@ -1052,10 +1052,10 @@ function importProgressFile(txt){
   }catch(e){}
   var prev=D;
   try{
-    var theme=D.set&&D.set.theme;
+    var theme=D.set&&D.set.theme,night=D.set&&D.set.night;
     var nd={items:main.items,stats:main.stats,set:main.set||{},lesson:main.lesson||null,pat:main.pat,pts:main.pts,chk:main.chk,tag:main.tag,flog:main.flog,out:main.out,expr:main.expr};
     nd.set=nd.set&&typeof nd.set==="object"?nd.set:{};
-    nd.set.theme=theme;
+    nd.set.theme=theme;nd.set.night=night;
     D=normalize(nd);if(!main.set||!main.set.drill)D.set.drill=[];
     var json=JSON.stringify(D);
     localStorage.setItem(KEY,json);
@@ -1250,12 +1250,17 @@ $("quit").addEventListener("click",function(){
   if(S.attempts>0&&!confirm("End this session? Your progress so far is saved."))return;
   S=null;renderHome();show("v-home");
 });
-$("reset").addEventListener("click",function(){if(confirm("Erase all progress and weak spots on this device?")){var th=D.set.theme;D=normalize({set:{theme:th}});save();renderHome();toast("Progress reset")}});
-$("theme").addEventListener("click",function(){var r=document.documentElement,cur=r.getAttribute("data-theme");
-  var dark=cur?cur==="dark":!window.matchMedia("(prefers-color-scheme: light)").matches;var nt=dark?"light":"dark";r.setAttribute("data-theme",nt);D.set.theme=nt;save();paintChrome();themeLabel()});
+$("reset").addEventListener("click",function(){if(confirm("Erase all progress and weak spots on this device?")){var th=D.set.theme,ni=D.set.night;D=normalize({set:{theme:th,night:ni}});save();renderHome();toast("Progress reset")}});
+/* v5.8.0: three looks. dark = green phosphor, amber = amber phosphor, light = day. D.set.night remembers which night look the home link returns to. */
+var LOOKS=["dark","amber","light"];
+function setLook(nt){if(LOOKS.indexOf(nt)<0)nt="dark";document.documentElement.setAttribute("data-theme",nt);D.set.theme=nt;if(nt!=="light")D.set.night=nt;save();paintChrome();themeLabel()}
+$("theme").addEventListener("click",function(){setLook(isDark()?"light":(D.set.night==="amber"?"amber":"dark"))});
+var lookEl=$("look");if(lookEl)lookEl.addEventListener("click",function(e){var b=e.target.closest("[data-look]");if(b)setLook(b.dataset.look)});
 /* v5.5f: the footer link names the mode you would switch to */
-function isDark(){var cur=document.documentElement.getAttribute("data-theme");return cur?cur==="dark":!window.matchMedia("(prefers-color-scheme: light)").matches}
-function themeLabel(){var d=isDark(),b=$("theme");b.textContent=d?"Day mode":"Night mode";b.setAttribute("aria-label",d?"Switch to day mode":"Switch to night mode")}
+function isDark(){var cur=document.documentElement.getAttribute("data-theme");return cur?cur!=="light":!window.matchMedia("(prefers-color-scheme: light)").matches}
+function curLook(){var cur=document.documentElement.getAttribute("data-theme");return LOOKS.indexOf(cur)>=0?cur:(isDark()?"dark":"light")}
+function themeLabel(){var d=isDark(),b=$("theme");b.textContent=d?"Day mode":"Night mode";b.setAttribute("aria-label",d?"Switch to day mode":"Switch to night mode");
+  var lk=curLook();document.querySelectorAll("#look [data-look]").forEach(function(x){var on=x.dataset.look===lk;x.classList.toggle("on",on);x.setAttribute("aria-pressed",on?"true":"false")})}
 if(D.set.theme)document.documentElement.setAttribute("data-theme",D.set.theme);
 paintChrome();themeLabel();
 try{window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",function(){paintChrome();themeLabel()})}catch(e){}
