@@ -1,6 +1,6 @@
 /* Norsk drill service worker: cache-first for speed; every request also refreshes the cache in the background, so an edit shows up on the next open.
    VERSION is the first 10 hex chars of sha1 over index.html, app.js, cards.js, the stylesheets, and cards/*. */
-const VERSION = "9d07ea77b2";
+const VERSION = "ff4681855a";
 const CACHE = "norsk-drill-" + VERSION;
 const SHELL = ["./", "index.html", "app.js", "cards.js", "style.css", "effects.css", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "cards/index.txt", "cards/patterns.txt", "cards/sequence.txt", "cards/order.txt", "cards/fill.txt", "cards/mc.txt", "cards/gap.txt", "cards/typed.txt", "cards/sense.txt", "cards/expr.txt"];
 self.addEventListener("install", e => {

@@ -1,7 +1,7 @@
 /* Tuning: peak snaps at once, holds --fx-hold, eases --fx-fade to settled, then stays until the next card. */
 @property --fx-c{syntax:"<color>";inherits:true;initial-value:#8dffb0}
 :root{
-  --fx-hold:.6s;--fx-fade:.6s;--fx-shake:250ms;--fx-amp:3px;--fx-total:1.2s;
+  --fx-hold:.6s;--fx-fade:.6s;--fx-total:1.2s;
   --fx-blue-peak:#2f6bff;--fx-blue-settled:#5a86d4;
   --fx-red-peak:#ff2a2a;--fx-red-settled:#d45c5c;
 }
@@ -56,8 +56,6 @@ html.wrongfx{--fx-c:var(--fx-red-settled);animation:fx-red-settle var(--fx-fade)
 html.fixmiss .btn.pri,html.wrongfx .btn.pri{box-shadow:var(--glow2),inset 0 0 12px color-mix(in srgb,var(--fx-c) 5%,transparent)}
 #nd-fix{position:fixed;inset:0;z-index:40;pointer-events:none;background:transparent}
 #nd-fix>div{position:absolute;inset:0;pointer-events:none;opacity:0}
-html.fixmiss #app,html.wrongfx #app{animation:fx-shake var(--fx-shake) linear 1}
-@keyframes fx-shake{0%,100%{transform:translate3d(0,0,0)}25%{transform:translate3d(var(--fx-amp),calc(var(--fx-amp)*-.5),0)}50%{transform:translate3d(calc(var(--fx-amp)*-1),var(--fx-amp),0)}75%{transform:translate3d(calc(var(--fx-amp)*.6),calc(var(--fx-amp)*-.4),0)}}
 .fx-scan{background:repeating-linear-gradient(to bottom,transparent 0 3px,var(--fx-scan) 3px 4px)}
 html.fixmiss .fx-scan,html.wrongfx .fx-scan{animation:fx-scan var(--fx-total) linear 1}
 @keyframes fx-scan{0%{opacity:0}15%{opacity:.75}100%{opacity:0}}
