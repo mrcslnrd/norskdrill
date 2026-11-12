@@ -12,7 +12,7 @@ This note is for adding or fixing a card, and for backing up progress, without e
 - `style.css`, `effects.css` — look and the blue/red flash.
 - `sw.js` — service worker. `VERSION` is the cache name.
 - `cards/` — all drill content. One card is one line.
-- `tools/qa-content.js`, `tools/equiv-cards.js` — checks that must pass before a release.
+- `tools/qa-content.js` — the content check that must pass before a release.
 - `test/` — headless Chrome checks (not part of the site).
 
 ## Card format
@@ -108,13 +108,11 @@ More detail lives in `cards/README.md`.
 ## Add or fix a card
 
 1. Edit the matching file under `cards/` (`order.txt`, `fill.txt`, `mc.txt`, `gap.txt`, `typed.txt`, `sense.txt`, or `expr.txt`). For a new grammar card, also add `id | pattern` to `cards/sequence.txt`. Keep the id stable if you are only fixing wording, so existing progress still matches.
-2. From the repo root, both of these must pass with no `FAIL` lines:
+2. From the repo root, this must pass with no `FAIL` lines:
 
    `node tools/qa-content.js`
 
-   `node tools/equiv-cards.js`
-
-   The first checks feminine forms, options, and that every sentence can be built from its tiles. The second checks that the cards still match commit `668437d` (v5.6.8). A wording change or a new card will fail that second check on purpose. Only then update the `REF` inside `tools/equiv-cards.js` to a commit that already has the new cards, and run it again.
+   It checks feminine forms, options, and that every sentence can be built from its tiles.
 3. Bump `VERSION` in `sw.js` to the first 10 characters of:
 
    `cat index.html app.js cards.js style.css effects.css cards/* | sha1sum | cut -c1-10`
