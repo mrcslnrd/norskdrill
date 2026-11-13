@@ -1,24 +1,24 @@
 # id | label | hint | pfx | short | b1
 # b1: blank = absent, yes = true, 1 = the number 1. short blank = absent.
-etter-at-hadde | Etter at + hadde | etter at + hadde + participle, then verb–subject | eh |  | 
-ikke-bisetning | ikke after subject | ikke right after the subject in subordinate clauses and questions | ib |  | 
-jo-jo | Jo … jo | jo + comparative, jo + comparative + verb + subject | jj |  | 
-v2-fronted-time | V2 word order | the verb is always 2nd: after a fronted time/place phrase, object or whole clause, verb + subject; only one thing before the verb; kanskje before ikke; questions; imperatives | vt |  | 
-comparison | Comparison | enn, like … som, -ere / -est, irregular forms | cp |  | 
-conditional | Hvis … hadde / ville | hvis + preteritum / hadde + participle, then ville / hadde + subject | cd | Hvis … ville | 
-linking-words | Linking words | da / når, mens, fordi, selv om, derfor, likevel, men, så | lw |  | 
-questions | Questions | yes/no: verb first; question word + verb + subject; indirect: question word/om + subject + verb | qs |  | 
-relative-som | Relative clauses (som) | som is needed for a subject; som can be dropped for an object | rs | Relative som | 
-at-som-aa | at / som / å | at + clause, som in relative clauses and 'as', å + infinitive, for å, uten å | as |  | 
-reported-speech | Reported speech | han sa at …: pronoun and tense shift, ikke before the verb | rp |  | 
-adverbs-bisetning | Subordinate clauses | fordi, selv om, hvis, når/da, mens, før, etter at, om/hvorvidt, hvem/hva som; subject + adverb + verb | ad |  | 
-ordinals | Ordinals and dates | første … trettiførste, den tjueførste oktober | od |  | 
-time-expressions | Time expressions | i morges, i natt / om natten, i forgårs, i fjor, på mandag / om mandagen, i sommer / om sommeren, for … siden | te |  | 
-small-words | Small words | altså, liksom, jo, bare, sant, heller/også, vel, nok, da, nemlig, likevel, ellers, selv … | sw |  | 
-particle-verbs | Particle verbs | stå opp, gi opp, slå av: ikke before the particle; pronoun before it (slo den av) | pv |  | 
-possessives | Possessives | bilen min / min bil; is the owner the subject of the same clause? yes → sin/sitt/sine, no → hans/hennes/deres | po |  | 
-sentence-adverbs | Sentence adverbs | the adverb goes right before the verb it belongs to; main clause: finite verb first (V2); unstressed pronoun before the adverb | sa |  | 
-definite-forms | Definite forms | den store bilen, det nye huset; no den without adjective; denne bilen; min nye bil; neste/forrige/hele/begge | df |  | 
+etter-at-hadde | Etter at + hadde | etter at + hadde + participle, then verb–subject | eh |  |
+ikke-bisetning | ikke after subject | ikke right after the subject in subordinate clauses and questions | ib |  |
+jo-jo | Jo … jo | jo + comparative, jo + comparative + verb + subject | jj |  |
+v2-fronted-time | V2 word order | the verb is always 2nd: after a fronted time/place phrase, object or whole clause, verb + subject; only one thing before the verb; kanskje before ikke; questions; imperatives | vt |  |
+comparison | Comparison | enn, like … som, -ere / -est, irregular forms | cp |  |
+conditional | Hvis … hadde / ville | hvis + preteritum / hadde + participle, then ville / hadde + subject | cd | Hvis … ville |
+linking-words | Linking words | da / når, mens, fordi, selv om, derfor, likevel, men, så | lw |  |
+questions | Questions | yes/no: verb first; question word + verb + subject; indirect: question word/om + subject + verb | qs |  |
+relative-som | Relative clauses (som) | som is needed for a subject; som can be dropped for an object | rs | Relative som |
+at-som-aa | at / som / å | at + clause, som in relative clauses and 'as', å + infinitive, for å, uten å | as |  |
+reported-speech | Reported speech | han sa at …: pronoun and tense shift, ikke before the verb | rp |  |
+adverbs-bisetning | Subordinate clauses | fordi, selv om, hvis, når/da, mens, før, etter at, om/hvorvidt, hvem/hva som; subject + adverb + verb | ad |  |
+ordinals | Ordinals and dates | første … trettiførste, den tjueførste oktober | od |  |
+time-expressions | Time expressions | i morges, i natt / om natten, i forgårs, i fjor, på mandag / om mandagen, i sommer / om sommeren, for … siden | te |  |
+small-words | Small words | altså, liksom, jo, bare, sant, heller/også, vel, nok, da, nemlig, likevel, ellers, selv … | sw |  |
+particle-verbs | Particle verbs | stå opp, gi opp, slå av: ikke before the particle; pronoun before it (slo den av) | pv |  |
+possessives | Possessives | bilen min / min bil; is the owner the subject of the same clause? yes → sin/sitt/sine, no → hans/hennes/deres | po |  |
+sentence-adverbs | Sentence adverbs | the adverb goes right before the verb it belongs to; main clause: finite verb first (V2); unstressed pronoun before the adverb | sa |  |
+definite-forms | Definite forms | den store bilen, det nye huset; no den without adjective; denne bilen; min nye bil; neste/forrige/hele/begge | df |  |
 da-naar | Da vs når | den gang da, hver gang når: da = one time or period in the past; når = every time, now or future; the question 'when?' is always når | dn |  | yes
 connector-inversion | Derfor, likevel, ellers | derfor, likevel, ellers, dessuten, etterpå first → verb + subject; men, og and så (= so) keep normal order | ci | Derfor / likevel | yes
 passive | Passive | ble / blir + participle for something that happens (huset ble bygget); -s after kan / må / skal / bør and in general statements (må gjøres, selges); av = by | pa |  | yes
@@ -27,4 +27,4 @@ prep-aa | Preposition + å | glad i å, flink til å, redd for å, lei av å, i 
 future | Skal, kommer til å, vil | skal = plan, promise or suggestion; kommer til å = prediction (it will happen); vil = want; ikke right after the first verb: kommer ikke til å | fu | Skal / kommer til å | yes
 sh-spelling | sh spelling | sk, skj, sj, kj, tj and stj: which letters write the sh sound | sh | sh spelling | 1
 b1-clicks | B1 clicks | tone words, verb traps, prepositions, order and forms | ck | B1 clicks | 1
-vocab | Vivid words | expressive compounds, particles, and lookalikes that do not share a meaning | vc |  | 
+vocab | Vivid words | expressive compounds, particles, and lookalikes that do not share a meaning | vc |  |

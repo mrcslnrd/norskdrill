@@ -4,7 +4,7 @@ const PORT = process.env.PORT || '8768';
 const chrome = spawn('/usr/bin/google-chrome', [
   '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
   '--window-size=390,844',
-  '--remote-debugging-port=9246','--user-data-dir=/tmp/chrome-nd-fix','about:blank'
+  '--remote-debugging-port=9246','--user-data-dir=/tmp/chrome-nd-fix-'+process.pid,'about:blank'
 ], {stdio:['ignore','pipe','pipe']});
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 let log=''; chrome.stderr.on('data', d => { log += d; });
@@ -37,9 +37,10 @@ const value = await send('Runtime.evaluate', {returnByValue:true, expression: `(
   wrong.click();
   const wrongColor=getComputedStyle(wrong).color;
   const fbNo=getComputedStyle(document.getElementById('fb'));
-  check('a wrong answer turns the word red and not the screen', wrong.classList.contains('no') && !document.documentElement.classList.contains('fixmiss') && !document.documentElement.classList.contains('miss') && fbNo.borderTopColor==='rgba(0, 0, 0, 0)', wrongColor+' '+fbNo.borderTopColor);
+  check('a wrong answer turns the word red', wrong.classList.contains('no') && !document.documentElement.classList.contains('fixmiss') && fbNo.borderTopColor==='rgba(0, 0, 0, 0)', wrongColor+' '+fbNo.borderTopColor);
+  check('a wrong answer tints the palette red', document.documentElement.classList.contains('wrongfx'), document.documentElement.className);
   document.getElementById('act').click();
-  check('the next card clears the tint', !document.documentElement.classList.contains('fixmiss'));
+  check('the next card clears the tint', !document.documentElement.classList.contains('fixmiss') && !document.documentElement.classList.contains('wrongfx'), document.documentElement.className);
   check('the missed item came back with a clean card', nd.cur() && nd.cur().id==='as5' && document.getElementById('fb').innerText.trim()==='', (nd.cur()&&nd.cur().id)+' q='+(nd.S()&&nd.S().queue));
   const again=[...document.querySelectorAll('.chip')].find(b=>b.textContent==='at');
   check('the answer chip is back', !!again, [...document.querySelectorAll('.chip')].map(b=>b.textContent).join('|'));
@@ -47,18 +48,17 @@ const value = await send('Runtime.evaluate', {returnByValue:true, expression: `(
   again.click();
   const fb=document.getElementById('fb');
   check('fixing the miss plays the level clear', document.documentElement.classList.contains('fixmiss') && fb.classList.contains('ok'), document.documentElement.className);
-  const flash=document.querySelector('.fx-flash');
-  const fs=getComputedStyle(flash);
   check('the veil does not block taps', getComputedStyle(document.getElementById('nd-fix')).pointerEvents==='none');
-  check('the flash is 80ms', fs.animationDuration==='0.08s' || fs.animationDuration==='80ms', fs.animationDuration);
-  check('the burst lasts 1.2s', getComputedStyle(document.querySelector('.fx-bits i')).animationDuration==='1.2s', getComputedStyle(document.querySelector('.fx-bits i')).animationDuration);
+  check('no full-screen flash or burst', !document.querySelector('.fx-flash,.fx-bits'));
+  const hs=getComputedStyle(document.documentElement);
+  check('the blue holds, then eases to the settled shade', hs.animationName==='fx-blue-settle' && hs.animationDelay==='0.6s' && hs.animationDuration==='0.6s', hs.animationName+' '+hs.animationDelay+' '+hs.animationDuration);
   // a first-try correct phrase must not glow
   nd.D().lesson={date:t, ids:['e161'], rev:[], cleared:[], done:false, focus:'questions'};
   document.getElementById('go-day').click();
   const words=nd.cur().ok[0].toLowerCase().replace(/[.,!?;:]/g,'').split(/\\s+/).filter(Boolean);
   words.forEach(w=>{ const b=[...document.querySelectorAll('#bank .tile')].find(x=>x.textContent===w); if(b) b.click(); });
   document.getElementById('act').click();
-  check('a first correct answer does not light the screen', document.getElementById('fb').classList.contains('ok') && !document.documentElement.classList.contains('fixmiss'), document.documentElement.className);
+  check('a first correct answer does not light the screen', document.getElementById('fb').classList.contains('ok') && !document.documentElement.classList.contains('fixmiss') && !document.documentElement.classList.contains('wrongfx'), document.documentElement.className);
   return {fail};
 })()`});
 const ex = events.filter(e => e.method==='Runtime.exceptionThrown').map(e => (e.params.exceptionDetails.exception&&e.params.exceptionDetails.exception.description)||e.params.exceptionDetails.text);

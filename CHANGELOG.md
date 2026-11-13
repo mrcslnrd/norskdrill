@@ -1,5 +1,17 @@
 # Norsk drill – changelog
 
+## v5.8.2 · 13 Nov 2026
+Cleanup and repairs only. No change to the look or to any card's text, answers, notes or tiles.
+- **Repairs.**
+  - The app no longer fails to open when saved progress is damaged (for example a setting stored as the wrong type). Damaged parts are reset; everything else is kept.
+  - The version line in Settings shows the real version again (it was stuck at 5.7.0).
+  - *Fordi det regnet, ble vi hjemme.* was in the deck twice (vt73 and ck22). ck22 is gone, and its answers are added to vt73.
+  - Importing a backup code with a damaged settings block no longer throws.
+- **Cleanup.** Removed code and styles left over from removed features: the old full-screen miss tint, the `+` gap squares, the old checklist rows, an unreachable reply-button branch, a duplicate shuffle, and unused colour variables. Trailing spaces removed from the card files.
+- **Checks.** The content QA now also fails on trailing whitespace, duplicate sequence rows, unknown patterns, the same exercise twice, files missing from the service worker cache list, and a version mismatch. The six headless Chrome checks were brought up to date (three were failing on stale expectations), run with `node test/run-all.mjs`, and run in CI.
+
+Versions 5.5.2 to 5.8.1 are described in their pull requests on GitHub.
+
 ## v5.5.1 · 23 Oct 2026
 - **Layout.** Text, buttons, the answer area and tiles are restored to their v5.4 vertical positions.
 

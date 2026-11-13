@@ -5,7 +5,7 @@ const PORT = process.env.PORT || '8768';
 const chrome = spawn('/usr/bin/google-chrome', [
   '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
   '--window-size=390,844',
-  '--remote-debugging-port=9241','--user-data-dir=/tmp/chrome-nd-fb','about:blank'
+  '--remote-debugging-port=9241','--user-data-dir=/tmp/chrome-nd-fb-'+process.pid,'about:blank'
 ], {stdio:['ignore','pipe','pipe']});
 let log=''; chrome.stderr.on('data', d => { log += d.toString(); });
 const sleep = ms => new Promise(r => setTimeout(r, ms));

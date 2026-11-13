@@ -1,113 +1,113 @@
 # id | mc | english | prompt | correct / wrong / wrong / wrong | why | g
 # The first option is the correct one. The app shuffles.
-etter14 | mc | After I had eaten breakfast, I went to work. | Etter at jeg ___ frokost, gikk jeg på jobb. | hadde spist / har spist / spist / hadde spiste | Two past events: the earlier one takes hadde + participle (spist). | 
-etter15 | mc | After she had washed the clothes, she made dinner. | Etter at hun hadde vasket klærne, ___ hun middag. | lagde / hadde laget / har laget / lager | Only the earlier action gets hadde + participle; the later one is a plain preterite. | 
-etter16 | mc | After we had left the office, we ate lunch. | Etter at vi ___ kontoret, spiste vi lunsj. | hadde forlatt / har forlatt / hadde forlot / forlatt | hadde + participle (forlatt), not the preterite form forlot. | 
-etter19 | mc | After the kids had fallen asleep, we tidied the living room. | Etter at barna ___, ryddet vi stuen. | hadde sovnet / har sovnet / hadde sovner / sovnet hadde | hadde + participle (sovnet): the helping verb comes first, then the participle. | 
-etter20 | mc | After he had got the job, he bought himself a new car. | Etter at han hadde fått jobben, ___ han seg ny bil. | kjøpte / hadde kjøpt / har kjøpt / kjøper | The main clause is the later event, so it is a simple preterite (kjøpte), then the subject. | 
-ikke25 | mc | I don't know what happened yesterday. | Jeg vet ikke ___ skjedde i går. | hva som / hva / hva det / som hva | No subject after the question word, so add som: hva som skjedde. | 
-jo12 | mc | The more I train, the stronger I get. | Jo mer jeg trener, jo ___ blir jeg. | sterkere / sterk / sterkest / mer sterk | Short adjectives take -ere in the comparative; mer sterk is a common mistake. | 
-jo14 | mc | The more people come, the better the atmosphere. | Jo ___ som kommer, jo bedre blir stemningen. | flere / mer / flest / mange | Countable things (people) take flere; uncountable things take mer. | 
-jo15 | mc | The more we train, the better we sleep. | Jo mer vi trener, jo ___ sover vi. | bedre / best / god / godere | Irregular: god – bedre – best. The comparative bedre goes after jo. | 
-jo16 | mc | I run faster than last year. | Jeg løper raskere ___ i fjor. | enn / som / at / jo | A comparative is followed by enn (than). som is for like … som. | 
-jo17 | mc | She's as strong as a bear. | Hun er like sterk ___ en bjørn. | som / enn / at / jo | like … som = as … as. | 
-v219 | mc | Yesterday I went to the doctor. | I går ___ jeg til legen. | gikk / har gått / går / gått | A specific past time (i går) takes the preterite, and the verb sits in 2nd position. | 
-v222 | mc | Yesterday I trained, and afterwards I ate a big dinner. | I går trente jeg, og etterpå ___ jeg en stor middag. | spiste / har spist / hadde spist / spiser | Finished events at a specific time: preterite. The verb stays in 2nd position after etterpå. | 
-v223 | mc | Two weeks ago I started reading the paper in Norwegian. | For to uker siden ___ jeg å lese avisen på norsk. | begynte / har begynt / begynner / hadde begynt | for … siden points to a finished past time: preterite, verb before subject. | 
-v224 | mc | Last year we travelled to Spain. | I fjor ___ vi til Spania. | reiste / har reist / reist / reiser | i fjor = a specific time in the past, so use the preterite. | 
-jj2 | mc | The more I read, the more I understand. | Jo mer jeg leser, jo ___ forstår jeg. | mer / mest / mye / flere | Long adjectives and 'more of something' take mer; the second jo-part still inverts. | 
-jj5 | mc | The more cooks, the worse the soup gets. | Jo flere kokker, jo ___ blir suppen. | dårligere / dårlig / dårligst / dårligste | Irregular comparative (god – bedre, mye – mer, få – færre, dårlig – dårligere, lang – lengre). | 
-jj11 | mc | The more you smile, the easier the day gets. | Jo mer du smiler, jo ___ blir dagen. | lettere / lett / lettest / lette | jo + comparative (short adjectives: -ere); the second part inverts: comparative, verb, subject. | 
-jj14 | mc | The shorter the days get, the longer the evenings get. | Jo kortere dagene blir, jo ___ blir kveldene. | lengre / lang / lengst / langere | Irregular comparative (god – bedre, mye – mer, få – færre, dårlig – dårligere, lang – lengre). | 
-jj17 | mc | The more news I read, the more worried I get. | Jo flere nyheter jeg leser, jo ___ bekymret blir jeg. | mer / mest / mye / flere | Long adjectives and 'more of something' take mer; the second jo-part still inverts. | 
-jj20 | mc | The longer we wait for the train, the angrier people get. | Jo lenger vi venter på toget, jo ___ blir folk. | sintere / sint / sintest / sinte | jo + comparative (short adjectives: -ere); the second part inverts: comparative, verb, subject. | 
-jj23 | mc | The more Uncle Per sings, the fewer guests are left. | Jo mer onkel Per synger, jo ___ gjester blir det igjen. | færre / få / færrest / fleste | Irregular comparative (god – bedre, mye – mer, få – færre, dårlig – dårligere, lang – lengre). | 
-jj26 | mc | The more I think about food, the hungrier I get. | Jo mer jeg tenker på maten, jo ___ blir jeg. | sultnere / sulten / sultnest / sultne | jo + comparative (short adjectives: -ere); the second part inverts: comparative, verb, subject. | 
-cp2 | mc | The moose is bigger than the reindeer. | Elgen er ___ enn reinsdyret. | større / stor / størst / storere | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. | 
-cp5 | mc | It is colder on the mountain than in the city. | Det er ___ på fjellet enn i byen. | kaldere / kald / kaldest / kaldt | Regular comparative: adjective + -ere, followed by enn (than). | 
-cp11 | mc | Norway is longer than Denmark. | Norge er ___ enn Danmark. | lengre / lang / lengst / langere | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. | 
-cp14 | mc | The house is as big as the school. | Huset er like ___ som skolen. | stort / stor / større / størst | like … som = as … as; the adjective stays in its basic form and agrees with the noun (-t for et-words). | 
-cp17 | mc | It is as cold outside as inside. | Det er like ___ ute som inne. | kaldt / kald / kaldere / kaldest | like … som = as … as; the adjective stays in its basic form and agrees with the noun (-t for et-words). | 
-cp20 | mc | She is the fastest in the class. | Hun er den ___ i klassen. | raskeste / raskest / raskere / raskt | Superlative: -est; after den / det / de it takes -este (den raskeste). | 
-cp23 | mc | Sunday is the nicest day of the week. | Søndag er den ___ dagen i uken. | fineste / finest / finere / fin | Superlative: -est; after den / det / de it takes -este (den raskeste). | 
-cp26 | mc | The most important thing is that you rest. | Det ___ er at du hviler. | viktigste / viktigst / viktigere / viktig | Superlative: -est; after den / det / de it takes -este (den raskeste). | 
-cp29 | mc | What is the smallest country in Europe? | Hva er det ___ landet i Europa? | minste / minst / mindre / litenste | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. | 
-cp32 | mc | She is younger than she looks. | Hun er ___ enn hun ser ut. | yngre / ung / yngst / yngste | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. | 
-cp35 | mc | Of all the boys, he is the best at playing the guitar. | Av alle guttene er han ___ til å spille gitar. | flinkest / flinkere / flinkeste / flink | Superlative: -est; after den / det / de it takes -este (den raskeste). | 
-cp38 | mc | Which song do you like best of all? | Hvilken sang liker du ___ av alle? | best / bedre / beste / god | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. | 
-cp41 | mc | She eats healthier than before. | Hun spiser ___ enn før. | sunnere / sunn / sunnest / sunt | Regular comparative: adjective + -ere, followed by enn (than). | 
-cd2 | mc | If I were rich, I would travel all year. | Hvis jeg var rik, ville jeg ___ hele året. | reise / reiser / reiste / å reise | After ville use the bare infinitive (no å). | 
-cd5 | mc | If she had a dog, she would go on long walks. | Hvis hun hadde en hund, ___ gå lange turer. | ville hun / hun ville / vil hun / hun vil | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. | 
-cd8 | mc | If he knew the answer, he would say it. | Hvis han visste svaret, ___ si det. | ville han / han ville / vil han / han vil | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. | 
-cd11 | mc | If the kids slept longer, we would get some peace. | Hvis barna sov lenger, ville vi ___ litt fred. | få / fikk / får / fått | After ville use the bare infinitive (no å). | 
-cd14 | mc | If I didn't have to work tomorrow, I would sleep until lunch. | Hvis jeg ikke måtte jobbe i morgen, ville jeg ___ til lunsj. | sove / sov / sover / sovet | After ville use the bare infinitive (no å). | 
-cd17 | mc | If the government lowered the tax, people would spend more money. | Hvis regjeringen senket skatten, ville folk ___ mer penger. | bruke / brukte / bruker / brukt | After ville use the bare infinitive (no å). | 
-cd20 | mc | If I had slept longer, I would have caught the bus. | Hvis jeg hadde sovet lenger, ___ rukket bussen. | hadde jeg / jeg hadde / har jeg / var jeg | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. | 
-cd23 | mc | If I had known, I would have called you. | Hvis jeg hadde visst det, ville jeg ___ ringt deg. | ha / hadde / har / å | For something that did not happen in the past: ville + ha + participle. | 
-cd26 | mc | If it hadn't rained, we would have eaten outside. | Hvis det ikke hadde regnet, ___ spist ute. | hadde vi / vi hadde / har vi / var vi | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. | 
-cd29 | mc | If the teacher had explained it better, I would have understood it. | Hvis læreren hadde forklart det bedre, hadde jeg ___ det. | forstått / forsto / forstå / forstår | hadde + participle: the helping verb hadde, then the participle (not the preterite). | 
-cd32 | mc | If the bus hadn't been late, we would have arrived on time. | Hvis bussen ikke hadde vært sen, hadde vi ___ i tide. | kommet / kom / komme / kommer | hadde + participle: the helping verb hadde, then the participle (not the preterite). | 
-cd35 | mc | If the boss hadn't overslept, the meeting would have started on time. | Hvis sjefen ikke hadde forsovet seg, hadde møtet ___ i tide. | begynt / begynte / begynne / begynner | hadde + participle: the helping verb hadde, then the participle (not the preterite). | 
-cd41 | mc | If I hadn't made a mistake, I would have won. | Hvis jeg ikke hadde tatt feil, ___ ha vunnet. | ville jeg / jeg ville / vil jeg / jeg vil | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. | 
-cd44 | mc | If he had read the recipe, the cake would have turned out better. | Hvis han hadde lest oppskriften, hadde kaken ___ bedre. | blitt / ble / bli / blir | hadde + participle: the helping verb hadde, then the participle (not the preterite). | 
-lw2 | mc | I listen to Norskpodden while I run. | Jeg hører på Norskpodden ___ jeg løper. | mens / da / fordi / derfor | mens = two things at the same time. | 
-lw5 | mc | We stayed at home because it was raining. | Vi ble hjemme ___ det regnet. | fordi / derfor / selv om / hvis | fordi = because; it starts a subordinate clause (subject, then verb). | 
-lw11 | mc | It was cold, but we went for a long walk. | Det var kaldt, ___ vi gikk en lang tur. | men / fordi / derfor / hvis | men = but; it links two main clauses and does not change the word order. | 
-lw14 | mc | I made breakfast while the kids were sleeping. | Jeg lagde frokost ___ barna sov. | mens / fordi / derfor / selv om | mens = two things at the same time. | 
-lw17 | mc | The neighbour was playing loud music. That's why I couldn't sleep. | Naboen spilte høy musikk. ___ kunne jeg ikke sove. | Derfor / Fordi / Selv om / Mens | derfor = that's why. It starts the main clause, so the verb comes before the subject. | 
-lw20 | mc | There were many people in the queue. Even so, it went quickly. | Det var mange i køen. ___ gikk det raskt. | Likevel / Derfor / Fordi / Mens | likevel = even so (contrast between sentences). The verb comes before the subject. | 
-lw23 | mc | I trained hard yesterday. That's why I'm going to rest today. | Jeg trente hardt i går. ___ skal jeg hvile i dag. | Derfor / Fordi / Selv om / Mens | derfor = that's why. It starts the main clause, so the verb comes before the subject. | 
-lw26 | mc | In the end we had a coffee. | ___ tok vi en kaffe. | Til slutt / Fordi / Selv om / Mens | A sequence word (deretter, etterpå, til slutt) comes first, so the verb is 2nd and the subject follows. | 
-lw29 | mc | It was nine o'clock when we finally ate. | Klokken var ni ___ vi endelig spiste. | da / når / fordi / derfor | da = one specific event in the past. ("Den gang da, hver gang når.") | 
-lw32 | mc | The old jacket was broken. That's why I bought a new one. | Den gamle jakken var ødelagt. ___ kjøpte jeg en ny. | Derfor / Fordi / Men / Selv om | derfor = that's why. It starts the main clause, so the verb comes before the subject. | 
-lw35 | mc | We arrived late. Even so, we got a seat. | Vi ankom sent. ___ fikk vi plass. | Likevel / Derfor / Fordi / Mens | likevel = even so (contrast between sentences). The verb comes before the subject. | 
-lw41 | mc | She smiled even though she was tired. | Hun smilte ___ hun var sliten. | selv om / fordi / derfor / hvis | selv om = even though (contrast); the clause then has subject + verb. | 
-lw44 | mc | I'll bring an umbrella if it rains. | Jeg tar med paraply ___ det regner. | hvis / derfor / men / etter | hvis = if (a condition); it starts a subordinate clause. | 
-lw47 | mc | I ordered pizza, but it never came. | Jeg bestilte pizza, ___ den kom aldri. | men / fordi / derfor / hvis | men = but; it links two main clauses and does not change the word order. | 
-lw50 | mc | The cat slept while the dog stole the sausages. | Katten sov ___ hunden stjal pølsene. | mens / fordi / derfor / hvis | mens = two things at the same time. | 
-od2 | mc | The wedding is on 2 March. | 2. mars: Bryllupet er den ___ mars. | andre / tolvte / tjuende / trettende | 2. = andre. 1–6 are irregular: første, andre, tredje, fjerde, femte, sjette. Dates: den + ordinal + month. | 
-od4 | mc | We have booked a table on 4 March. | 4. mars: Vi har bestilt bord den ___ mars. | fjerde / fjortende / tjuefjerde / tredje | 4. = fjerde. 1–6 are irregular: første, andre, tredje, fjerde, femte, sjette. Dates: den + ordinal + month. | 
-od6 | mc | The family is visiting on 6 June. | 6. juni: Familien kommer på besøk den ___ juni. | sjette / sekstende / tjuesjette / femte | 6. = sjette. 1–6 are irregular: første, andre, tredje, fjerde, femte, sjette. Dates: den + ordinal + month. | 
-od8 | mc | The concert starts on 8 January. | 8. januar: Konserten starter den ___ januar. | åttende / attende / tjueåttende / nittende | 8. = åttende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. | 
-od10 | mc | The meeting at work is on 10 April. | 10. april: Møtet på jobb er den ___ april. | tiende / tolvte / niende / åttende | 10. = tiende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. | 
-od12 | mc | The parcel arrives on 12 August. | 12. august: Pakken kommer den ___ august. | tolvte / andre / tjuende / tjueandre | 12. = tolvte. 11 and 12 end in -te: ellevte, tolvte. Dates: den + ordinal + month. | 
-od14 | mc | I promise to start training on 14 November. | 14. november: Jeg lover å begynne å trene den ___ november. | fjortende / fjerde / tjuefjerde / tredje | 14. = fjortende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. | 
-od16 | mc | Grandma's birthday is on 16 November. | 16. november: Bursdagen til mormor er den ___ november. | sekstende / sjette / tjuesjette / femtende | 16. = sekstende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. | 
-od18 | mc | The wedding is on 18 November. | 18. november: Bryllupet er den ___ november. | attende / åttende / tjueåttende / sjuende | 18. = attende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. | 
-od20 | mc | We have booked a table on 20 July. | 20. juli: Vi har bestilt bord den ___ juli. | tjuende / tolvte / andre / tjueandre | 20. = tjuende. 20 = tjuende (tyvende is also correct). Dates: den + ordinal + month. | 
-od22 | mc | The family is visiting on 22 September. | 22. september: Familien kommer på besøk den ___ september. | tjueandre / tjuetredje / tolvte / tjueførste | 22. = tjueandre. 21–29 = tjue + the ordinal of the last digit: tjue + andre → tjueandre. Dates: den + ordinal + month. | 
-od24 | mc | The concert starts on 24 June. | 24. juni: Konserten starter den ___ juni. | tjuefjerde / fjerde / fjortende / trettende | 24. = tjuefjerde. 21–29 = tjue + the ordinal of the last digit: tjue + fjerde → tjuefjerde. Dates: den + ordinal + month. | 
-od26 | mc | The meeting at work is on 26 January. | 26. januar: Møtet på jobb er den ___ januar. | tjuesjette / sjette / sekstende / tjuesjuende | 26. = tjuesjette. 21–29 = tjue + the ordinal of the last digit: tjue + sjette → tjuesjette. Dates: den + ordinal + month. | 
-od28 | mc | The parcel arrives on 28 September. | 28. september: Pakken kommer den ___ september. | tjueåttende / åttende / attende / tjuesjette | 28. = tjueåttende. 21–29 = tjue + the ordinal of the last digit: tjue + åttende → tjueåttende. Dates: den + ordinal + month. | 
-od30 | mc | I promise to start training on 30 August. | 30. august: Jeg lover å begynne å trene den ___ august. | trettiende / trettende / tredje / tjueåttende | 30. = trettiende. 30 = trettiende. Dates: den + ordinal + month. | 
-od50 | mc | The 12th of May. | Den tolvte mai = ___ mai | 12. / 2. / 20. / 13. | tolvte = 12. Read the ordinal back to a number. | 
-od51 | mc | The 13th of June. | Den trettende juni = ___ juni | 13. / 3. / 30. / 14. | trettende = 13. Read the ordinal back to a number. | 
-od52 | mc | The 14th of April. | Den fjortende april = ___ april | 14. / 4. / 24. / 15. | fjortende = 14. Read the ordinal back to a number. | 
-od53 | mc | The 16th of April. | Den sekstende april = ___ april | 16. / 6. / 26. / 17. | sekstende = 16. Read the ordinal back to a number. | 
-od54 | mc | The 17th of April. | Den syttende april = ___ april | 17. / 7. / 27. / 18. | syttende = 17. Read the ordinal back to a number. | 
-od55 | mc | The 18th of February. | Den attende februar = ___ februar | 18. / 8. / 28. / 19. | attende = 18. Read the ordinal back to a number. | 
-od56 | mc | The 19th of May. | Den nittende mai = ___ mai | 19. / 9. / 29. / 20. | nittende = 19. Read the ordinal back to a number. | 
-od57 | mc | The 20th of August. | Den tjuende august = ___ august | 20. / 12. / 2. / 21. | tjuende = 20. Read the ordinal back to a number. | 
-od58 | mc | The 22th of September. | Den tjueandre september = ___ september | 22. / 12. / 23. / 21. | tjueandre = 22. Read the ordinal back to a number. | 
-od59 | mc | The 27th of October. | Den tjuesjuende oktober = ___ oktober | 27. / 17. / 28. / 26. | tjuesjuende = 27. Read the ordinal back to a number. | 
-od60 | mc | The 30th of May. | Den trettiende mai = ___ mai | 30. / 13. / 3. / 31. | trettiende = 30. Read the ordinal back to a number. | 
-od61 | mc | The 11th of March. | Den ellevte mars = ___ mars | 11. / 1. / 10. / 12. | ellevte = 11. Read the ordinal back to a number. | 
-od62 | mc | The 15th of September. | Den femtende september = ___ september | 15. / 5. / 25. / 16. | femtende = 15. Read the ordinal back to a number. | 
-od63 | mc | The 9th of November. | Den niende november = ___ november | 9. / 19. / 29. / 10. | niende = 9. Read the ordinal back to a number. | 
-te35 | mc |  | 'This morning' (already past) = ___ | i morges / i morgen / i morgen tidlig / om morgenen | i morges = this morning, and the morning has already passed. Past tense. | 
-te36 | mc |  | 'Tomorrow morning' = ___ | i morgen tidlig / i morges / i morgen / om morgenen | i morgen tidlig = tomorrow morning, early. Future. | 
-te37 | mc |  | 'Tonight' (still to come) = ___ | i kveld / i går kveld / i morges / om kvelden | i kveld = tonight, this evening. Usually still to come. | 
-te38 | mc |  | 'Yesterday evening' = ___ | i går kveld / i kveld / i morgen kveld / om kvelden | i går kveld = yesterday evening. Past. | 
-te39 | mc |  | 'Yesterday morning' = ___ | i går morges / i morges / i morgen tidlig / om morgenen | i går morges = yesterday morning. Past. | 
-te40 | mc |  | 'Last night' (the night that just passed) = ___ | i natt / i morgen kveld / om natten / i kveld | i natt = last night with a past verb. | 
-te41 | mc |  | 'In the evening', as a habit = ___ | om kvelden / i kveld / i går kveld / kvelden | om natten / om dagen / om kvelden / om morgenen = habitual: at night, during the day, in the evening, in the morning. | 
-te42 | mc |  | 'At night', as a habit = ___ | om natten / i natt / i går natt / natten | om natten / om dagen / om kvelden / om morgenen = habitual: at night, during the day, in the evening, in the morning. | 
-te43 | mc |  | 'Two weeks ago' = ___ | for to uker siden / om to uker / i to uker siden / to uker siden | for … siden = … ago. Always for + time + siden. | 
-te44 | mc |  | 'In two weeks' = ___ | om to uker / for to uker siden / i to uker siden / to uker om | om + time = in …, a point in the future. | 
-te45 | mc |  | 'During the day' = ___ | i løpet av dagen / i dagen løpet / om dagen siden / for dagen siden | i løpet av = during / within. | 
-te46 | mc |  | 'Early today', already past = ___ | i dag tidlig / i morgen tidlig / i dag morges / i morgen morges | i dag tidlig = early this morning, already past. | 
-te47 | mc |  | 'This afternoon' = ___ | i ettermiddag / i går ettermiddag / i morgen ettermiddag / om ettermiddagen | i ettermiddag = this afternoon; past or coming, depending on the verb. | 
-te48 | mc |  | 'Tomorrow evening' = ___ | i morgen kveld / i går kveld / i kveld / om kvelden | Match the expression to the meaning. i morges / i dag tidlig / i formiddag / i ettermiddag / i kveld / i natt all refer to today (or tonight). | 
+etter14 | mc | After I had eaten breakfast, I went to work. | Etter at jeg ___ frokost, gikk jeg på jobb. | hadde spist / har spist / spist / hadde spiste | Two past events: the earlier one takes hadde + participle (spist). |
+etter15 | mc | After she had washed the clothes, she made dinner. | Etter at hun hadde vasket klærne, ___ hun middag. | lagde / hadde laget / har laget / lager | Only the earlier action gets hadde + participle; the later one is a plain preterite. |
+etter16 | mc | After we had left the office, we ate lunch. | Etter at vi ___ kontoret, spiste vi lunsj. | hadde forlatt / har forlatt / hadde forlot / forlatt | hadde + participle (forlatt), not the preterite form forlot. |
+etter19 | mc | After the kids had fallen asleep, we tidied the living room. | Etter at barna ___, ryddet vi stuen. | hadde sovnet / har sovnet / hadde sovner / sovnet hadde | hadde + participle (sovnet): the helping verb comes first, then the participle. |
+etter20 | mc | After he had got the job, he bought himself a new car. | Etter at han hadde fått jobben, ___ han seg ny bil. | kjøpte / hadde kjøpt / har kjøpt / kjøper | The main clause is the later event, so it is a simple preterite (kjøpte), then the subject. |
+ikke25 | mc | I don't know what happened yesterday. | Jeg vet ikke ___ skjedde i går. | hva som / hva / hva det / som hva | No subject after the question word, so add som: hva som skjedde. |
+jo12 | mc | The more I train, the stronger I get. | Jo mer jeg trener, jo ___ blir jeg. | sterkere / sterk / sterkest / mer sterk | Short adjectives take -ere in the comparative; mer sterk is a common mistake. |
+jo14 | mc | The more people come, the better the atmosphere. | Jo ___ som kommer, jo bedre blir stemningen. | flere / mer / flest / mange | Countable things (people) take flere; uncountable things take mer. |
+jo15 | mc | The more we train, the better we sleep. | Jo mer vi trener, jo ___ sover vi. | bedre / best / god / godere | Irregular: god – bedre – best. The comparative bedre goes after jo. |
+jo16 | mc | I run faster than last year. | Jeg løper raskere ___ i fjor. | enn / som / at / jo | A comparative is followed by enn (than). som is for like … som. |
+jo17 | mc | She's as strong as a bear. | Hun er like sterk ___ en bjørn. | som / enn / at / jo | like … som = as … as. |
+v219 | mc | Yesterday I went to the doctor. | I går ___ jeg til legen. | gikk / har gått / går / gått | A specific past time (i går) takes the preterite, and the verb sits in 2nd position. |
+v222 | mc | Yesterday I trained, and afterwards I ate a big dinner. | I går trente jeg, og etterpå ___ jeg en stor middag. | spiste / har spist / hadde spist / spiser | Finished events at a specific time: preterite. The verb stays in 2nd position after etterpå. |
+v223 | mc | Two weeks ago I started reading the paper in Norwegian. | For to uker siden ___ jeg å lese avisen på norsk. | begynte / har begynt / begynner / hadde begynt | for … siden points to a finished past time: preterite, verb before subject. |
+v224 | mc | Last year we travelled to Spain. | I fjor ___ vi til Spania. | reiste / har reist / reist / reiser | i fjor = a specific time in the past, so use the preterite. |
+jj2 | mc | The more I read, the more I understand. | Jo mer jeg leser, jo ___ forstår jeg. | mer / mest / mye / flere | Long adjectives and 'more of something' take mer; the second jo-part still inverts. |
+jj5 | mc | The more cooks, the worse the soup gets. | Jo flere kokker, jo ___ blir suppen. | dårligere / dårlig / dårligst / dårligste | Irregular comparative (god – bedre, mye – mer, få – færre, dårlig – dårligere, lang – lengre). |
+jj11 | mc | The more you smile, the easier the day gets. | Jo mer du smiler, jo ___ blir dagen. | lettere / lett / lettest / lette | jo + comparative (short adjectives: -ere); the second part inverts: comparative, verb, subject. |
+jj14 | mc | The shorter the days get, the longer the evenings get. | Jo kortere dagene blir, jo ___ blir kveldene. | lengre / lang / lengst / langere | Irregular comparative (god – bedre, mye – mer, få – færre, dårlig – dårligere, lang – lengre). |
+jj17 | mc | The more news I read, the more worried I get. | Jo flere nyheter jeg leser, jo ___ bekymret blir jeg. | mer / mest / mye / flere | Long adjectives and 'more of something' take mer; the second jo-part still inverts. |
+jj20 | mc | The longer we wait for the train, the angrier people get. | Jo lenger vi venter på toget, jo ___ blir folk. | sintere / sint / sintest / sinte | jo + comparative (short adjectives: -ere); the second part inverts: comparative, verb, subject. |
+jj23 | mc | The more Uncle Per sings, the fewer guests are left. | Jo mer onkel Per synger, jo ___ gjester blir det igjen. | færre / få / færrest / fleste | Irregular comparative (god – bedre, mye – mer, få – færre, dårlig – dårligere, lang – lengre). |
+jj26 | mc | The more I think about food, the hungrier I get. | Jo mer jeg tenker på maten, jo ___ blir jeg. | sultnere / sulten / sultnest / sultne | jo + comparative (short adjectives: -ere); the second part inverts: comparative, verb, subject. |
+cp2 | mc | The moose is bigger than the reindeer. | Elgen er ___ enn reinsdyret. | større / stor / størst / storere | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. |
+cp5 | mc | It is colder on the mountain than in the city. | Det er ___ på fjellet enn i byen. | kaldere / kald / kaldest / kaldt | Regular comparative: adjective + -ere, followed by enn (than). |
+cp11 | mc | Norway is longer than Denmark. | Norge er ___ enn Danmark. | lengre / lang / lengst / langere | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. |
+cp14 | mc | The house is as big as the school. | Huset er like ___ som skolen. | stort / stor / større / størst | like … som = as … as; the adjective stays in its basic form and agrees with the noun (-t for et-words). |
+cp17 | mc | It is as cold outside as inside. | Det er like ___ ute som inne. | kaldt / kald / kaldere / kaldest | like … som = as … as; the adjective stays in its basic form and agrees with the noun (-t for et-words). |
+cp20 | mc | She is the fastest in the class. | Hun er den ___ i klassen. | raskeste / raskest / raskere / raskt | Superlative: -est; after den / det / de it takes -este (den raskeste). |
+cp23 | mc | Sunday is the nicest day of the week. | Søndag er den ___ dagen i uken. | fineste / finest / finere / fin | Superlative: -est; after den / det / de it takes -este (den raskeste). |
+cp26 | mc | The most important thing is that you rest. | Det ___ er at du hviler. | viktigste / viktigst / viktigere / viktig | Superlative: -est; after den / det / de it takes -este (den raskeste). |
+cp29 | mc | What is the smallest country in Europe? | Hva er det ___ landet i Europa? | minste / minst / mindre / litenste | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. |
+cp32 | mc | She is younger than she looks. | Hun er ___ enn hun ser ut. | yngre / ung / yngst / yngste | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. |
+cp35 | mc | Of all the boys, he is the best at playing the guitar. | Av alle guttene er han ___ til å spille gitar. | flinkest / flinkere / flinkeste / flink | Superlative: -est; after den / det / de it takes -este (den raskeste). |
+cp38 | mc | Which song do you like best of all? | Hvilken sang liker du ___ av alle? | best / bedre / beste / god | Irregular forms: god – bedre – best, stor – større – størst, liten – mindre – minst, mye – mer – mest, få – færre – færrest, ung – yngre – yngst, gammel – eldre – eldst, lang – lengre – lengst. |
+cp41 | mc | She eats healthier than before. | Hun spiser ___ enn før. | sunnere / sunn / sunnest / sunt | Regular comparative: adjective + -ere, followed by enn (than). |
+cd2 | mc | If I were rich, I would travel all year. | Hvis jeg var rik, ville jeg ___ hele året. | reise / reiser / reiste / å reise | After ville use the bare infinitive (no å). |
+cd5 | mc | If she had a dog, she would go on long walks. | Hvis hun hadde en hund, ___ gå lange turer. | ville hun / hun ville / vil hun / hun vil | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. |
+cd8 | mc | If he knew the answer, he would say it. | Hvis han visste svaret, ___ si det. | ville han / han ville / vil han / han vil | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. |
+cd11 | mc | If the kids slept longer, we would get some peace. | Hvis barna sov lenger, ville vi ___ litt fred. | få / fikk / får / fått | After ville use the bare infinitive (no å). |
+cd14 | mc | If I didn't have to work tomorrow, I would sleep until lunch. | Hvis jeg ikke måtte jobbe i morgen, ville jeg ___ til lunsj. | sove / sov / sover / sovet | After ville use the bare infinitive (no å). |
+cd17 | mc | If the government lowered the tax, people would spend more money. | Hvis regjeringen senket skatten, ville folk ___ mer penger. | bruke / brukte / bruker / brukt | After ville use the bare infinitive (no å). |
+cd20 | mc | If I had slept longer, I would have caught the bus. | Hvis jeg hadde sovet lenger, ___ rukket bussen. | hadde jeg / jeg hadde / har jeg / var jeg | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. |
+cd23 | mc | If I had known, I would have called you. | Hvis jeg hadde visst det, ville jeg ___ ringt deg. | ha / hadde / har / å | For something that did not happen in the past: ville + ha + participle. |
+cd26 | mc | If it hadn't rained, we would have eaten outside. | Hvis det ikke hadde regnet, ___ spist ute. | hadde vi / vi hadde / har vi / var vi | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. |
+cd29 | mc | If the teacher had explained it better, I would have understood it. | Hvis læreren hadde forklart det bedre, hadde jeg ___ det. | forstått / forsto / forstå / forstår | hadde + participle: the helping verb hadde, then the participle (not the preterite). |
+cd32 | mc | If the bus hadn't been late, we would have arrived on time. | Hvis bussen ikke hadde vært sen, hadde vi ___ i tide. | kommet / kom / komme / kommer | hadde + participle: the helping verb hadde, then the participle (not the preterite). |
+cd35 | mc | If the boss hadn't overslept, the meeting would have started on time. | Hvis sjefen ikke hadde forsovet seg, hadde møtet ___ i tide. | begynt / begynte / begynne / begynner | hadde + participle: the helping verb hadde, then the participle (not the preterite). |
+cd41 | mc | If I hadn't made a mistake, I would have won. | Hvis jeg ikke hadde tatt feil, ___ ha vunnet. | ville jeg / jeg ville / vil jeg / jeg vil | The hvis clause comes first, so the main clause inverts: ville / hadde before the subject. |
+cd44 | mc | If he had read the recipe, the cake would have turned out better. | Hvis han hadde lest oppskriften, hadde kaken ___ bedre. | blitt / ble / bli / blir | hadde + participle: the helping verb hadde, then the participle (not the preterite). |
+lw2 | mc | I listen to Norskpodden while I run. | Jeg hører på Norskpodden ___ jeg løper. | mens / da / fordi / derfor | mens = two things at the same time. |
+lw5 | mc | We stayed at home because it was raining. | Vi ble hjemme ___ det regnet. | fordi / derfor / selv om / hvis | fordi = because; it starts a subordinate clause (subject, then verb). |
+lw11 | mc | It was cold, but we went for a long walk. | Det var kaldt, ___ vi gikk en lang tur. | men / fordi / derfor / hvis | men = but; it links two main clauses and does not change the word order. |
+lw14 | mc | I made breakfast while the kids were sleeping. | Jeg lagde frokost ___ barna sov. | mens / fordi / derfor / selv om | mens = two things at the same time. |
+lw17 | mc | The neighbour was playing loud music. That's why I couldn't sleep. | Naboen spilte høy musikk. ___ kunne jeg ikke sove. | Derfor / Fordi / Selv om / Mens | derfor = that's why. It starts the main clause, so the verb comes before the subject. |
+lw20 | mc | There were many people in the queue. Even so, it went quickly. | Det var mange i køen. ___ gikk det raskt. | Likevel / Derfor / Fordi / Mens | likevel = even so (contrast between sentences). The verb comes before the subject. |
+lw23 | mc | I trained hard yesterday. That's why I'm going to rest today. | Jeg trente hardt i går. ___ skal jeg hvile i dag. | Derfor / Fordi / Selv om / Mens | derfor = that's why. It starts the main clause, so the verb comes before the subject. |
+lw26 | mc | In the end we had a coffee. | ___ tok vi en kaffe. | Til slutt / Fordi / Selv om / Mens | A sequence word (deretter, etterpå, til slutt) comes first, so the verb is 2nd and the subject follows. |
+lw29 | mc | It was nine o'clock when we finally ate. | Klokken var ni ___ vi endelig spiste. | da / når / fordi / derfor | da = one specific event in the past. ("Den gang da, hver gang når.") |
+lw32 | mc | The old jacket was broken. That's why I bought a new one. | Den gamle jakken var ødelagt. ___ kjøpte jeg en ny. | Derfor / Fordi / Men / Selv om | derfor = that's why. It starts the main clause, so the verb comes before the subject. |
+lw35 | mc | We arrived late. Even so, we got a seat. | Vi ankom sent. ___ fikk vi plass. | Likevel / Derfor / Fordi / Mens | likevel = even so (contrast between sentences). The verb comes before the subject. |
+lw41 | mc | She smiled even though she was tired. | Hun smilte ___ hun var sliten. | selv om / fordi / derfor / hvis | selv om = even though (contrast); the clause then has subject + verb. |
+lw44 | mc | I'll bring an umbrella if it rains. | Jeg tar med paraply ___ det regner. | hvis / derfor / men / etter | hvis = if (a condition); it starts a subordinate clause. |
+lw47 | mc | I ordered pizza, but it never came. | Jeg bestilte pizza, ___ den kom aldri. | men / fordi / derfor / hvis | men = but; it links two main clauses and does not change the word order. |
+lw50 | mc | The cat slept while the dog stole the sausages. | Katten sov ___ hunden stjal pølsene. | mens / fordi / derfor / hvis | mens = two things at the same time. |
+od2 | mc | The wedding is on 2 March. | 2. mars: Bryllupet er den ___ mars. | andre / tolvte / tjuende / trettende | 2. = andre. 1–6 are irregular: første, andre, tredje, fjerde, femte, sjette. Dates: den + ordinal + month. |
+od4 | mc | We have booked a table on 4 March. | 4. mars: Vi har bestilt bord den ___ mars. | fjerde / fjortende / tjuefjerde / tredje | 4. = fjerde. 1–6 are irregular: første, andre, tredje, fjerde, femte, sjette. Dates: den + ordinal + month. |
+od6 | mc | The family is visiting on 6 June. | 6. juni: Familien kommer på besøk den ___ juni. | sjette / sekstende / tjuesjette / femte | 6. = sjette. 1–6 are irregular: første, andre, tredje, fjerde, femte, sjette. Dates: den + ordinal + month. |
+od8 | mc | The concert starts on 8 January. | 8. januar: Konserten starter den ___ januar. | åttende / attende / tjueåttende / nittende | 8. = åttende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. |
+od10 | mc | The meeting at work is on 10 April. | 10. april: Møtet på jobb er den ___ april. | tiende / tolvte / niende / åttende | 10. = tiende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. |
+od12 | mc | The parcel arrives on 12 August. | 12. august: Pakken kommer den ___ august. | tolvte / andre / tjuende / tjueandre | 12. = tolvte. 11 and 12 end in -te: ellevte, tolvte. Dates: den + ordinal + month. |
+od14 | mc | I promise to start training on 14 November. | 14. november: Jeg lover å begynne å trene den ___ november. | fjortende / fjerde / tjuefjerde / tredje | 14. = fjortende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. |
+od16 | mc | Grandma's birthday is on 16 November. | 16. november: Bursdagen til mormor er den ___ november. | sekstende / sjette / tjuesjette / femtende | 16. = sekstende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. |
+od18 | mc | The wedding is on 18 November. | 18. november: Bryllupet er den ___ november. | attende / åttende / tjueåttende / sjuende | 18. = attende. From 7 and from 13 to 19 the ordinal ends in -ende (…-ende; 18 = attende). Dates: den + ordinal + month. |
+od20 | mc | We have booked a table on 20 July. | 20. juli: Vi har bestilt bord den ___ juli. | tjuende / tolvte / andre / tjueandre | 20. = tjuende. 20 = tjuende (tyvende is also correct). Dates: den + ordinal + month. |
+od22 | mc | The family is visiting on 22 September. | 22. september: Familien kommer på besøk den ___ september. | tjueandre / tjuetredje / tolvte / tjueførste | 22. = tjueandre. 21–29 = tjue + the ordinal of the last digit: tjue + andre → tjueandre. Dates: den + ordinal + month. |
+od24 | mc | The concert starts on 24 June. | 24. juni: Konserten starter den ___ juni. | tjuefjerde / fjerde / fjortende / trettende | 24. = tjuefjerde. 21–29 = tjue + the ordinal of the last digit: tjue + fjerde → tjuefjerde. Dates: den + ordinal + month. |
+od26 | mc | The meeting at work is on 26 January. | 26. januar: Møtet på jobb er den ___ januar. | tjuesjette / sjette / sekstende / tjuesjuende | 26. = tjuesjette. 21–29 = tjue + the ordinal of the last digit: tjue + sjette → tjuesjette. Dates: den + ordinal + month. |
+od28 | mc | The parcel arrives on 28 September. | 28. september: Pakken kommer den ___ september. | tjueåttende / åttende / attende / tjuesjette | 28. = tjueåttende. 21–29 = tjue + the ordinal of the last digit: tjue + åttende → tjueåttende. Dates: den + ordinal + month. |
+od30 | mc | I promise to start training on 30 August. | 30. august: Jeg lover å begynne å trene den ___ august. | trettiende / trettende / tredje / tjueåttende | 30. = trettiende. 30 = trettiende. Dates: den + ordinal + month. |
+od50 | mc | The 12th of May. | Den tolvte mai = ___ mai | 12. / 2. / 20. / 13. | tolvte = 12. Read the ordinal back to a number. |
+od51 | mc | The 13th of June. | Den trettende juni = ___ juni | 13. / 3. / 30. / 14. | trettende = 13. Read the ordinal back to a number. |
+od52 | mc | The 14th of April. | Den fjortende april = ___ april | 14. / 4. / 24. / 15. | fjortende = 14. Read the ordinal back to a number. |
+od53 | mc | The 16th of April. | Den sekstende april = ___ april | 16. / 6. / 26. / 17. | sekstende = 16. Read the ordinal back to a number. |
+od54 | mc | The 17th of April. | Den syttende april = ___ april | 17. / 7. / 27. / 18. | syttende = 17. Read the ordinal back to a number. |
+od55 | mc | The 18th of February. | Den attende februar = ___ februar | 18. / 8. / 28. / 19. | attende = 18. Read the ordinal back to a number. |
+od56 | mc | The 19th of May. | Den nittende mai = ___ mai | 19. / 9. / 29. / 20. | nittende = 19. Read the ordinal back to a number. |
+od57 | mc | The 20th of August. | Den tjuende august = ___ august | 20. / 12. / 2. / 21. | tjuende = 20. Read the ordinal back to a number. |
+od58 | mc | The 22th of September. | Den tjueandre september = ___ september | 22. / 12. / 23. / 21. | tjueandre = 22. Read the ordinal back to a number. |
+od59 | mc | The 27th of October. | Den tjuesjuende oktober = ___ oktober | 27. / 17. / 28. / 26. | tjuesjuende = 27. Read the ordinal back to a number. |
+od60 | mc | The 30th of May. | Den trettiende mai = ___ mai | 30. / 13. / 3. / 31. | trettiende = 30. Read the ordinal back to a number. |
+od61 | mc | The 11th of March. | Den ellevte mars = ___ mars | 11. / 1. / 10. / 12. | ellevte = 11. Read the ordinal back to a number. |
+od62 | mc | The 15th of September. | Den femtende september = ___ september | 15. / 5. / 25. / 16. | femtende = 15. Read the ordinal back to a number. |
+od63 | mc | The 9th of November. | Den niende november = ___ november | 9. / 19. / 29. / 10. | niende = 9. Read the ordinal back to a number. |
+te35 | mc |  | 'This morning' (already past) = ___ | i morges / i morgen / i morgen tidlig / om morgenen | i morges = this morning, and the morning has already passed. Past tense. |
+te36 | mc |  | 'Tomorrow morning' = ___ | i morgen tidlig / i morges / i morgen / om morgenen | i morgen tidlig = tomorrow morning, early. Future. |
+te37 | mc |  | 'Tonight' (still to come) = ___ | i kveld / i går kveld / i morges / om kvelden | i kveld = tonight, this evening. Usually still to come. |
+te38 | mc |  | 'Yesterday evening' = ___ | i går kveld / i kveld / i morgen kveld / om kvelden | i går kveld = yesterday evening. Past. |
+te39 | mc |  | 'Yesterday morning' = ___ | i går morges / i morges / i morgen tidlig / om morgenen | i går morges = yesterday morning. Past. |
+te40 | mc |  | 'Last night' (the night that just passed) = ___ | i natt / i morgen kveld / om natten / i kveld | i natt = last night with a past verb. |
+te41 | mc |  | 'In the evening', as a habit = ___ | om kvelden / i kveld / i går kveld / kvelden | om natten / om dagen / om kvelden / om morgenen = habitual: at night, during the day, in the evening, in the morning. |
+te42 | mc |  | 'At night', as a habit = ___ | om natten / i natt / i går natt / natten | om natten / om dagen / om kvelden / om morgenen = habitual: at night, during the day, in the evening, in the morning. |
+te43 | mc |  | 'Two weeks ago' = ___ | for to uker siden / om to uker / i to uker siden / to uker siden | for … siden = … ago. Always for + time + siden. |
+te44 | mc |  | 'In two weeks' = ___ | om to uker / for to uker siden / i to uker siden / to uker om | om + time = in …, a point in the future. |
+te45 | mc |  | 'During the day' = ___ | i løpet av dagen / i dagen løpet / om dagen siden / for dagen siden | i løpet av = during / within. |
+te46 | mc |  | 'Early today', already past = ___ | i dag tidlig / i morgen tidlig / i dag morges / i morgen morges | i dag tidlig = early this morning, already past. |
+te47 | mc |  | 'This afternoon' = ___ | i ettermiddag / i går ettermiddag / i morgen ettermiddag / om ettermiddagen | i ettermiddag = this afternoon; past or coming, depending on the verb. |
+te48 | mc |  | 'Tomorrow evening' = ___ | i morgen kveld / i går kveld / i kveld / om kvelden | Match the expression to the meaning. i morges / i dag tidlig / i formiddag / i ettermiddag / i kveld / i natt all refer to today (or tonight). |
 po21 | mc | Erik washed his own car on Saturday. | Erik vasket bilen ___ på lørdag. | sin / hans / sitt / sine | Is the owner the subject of this same clause? Yes → sin / sitt / sine (his/her/their own). Otherwise hans / hennes / deres. | sin-basic
 po22 | mc | I met Erik, and we took his car. | Jeg traff Erik, og vi tok bilen ___. | hans / sin / sitt / sine | Is the owner the subject of this same clause? No: the subject is vi, the car is Erik's → hans. | sin-basic
 po23 | mc | Kari says that her daughter is going to study in Bergen. | Kari sier at datteren ___ skal studere i Bergen. | hennes / sin / sitt / sine | Is the owner the subject of this same clause? No: in the at-clause datteren hennes is itself the subject, and sin can never be in the subject → hennes. | sub-clause
@@ -118,39 +118,39 @@ po27 | mc | We met the neighbours and their kids. | Vi møtte naboene og barna _
 po28 | mc | She gave her (own) husband a hug. | Hun ga mannen ___ en klem. | sin / hennes / sitt / sine | Is the owner the subject of this same clause? Yes → sin / sitt / sine (his/her/their own). Otherwise hans / hennes / deres. | sin-basic
 po29 | mc | He doesn't like that his wife works so much. | Han liker ikke at konen ___ jobber så mye. | hans / sin / sitt / sine | Is the owner the subject of this same clause? No: in the at-clause konen hans is itself the subject, so it cannot be sin → hans. | sub-clause
 po30 | mc | It's not your fault, it's MY fault! | Det er ikke din feil, det er ___ feil! | min / mitt / mine / sin | Normal order: definite noun + possessive (bilen min). The possessive first (min bil) gives emphasis, and then the noun is indefinite. | agreement
-te81 | mc | I started learning Norwegian two years ago. | Jeg begynte å lære norsk ___. | for to år siden / om to år / i to år / på to år | for … siden = … ago (past). om … = in … (future). i … = for … (duration). | 
-te82 | mc | I have been learning Norwegian for two years. | Jeg har lært norsk ___. | i to år / for to år siden / om to år / to år siden | for … siden = … ago (past). om … = in … (future). i … = for … (duration). | 
-te83 | mc | We're going on holiday next month. | Vi skal på ferie ___. | neste måned / forrige måned / neste måneden / i måned | neste / forrige + indefinite noun, no den. | 
-te84 | mc | I was ill last week. | Jeg var syk ___. | forrige uke / neste uke / forrige uken / i uke | neste / forrige + indefinite noun, no den. | 
-te85 | mc | He came home too late. | Han kom hjem ___. | for sent / for tidlig / sent for / tidlig | for sent = too late; for tidlig = too early. | 
-te86 | mc | We go to the cinema on Fridays. | Vi går på kino ___. | på fredager / på fredag / i fredags / til fredag | på fredager / om fredagen = every Friday. på fredag = one Friday; i fredags = last Friday. | 
-te87 | mc | I was in Paris last year. | Jeg var i Paris ___. | i fjor / til neste år / i år / neste år | i fjor = last year; i forfjor = the year before last; i år = this year; neste år / til neste år = next year. | 
-te88 | mc | The kids nap in the afternoon (every day). | Barna sover ___. | om ettermiddagen / i ettermiddag / i ettermiddags / til ettermiddag | om ettermiddagen = in the afternoons (in general); i ettermiddag = this afternoon. | 
-te89 | mc | It happened yesterday afternoon. | Det skjedde ___. | i går ettermiddag / i ettermiddag / om ettermiddagen / i morgen ettermiddag | i går + part of the day: i går ettermiddag, i går kveld. | 
-te90 | mc | I'll call you tomorrow morning. | Jeg skal ringe deg ___. | i morgen tidlig / i morges / i går morges / om morgenen | i morges = this morning (already past). i morgen = tomorrow. om morgenen = in the mornings (in general). | 
-te91 | mc | She was born on 3 July. | Hun er født ___. | den tredje juli / den tre juli / den tredjende juli / på tredje juli | Dates: den + ordinal + month: den tjuesjette mars, den første mai. | 
-te92 | mc | We're moving on 1 August. | Vi flytter ___. | den første august / den en august / første av august / den førstende august | Dates: den + ordinal + month: den tjuesjette mars, den første mai. | 
-sh01 | mc | a boat | boat | skip / sjip / skjip / kjip | English sh before i is sk. No j: skip, not skjip. | 
-sh02 | mc | a cloud | cloud | sky / skjy / sjy / kjy | Before y the sh sound is sk or k, never with j. Sky means cloud. | 
-sh03 | mc | a rail | rail | skinne / skjinne / sjinne / kjinne | Before i, sk has no j. | 
-sh04 | mc | a cinema | cinema | kino / kjino / skino / sjino | English ch or k before i is k, with no j. | 
-sh05 | mc | a church building | church | kirke / kjirke / skirke / sjirke | Before i, k stands alone. Kirke has no j. | 
-sh06 | mc | a kiss | a kiss | kyss / kjyss / skyss / sjyss | Before y, k has no j. | 
-sh07 | mc | a shirt | shirt | skjorte / sjorte / kjorte / stjorte | English sh before o needs j: skj. | 
-sh08 | mc | a seashell | shell | skjell / sjell / skell / kjell | English sh before e is skj. | 
-sh09 | mc | a shield | shield | skjold / sjold / skold / kjold | English sh before o is skj. | 
-sh10 | mc | to shoot | to shoot | skyte / skjyte / sjyte / kjyte | Before y, skyte keeps sk and has no j. | 
-sh11 | mc | a kitchen | kitchen | kjøkken / skjøkken / sjøkken / kjøken | English ch before ø is kj, and the k is doubled after the short vowel. | 
-sh12 | mc | a kettle | kettle | kjele / skjele / sjele / skele | English k before e is kj. | 
-sh13 | mc | a keel | keel | kjøl / skjøl / sjøl / skøl | English k before ø is kj. | 
-sh14 | mc | a boss | boss | sjef / skjef / kjef / chef | In Norwegian this ch sound is spelled sj. Sjef is the boss, not a cook. | 
-sh15 | mc | chocolate | chocolate | sjokolade / chokolade / skjokolade / kjokolade | The English ch here is spelled sj in Norwegian. | 
-sh16 | mc | a chance | a chance | sjanse / skjanse / kjanse / chanse | The ch sound is spelled sj in Norwegian. | 
-sh17 | mc | a garage | garage | garasje / garaskje / garashe / garage | The soft ending is sj, written sje. | 
-sh18 | mc | twenty | twenty | tjue / skjue / kjue / stjue | Tjue is one of the few words spelled tj. | 
-sh19 | mc | to earn | to earn | tjene / skjene / kjene / sjene | Tjene is spelled tj, not skj. | 
-sh20 | mc | a service | service | tjeneste / skjeneste / kjeneste / sjeneste | Tjeneste keeps tj. | 
-sh21 | mc | a star | a star | stjerne / skjerne / sjjerne / kjerne | Stjerne is spelled stj. | 
-sh22 | mc | to steal | to steal | stjele / skjele / sjele / kjele | Stjele is spelled stj. Kjele is a kettle. | 
-sh23 | mc | Norwegian | Norwegian | norsk / nosk / norskj / norsj | In this spelling, rs is r plus s. It is not an sh sound. | 
-sh24 | mc | first | first | først / føsjt / føskj / føst | Først is r plus s, not skj. | 
+te81 | mc | I started learning Norwegian two years ago. | Jeg begynte å lære norsk ___. | for to år siden / om to år / i to år / på to år | for … siden = … ago (past). om … = in … (future). i … = for … (duration). |
+te82 | mc | I have been learning Norwegian for two years. | Jeg har lært norsk ___. | i to år / for to år siden / om to år / to år siden | for … siden = … ago (past). om … = in … (future). i … = for … (duration). |
+te83 | mc | We're going on holiday next month. | Vi skal på ferie ___. | neste måned / forrige måned / neste måneden / i måned | neste / forrige + indefinite noun, no den. |
+te84 | mc | I was ill last week. | Jeg var syk ___. | forrige uke / neste uke / forrige uken / i uke | neste / forrige + indefinite noun, no den. |
+te85 | mc | He came home too late. | Han kom hjem ___. | for sent / for tidlig / sent for / tidlig | for sent = too late; for tidlig = too early. |
+te86 | mc | We go to the cinema on Fridays. | Vi går på kino ___. | på fredager / på fredag / i fredags / til fredag | på fredager / om fredagen = every Friday. på fredag = one Friday; i fredags = last Friday. |
+te87 | mc | I was in Paris last year. | Jeg var i Paris ___. | i fjor / til neste år / i år / neste år | i fjor = last year; i forfjor = the year before last; i år = this year; neste år / til neste år = next year. |
+te88 | mc | The kids nap in the afternoon (every day). | Barna sover ___. | om ettermiddagen / i ettermiddag / i ettermiddags / til ettermiddag | om ettermiddagen = in the afternoons (in general); i ettermiddag = this afternoon. |
+te89 | mc | It happened yesterday afternoon. | Det skjedde ___. | i går ettermiddag / i ettermiddag / om ettermiddagen / i morgen ettermiddag | i går + part of the day: i går ettermiddag, i går kveld. |
+te90 | mc | I'll call you tomorrow morning. | Jeg skal ringe deg ___. | i morgen tidlig / i morges / i går morges / om morgenen | i morges = this morning (already past). i morgen = tomorrow. om morgenen = in the mornings (in general). |
+te91 | mc | She was born on 3 July. | Hun er født ___. | den tredje juli / den tre juli / den tredjende juli / på tredje juli | Dates: den + ordinal + month: den tjuesjette mars, den første mai. |
+te92 | mc | We're moving on 1 August. | Vi flytter ___. | den første august / den en august / første av august / den førstende august | Dates: den + ordinal + month: den tjuesjette mars, den første mai. |
+sh01 | mc | a boat | boat | skip / sjip / skjip / kjip | English sh before i is sk. No j: skip, not skjip. |
+sh02 | mc | a cloud | cloud | sky / skjy / sjy / kjy | Before y the sh sound is sk or k, never with j. Sky means cloud. |
+sh03 | mc | a rail | rail | skinne / skjinne / sjinne / kjinne | Before i, sk has no j. |
+sh04 | mc | a cinema | cinema | kino / kjino / skino / sjino | English ch or k before i is k, with no j. |
+sh05 | mc | a church building | church | kirke / kjirke / skirke / sjirke | Before i, k stands alone. Kirke has no j. |
+sh06 | mc | a kiss | a kiss | kyss / kjyss / skyss / sjyss | Before y, k has no j. |
+sh07 | mc | a shirt | shirt | skjorte / sjorte / kjorte / stjorte | English sh before o needs j: skj. |
+sh08 | mc | a seashell | shell | skjell / sjell / skell / kjell | English sh before e is skj. |
+sh09 | mc | a shield | shield | skjold / sjold / skold / kjold | English sh before o is skj. |
+sh10 | mc | to shoot | to shoot | skyte / skjyte / sjyte / kjyte | Before y, skyte keeps sk and has no j. |
+sh11 | mc | a kitchen | kitchen | kjøkken / skjøkken / sjøkken / kjøken | English ch before ø is kj, and the k is doubled after the short vowel. |
+sh12 | mc | a kettle | kettle | kjele / skjele / sjele / skele | English k before e is kj. |
+sh13 | mc | a keel | keel | kjøl / skjøl / sjøl / skøl | English k before ø is kj. |
+sh14 | mc | a boss | boss | sjef / skjef / kjef / chef | In Norwegian this ch sound is spelled sj. Sjef is the boss, not a cook. |
+sh15 | mc | chocolate | chocolate | sjokolade / chokolade / skjokolade / kjokolade | The English ch here is spelled sj in Norwegian. |
+sh16 | mc | a chance | a chance | sjanse / skjanse / kjanse / chanse | The ch sound is spelled sj in Norwegian. |
+sh17 | mc | a garage | garage | garasje / garaskje / garashe / garage | The soft ending is sj, written sje. |
+sh18 | mc | twenty | twenty | tjue / skjue / kjue / stjue | Tjue is one of the few words spelled tj. |
+sh19 | mc | to earn | to earn | tjene / skjene / kjene / sjene | Tjene is spelled tj, not skj. |
+sh20 | mc | a service | service | tjeneste / skjeneste / kjeneste / sjeneste | Tjeneste keeps tj. |
+sh21 | mc | a star | a star | stjerne / skjerne / sjjerne / kjerne | Stjerne is spelled stj. |
+sh22 | mc | to steal | to steal | stjele / skjele / sjele / kjele | Stjele is spelled stj. Kjele is a kettle. |
+sh23 | mc | Norwegian | Norwegian | norsk / nosk / norskj / norsj | In this spelling, rs is r plus s. It is not an sh sound. |
+sh24 | mc | first | first | først / føsjt / føskj / føst | Først is r plus s, not skj. |

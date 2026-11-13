@@ -1523,7 +1523,6 @@ ck18 | b1-clicks
 ck19 | b1-clicks
 ck20 | b1-clicks
 ck21 | b1-clicks
-ck22 | b1-clicks
 ck23 | b1-clicks
 ck24 | b1-clicks
 ck25 | b1-clicks

@@ -1,7 +1,7 @@
 function startApp(data){
 "use strict";
 var PATTERNS=data.patterns,ITEMS=data.items,EXPR=data.expr;
-var VERSION="5.7.0",VERSION_NOTE="",VERSION_DATE="10 Nov 2026";
+var VERSION="5.8.2",VERSION_NOTE="",VERSION_DATE="13 Nov 2026";
 var KEY="norskdrill.v1",SESSION_SIZE=16,NEED=3,EXTRA_CAP=8;
 /* v5.6 lesson of the day: 32 items, half on one daily focus pattern, at most 2 mastered reviews, no very short basics */
 var LESSON_SIZE=32,FOCUS_SHARE=0.5,LESSON_REV=2,EASY_WORDS=5,FLOG_KEEP=40;
@@ -53,29 +53,37 @@ function norm(s){return s.toLowerCase().replace(/[.,!?;:]/g,"").replace(/\s+/g,"
 
 /* ---------- storage + migration ---------- */
 var mem=null;
+function obj(x){return x&&typeof x==="object"&&!Array.isArray(x)?x:{}}
+/* v5.8.2: ck22 was a second copy of vt73 (same sentence). Its answers are folded into vt73. */
+var ITEM_ALIAS={ck22:"vt73"};
 function normalize(d){
-  d=d&&typeof d==="object"?d:{};
-  d.items=d.items&&typeof d.items==="object"?d.items:{};
+  d=obj(d);
+  d.items=obj(d.items);
+  Object.keys(d.items).forEach(function(k){if(!d.items[k]||typeof d.items[k]!=="object")delete d.items[k]});
+  Object.keys(ITEM_ALIAS).forEach(function(old){var a=d.items[old],to=ITEM_ALIAS[old];if(!a)return;delete d.items[old];var b=d.items[to];
+    if(!b){d.items[to]=a;return}
+    var late=(a.last||0)>(b.last||0)?a:b;
+    d.items[to]={seen:(a.seen||0)+(b.seen||0),right:(a.right||0)+(b.right||0),wrong:(a.wrong||0)+(b.wrong||0),streak:late.streak||0,weak:!!late.weak,last:late.last||0,lastWrong:a.lastWrong&&(!b.lastWrong||late===a)?a.lastWrong:(b.lastWrong||"")}});
   d.expr=d.expr&&typeof d.expr==="object"&&!Array.isArray(d.expr)?d.expr:{};
   foldExpr(d);
-  d.stats=d.stats||{};d.set=d.set||{};d.chk=d.chk&&typeof d.chk==="object"?d.chk:{};
+  d.stats=obj(d.stats);d.set=obj(d.set);d.chk=obj(d.chk);
   /* v5.6.1: checked-out patterns {pid:true}: left out of every lesson, drill and practice */
   var oo=d.out&&typeof d.out==="object"&&!Array.isArray(d.out)?d.out:{};d.out={};Object.keys(oo).forEach(function(k){if(oo[k]&&PBY[k])d.out[k]=true});
-  var s=d.stats;s.best=s.best||0;s.days=s.days||{};s.total=s.total||0;s.done=s.done||{};
+  var s=d.stats;s.best=s.best||0;s.days=obj(s.days);s.total=s.total||0;s.done=obj(s.done);
   if(typeof d.set.typed!=="boolean")d.set.typed=false;
   if(!Array.isArray(d.set.drill))d.set.drill=[];
   if(typeof d.set.round!=="boolean")d.set.round=false;
   var migrate=!d.pat;
-  d.pat=d.pat||{};
+  d.pat=obj(d.pat);
   PIDS.forEach(function(pid){
-    var p=d.pat[pid]=d.pat[pid]||{n:0,ok:0,run:[],drill:false,mastered:0,hist:[]};
-    p.run=p.run||[];p.hist=Array.isArray(p.hist)?p.hist.slice(-WIN):[];p.mastered=p.mastered||0;p.n=p.n||0;p.ok=p.ok||0;p.drill=!!p.drill;
+    var p=d.pat[pid]=d.pat[pid]&&typeof d.pat[pid]==="object"?d.pat[pid]:{n:0,ok:0,run:[],drill:false,mastered:0,hist:[]};
+    p.run=Array.isArray(p.run)?p.run:[];p.hist=Array.isArray(p.hist)?p.hist.slice(-WIN):[];p.mastered=p.mastered||0;p.n=p.n||0;p.ok=p.ok||0;p.drill=!!p.drill;
     p.hold=p.hold||0;p.rv=p.rv||0;
     if(!p.last){var mx=0;ITEMS.forEach(function(it){var x=d.items[it.id];if(it.t===pid&&x&&x.last>mx)mx=x.last});p.last=mx}
   });
   /* v5.5: per sub-pattern stats (possessives). Older data: seeded from the per-sentence counts */
   if(!d.tag||typeof d.tag!=="object"){d.tag={};ITEMS.forEach(function(it){var x=d.items[it.id];if(!it.g||!x)return;var T=d.tag[it.g]=d.tag[it.g]||{n:0,ok:0,hist:[]};T.n+=(x.right||0)+(x.wrong||0);T.ok+=(x.right||0)})}
-  PTAGS.forEach(function(t){var T=d.tag[t.id]=d.tag[t.id]||{n:0,ok:0,hist:[]};T.n=T.n||0;T.ok=T.ok||0;T.hist=Array.isArray(T.hist)?T.hist.slice(-WIN):[]});
+  PTAGS.forEach(function(t){var T=d.tag[t.id]=obj(d.tag[t.id]);T.n=T.n||0;T.ok=T.ok||0;T.hist=Array.isArray(T.hist)?T.hist.slice(-WIN):[]});
   if(migrate){ /* v1 -> v2: rebuild per-pattern stats from the per-sentence history */
     ITEMS.forEach(function(it){var x=d.items[it.id];if(!x)return;var p=d.pat[it.t];p.n+=(x.right||0)+(x.wrong||0);p.ok+=(x.right||0);if(x.weak)p.drill=true});
   }
@@ -87,10 +95,11 @@ function normalize(d){
   Object.keys(d.pat).forEach(function(k){if(!PBY[k])delete d.pat[k]});
   d.set.drill=d.set.drill.filter(function(p){return !!PBY[p]});
   Object.keys(d.flog).forEach(function(k){if(!PBY[d.flog[k]])delete d.flog[k]});
-  if(d.lesson&&typeof d.lesson==="object"){var Lk=function(a){return Array.isArray(a)?a.filter(function(id){return !!byId(id)}):[]};
+  if(!d.lesson||typeof d.lesson!=="object"||Array.isArray(d.lesson))d.lesson=null;
+  if(d.lesson){var Lk=function(a){return Array.isArray(a)?a.filter(function(id){return !!byId(id)}):[]};
     if(Array.isArray(d.lesson.ids))d.lesson.ids=Lk(d.lesson.ids);d.lesson.cleared=Lk(d.lesson.cleared);d.lesson.rev=Lk(d.lesson.rev);
     if(d.lesson.focus&&!PBY[d.lesson.focus])d.lesson.focus=null}
-  d.pts=d.pts||{};["total","best","bestStreak","sessions","answers","correct"].forEach(function(k){d.pts[k]=d.pts[k]||0});
+  d.pts=obj(d.pts);["total","best","bestStreak","sessions","answers","correct"].forEach(function(k){d.pts[k]=d.pts[k]||0});
   d.v=4;return d;
 }
 function load(){
@@ -182,7 +191,7 @@ var STATUS_L={new:"New",weak:"Needs work",learning:"Learning",mastered:"Mastered
 
 /* ---------- views ---------- */
 var VIEWS=["v-home","v-set","v-drill","v-check","v-play","v-sum"];
-function show(id){if(id!=="v-play"){missBg(false);hitFx(null)}VIEWS.forEach(function(v){$(v).classList.toggle("on",v===id)});document.documentElement.setAttribute("data-view",id);paintChrome();window.scrollTo(0,0)}
+function show(id){if(id!=="v-play")hitFx(null);VIEWS.forEach(function(v){$(v).classList.toggle("on",v===id)});document.documentElement.setAttribute("data-view",id);paintChrome();window.scrollTo(0,0)}
 /* browser/status-bar tint: the page background */
 function paintChrome(){var m=document.querySelector('meta[name="theme-color"]');if(!m)return;m.setAttribute("content",getComputedStyle(document.documentElement).getPropertyValue("--bg").trim()||"#050a07")}
 function toast(m,ms){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove("on")},ms||2200)}
@@ -441,7 +450,6 @@ function weakExprList(){
 }
 function famSeen(fam){var st=D.expr&&D.expr[fam];return !!(st&&st.seen>0)}
 function cardUses(id){var st=D.expr&&D.expr[exprFamOf(id)];return st&&st.cards&&st.cards[id]||0}
-function shuffleExpr(a,rand){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(rand()*(i+1));var t=b[i];b[i]=b[j];b[j]=t}return b}
 function pickExprs(n,rand,avoid){
   rand=rand||Math.random;avoid=avoid||{};
   if(!EXPR.length||n<=0)return [];
@@ -451,7 +459,7 @@ function pickExprs(n,rand,avoid){
   function unseenFirst(list){
     var open=[],seen=[];
     list.forEach(function(e){if(avoid[e.id]||chosen.indexOf(e.id)>-1)return;(cardUses(e.id)?seen:open).push(e)});
-    return shuffleExpr(open,rand).concat(shuffleExpr(seen,rand));
+    return shuffle(open,rand).concat(shuffle(seen,rand));
   }
   var chosen=[];
   function place(e){
@@ -470,14 +478,14 @@ function pickExprs(n,rand,avoid){
     for(var i=0;i<left.length;i++){if(place(left[i]))return true}
     return false;
   }
-  var review=shuffleExpr(Object.keys(byFam).filter(function(f){return introduced[f]}),rand);
-  var fresh=shuffleExpr(Object.keys(byFam).filter(function(f){return !introduced[f]}),rand);
+  var review=shuffle(Object.keys(byFam).filter(function(f){return introduced[f]}),rand);
+  var fresh=shuffle(Object.keys(byFam).filter(function(f){return !introduced[f]}),rand);
   var targetNew=Math.min(maxNew,n),targetReview=n-targetNew,newN=0,reviewGot=0;
   for(var i=0;i<review.length&&reviewGot<targetReview&&chosen.length<n;i++){if(takeOne(review[i]))reviewGot++}
   var reviewShort=targetReview-reviewGot;
   for(var j=0;j<fresh.length&&newN<targetNew&&chosen.length<n;j++){if(takeOne(fresh[j]))newN++}
   var famsIn=[];chosen.forEach(function(id){var f=EXBY[id].fam;if(famsIn.indexOf(f)<0)famsIn.push(f)});
-  famsIn=shuffleExpr(famsIn,rand);
+  famsIn=shuffle(famsIn,rand);
   var guard=0,gap=reviewShort;
   while(chosen.length<n&&guard<famsIn.length*4){
     guard++;var progressed=false;
@@ -501,7 +509,6 @@ function composeSession(rand,n,grammarFn){
   if(e.length<eN){var more=grammarFn(gN+(eN-e.length));more.forEach(function(id){if(g.length<gN+(eN-e.length)&&!have[id]){g.push(id);have[id]=1}})}
   return zipIds(g,e).slice(0,n);
 }
-function renderChunk(){renderOrder()}
 function exprWords(it){
   var need={};
   function take(s){
@@ -696,7 +703,6 @@ function updateTop(){
 }
 function setAct(label,enabled,cls){var a=$("act");a.textContent=label;a.disabled=!enabled;a.className="btn "+(cls||"pri")}
 function hitFx(kind){var h=document.documentElement;h.classList.remove("fixmiss","wrongfx");if(!kind)return;void h.offsetWidth;h.classList.add(kind)}
-function missBg(on){document.documentElement.classList.toggle("miss",!!on)}
 function next(){
   dropBasicQueue();
   if(S.endless&&!S.queue.length)genNext();
@@ -704,7 +710,6 @@ function next(){
   if(!S.queue.length)return finish();
   var it=byId(S.queue[0]);
   /* Every new card starts clean. Phrases used to return before this, so the previous result stayed on screen. */
-  missBg(false);
   hitFx(null);
   S.userText="";
   var fb0=$("fb");if(fb0){fb0.className="";fb0.innerHTML=""}
@@ -844,8 +849,7 @@ $("card").addEventListener("click",function(e){
   if(it.type==="order"||it.type==="chunk"||it.type==="reply"){
     if(b.dataset.b!==undefined){var t=S.state.bank.splice(+b.dataset.b,1)[0];S.state.line.push(t);renderOrder()}
     else if(b.dataset.l!==undefined){var t2=S.state.line.splice(+b.dataset.l,1)[0];S.state.bank.push(t2);renderOrder()}
-  }else if(it.type==="reply"&&b.dataset.i!==undefined){var ch=it.choices,ix=+b.dataset.i,rok=!!ch[ix].ok;document.querySelectorAll(".opt").forEach(function(x,k){x.disabled=true;if(ch[k].ok)x.classList.add("ok");else if(k===ix)x.classList.add("no")});answer(rok,ch[ix].t)}
-  else if(it.type==="sense"&&b.dataset.i!==undefined){
+  }else if(it.type==="sense"&&b.dataset.i!==undefined){
     var sopts=S.state.opts,spick=sopts[+b.dataset.i];
     document.querySelectorAll(".opt").forEach(function(x,i){x.disabled=true;if(sopts[i].ok)x.classList.add("ok");else if(i===+b.dataset.i)x.classList.add("no")});
     answer(spick.ok,spick.o);
@@ -988,7 +992,7 @@ $("bk-do").addEventListener("click",function(){
   var n=Object.keys(o.items).length;
   if(!confirm("Replace the progress on this device with this backup ("+n+" sentences, saved "+String(o.at||"").slice(0,10)+")?"))return;
   var theme=D.set.theme;
-  var nd={items:o.items,stats:o.stats,set:o.set||{},lesson:o.lesson||null,pat:o.pat,pts:o.pts,chk:o.chk,tag:o.tag,flog:o.flog,out:o.out,expr:o.expr};
+  var nd={items:o.items,stats:o.stats,set:obj(o.set),lesson:o.lesson||null,pat:o.pat,pts:o.pts,chk:o.chk,tag:o.tag,flog:o.flog,out:o.out,expr:o.expr};
   nd.set.theme=theme;nd.set.night=D.set.night;
   D=normalize(nd);if(!o.set||!o.set.drill)D.set.drill=[];
   save();$("bk").classList.remove("on");renderHome();toast("Progress imported ✓");
@@ -1277,7 +1281,7 @@ function hostBadge(){var x=document.querySelector("ship-page-badge"),on=false;if
 hostBadge();
 try{new MutationObserver(hostBadge).observe(document.body,{childList:true});new MutationObserver(hostBadge).observe(document.documentElement,{childList:true})}catch(e){}
 $("ver").textContent="Norsk drill v"+VERSION+(VERSION_NOTE?" "+VERSION_NOTE:"")+" · "+VERSION_DATE;
-window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,makeProgressFile:makeProgressFile,progressFileName:progressFileName,validateProgressFile:validateProgressFile,importProgressFile:importProgressFile,exportProgressFile:exportProgressFile,fullText:fullText,missBg:missBg,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);var r=rng(hashStr("norsk-drill|"+t));return{ids:composeSession(r,LESSON_SIZE,function(nn){return buildLesson(r,nn,f)}),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},syncSummary:syncSummary,syncNow:syncNow,syncGet:syncGet,isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS,basicPoss:basicPoss,basicInf:basicInf,drillOut:drillOut,weakExprList:function(){return weakExprList().map(function(e){return e.id})},EXPR:EXPR,pickExprs:pickExprs,composeSession:composeSession};
+window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,makeProgressFile:makeProgressFile,progressFileName:progressFileName,validateProgressFile:validateProgressFile,importProgressFile:importProgressFile,exportProgressFile:exportProgressFile,fullText:fullText,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);var r=rng(hashStr("norsk-drill|"+t));return{ids:composeSession(r,LESSON_SIZE,function(nn){return buildLesson(r,nn,f)}),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},syncSummary:syncSummary,syncNow:syncNow,syncGet:syncGet,isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS,basicPoss:basicPoss,basicInf:basicInf,drillOut:drillOut,weakExprList:function(){return weakExprList().map(function(e){return e.id})},EXPR:EXPR,pickExprs:pickExprs,composeSession:composeSession};
 if(location.protocol==="file:")$("filewarn").style.display="block";
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 (function(){var ok=false;try{localStorage.setItem("nd.probe","1");ok=localStorage.getItem("nd.probe")==="1";localStorage.removeItem("nd.probe")}catch(e){}SV.ok=ok;SV.t=Date.now()})();
@@ -1287,4 +1291,4 @@ try{if(syncGet().token)syncSoon("open")}catch(e){}
 if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol)){navigator.serviceWorker.register("sw.js").catch(function(){})}
 }
 
-CardParse.load().then(startApp).catch(function(){var w=document.getElementById('filewarn');if(w)w.style.display='block'});
+CardParse.load().then(startApp).catch(function(e){try{console.error(e)}catch(_){}var w=document.getElementById('filewarn');if(w)w.style.display='block'});
