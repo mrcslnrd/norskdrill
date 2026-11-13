@@ -100,6 +100,69 @@ EXPR.forEach(it => {
   ids.add(it.id);
 });
 
+/* v5.8.2 file hygiene: no trailing whitespace, sequence rows unique and on a known pattern. */
+const PAT_IDS = new Set((parsed.patterns || []).map(p => p.id));
+names.concat(["README.md"]).forEach(name => {
+  const file = path.join(dir, name);
+  if (!fs.existsSync(file)) return;
+  const hits = [];
+  fs.readFileSync(file, "utf8").split("\n").forEach((l, i) => { if (/[ \t]+\r?$/.test(l)) hits.push(i + 1); });
+  if (hits.length) bad(name, "trailing whitespace on " + hits.length + " line(s), first at line " + hits[0] + " (fix: sed -i 's/[ \\t]*$//' cards/*.txt)");
+});
+const seqSeen = new Set();
+fs.readFileSync(path.join(dir, "sequence.txt"), "utf8").split("\n").forEach(l => {
+  const t = l.trim();
+  if (!t || t[0] === "#") return;
+  const id = t.split("|")[0].trim();
+  if (seqSeen.has(id)) bad(id, "listed twice in sequence.txt");
+  seqSeen.add(id);
+});
+ITEMS.forEach(it => { if (!PAT_IDS.has(it.t)) bad(it.id, "unknown pattern " + it.t); });
+
+/* The same exercise twice: same card type and the same full sentence. */
+function sameKey(it) {
+  const n = s => String(s || "").toLowerCase().replace(/[.,!?;:]/g, "").replace(/\s+/g, " ").trim();
+  if (it.type === "order") return "order|" + n(it.s);
+  if (it.type === "fill") return "fill|" + n(it.s) + "|" + n(it.ans);
+  if (it.type === "mc") return "mc|" + n(it.prompt) + "|" + n((it.options || [])[0]);
+  if (it.type === "sense") return "sense|" + n(it.s) + "|" + n(it.word);
+  if (it.type === "gap") return "gap|" + n(it.s) + "|" + n(it.adv);
+  if (it.type === "typed") return "typed|" + n(it.s);
+  return "";
+}
+const sameSeen = {};
+ITEMS.forEach(it => {
+  const k = sameKey(it);
+  if (!k) return;
+  if (sameSeen[k]) bad(it.id, "same exercise as " + sameSeen[k]);
+  else sameSeen[k] = it.id;
+});
+EXPR.forEach(e => {
+  const k = "expr|" + e.type + "|" + String(e.cue || "") + "|" + (e.ok || []).join("//").toLowerCase();
+  if (sameSeen[k]) bad(e.id, "same phrase card as " + sameSeen[k]);
+  else sameSeen[k] = e.id;
+});
+
+/* The service worker must precache every file the page loads. */
+const sw = fs.readFileSync(path.join(root, "sw.js"), "utf8");
+const shellM = sw.match(/const SHELL = (\[[^\]]*\])/);
+const SHELL = shellM ? [...shellM[1].matchAll(/"([^"]+)"/g)].map(m => m[1]) : [];
+if (!shellM) bad("sw.js", "SHELL list not found");
+const page = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const loaded = [...page.matchAll(/(?:src|href)="([^"#:]+)"/g)].map(m => m[1]).filter(f => !/^https?:/.test(f));
+loaded.concat(["index.html", "manifest.webmanifest", "cards/index.txt"], names.map(n => "cards/" + n)).forEach(f => {
+  if (SHELL.indexOf(f) < 0) bad("sw.js", "SHELL is missing " + f);
+});
+SHELL.forEach(f => { if (f !== "./" && !fs.existsSync(path.join(root, f))) bad("sw.js", "SHELL lists a missing file " + f); });
+try {
+  JSON.parse(fs.readFileSync(path.join(root, "manifest.webmanifest"), "utf8")).icons.forEach(ic => { if (SHELL.indexOf(ic.src) < 0) bad("sw.js", "SHELL is missing " + ic.src); });
+} catch (err) { bad("manifest.webmanifest", "does not parse: " + err.message); }
+
+/* The version shown in the app matches the VERSION file. */
+const appVer = (html.match(/var VERSION="([^"]+)"/) || [])[1];
+const fileVer = fs.readFileSync(path.join(root, "VERSION"), "utf8").trim();
+if (appVer !== fileVer) bad("VERSION", "app.js says " + appVer + ", VERSION file says " + fileVer);
+
 const served = ITEMS.filter(it => !excluded(it));
 served.forEach(it => {
   if (excluded(it)) bad(it.id, "served item is on an exclusion list");

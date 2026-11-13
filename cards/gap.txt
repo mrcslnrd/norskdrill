@@ -1,37 +1,37 @@
-# id | gap | english | sentence with ^ before the word the adverb follows | why | adv
+# id | gap | english | sentence with ^ where the adverb goes | why | adv
 # Leave adv empty when the card has no adv field. ikke is stored only when the card has it.
-ikke8 | gap | I stayed home because I didn't feel well. | Jeg ble hjemme fordi jeg ^følte meg bra. | In the fordi clause ikke goes right after the subject jeg, before the verb. | 
-ikke9 | gap | We'll go for a walk if it doesn't rain. | Vi går på tur hvis det ^regner. | After hvis, ikke goes right after the subject det: hvis det ikke regner. | 
-ikke10 | gap | He said that he hadn't seen the film. | Han sa at han ^hadde sett filmen. | After at, ikke goes right after the subject han, before hadde. | 
-ikke11 | gap | I eat breakfast even if I'm not hungry. | Jeg spiser frokost selv om jeg ^er sulten. | After selv om, ikke goes right after the subject: selv om jeg ikke er sulten. | 
-ikke12 | gap | The kids get grumpy when they don't get ice cream. | Barna blir sure når de ^får is. | After når, ikke goes right after the subject de, before the verb. | 
-ikke13 | gap | It's a song that I can't forget. | Det er en sang som jeg ^klarer å glemme. | Even in a som clause, ikke goes right after the subject jeg. | 
-ikke14 | gap | We were late because the bus didn't come. | Vi kom for sent fordi bussen ^kom. | In the fordi clause: subject bussen, then ikke, then the verb. | 
-ikke15 | gap | I know that she doesn't like coffee. | Jeg vet at hun ^liker kaffe. | After at, ikke goes right after the subject hun. | 
-ikke16 | gap | The doctor says I shouldn't eat so much sugar. | Legen sier at jeg ^bør spise så mye sukker. | After at, ikke comes right after the subject jeg, before the verb bør. | 
-ikke17 | gap | I don't like coffee. | Jeg liker ^kaffe. | A short main clause starting with the subject: ikke comes after the verb (liker ikke). | 
-ikke18 | gap | I didn't train yesterday. | I går trente jeg^. | The clause does not start with the subject, so ikke goes right after the subject jeg: trente jeg ikke. | 
-ikke19 | gap | Why don't you eat meat? | Hvorfor spiser du ^kjøtt? | In questions ikke also goes right after the subject: spiser du ikke. | 
-ikke20 | gap | If I hadn't slept so long, I'd have caught the train. | Hvis jeg ^hadde sovet så lenge, hadde jeg rukket toget. | In the hvis clause ikke goes right after the subject jeg, before hadde. | 
-ikke21 | gap | Even though it wasn't cold, I went without a hat. | Selv om det ^var kaldt, gikk jeg uten lue. | After selv om, ikke goes right after the subject det. | 
-ikke22 | gap | Why didn't you come to the shop today? | Hvorfor kom du ^til butikken i dag? | In a question ikke goes right after the subject du: kom du ikke. | 
-ikke23 | gap | She said she didn't want to go to Italy this summer. | Hun sa at hun ^ville reise til Italia i sommer. | After at, ikke goes right after the subject hun, before ville. | 
-ib1 | gap | I think he doesn't buy bread at the shop. | Jeg tror at han ^kjøper brød i butikken. | After at, ikke goes right after the subject. | 
-ib2 | gap | He said that I hadn't washed the car. | Han sa at jeg ^hadde vasket bilen. | After at, ikke goes right after the subject, before hadde. | 
-ib3 | gap | If my colleagues don't do the homework, we have to talk about it. | Hvis kollegaene mine ^gjør leksene, må vi snakke om det. | After hvis, ikke goes right after the subject. | 
-ib4 | gap | Even though the neighbour didn't make dinner, it was a nice evening. | Selv om naboen ^laget middag, var det en fin kveld. | After selv om, ikke goes right after the subject. | 
-ib5 | gap | I got worried because he didn't forget the umbrella. | Jeg ble bekymret fordi han ^glemte paraplyen. | After fordi, ikke goes right after the subject. | 
-ib6 | gap | When the kids don't tell a joke, I get worried. | Når barna ^forteller en vits, blir jeg bekymret. | After når, ikke goes right after the subject. | 
-ib7 | gap | It's odd that the kids didn't call grandma. | Det er rart at barna ^ringte til mormor. | After at, ikke goes right after the subject. | 
-ib8 | gap | Why didn't you do the homework? | Hvorfor gjorde du ^leksene? | In a question ikke goes right after the subject (du), not after the verb. | 
-ib9 | gap | I think the teacher doesn't answer the email. | Jeg tror at læreren ^svarer på e-posten. | After at, ikke goes right after the subject. | 
-ib10 | gap | He said that the kids hadn't packed the suitcase. | Han sa at barna ^hadde pakket kofferten. | After at, ikke goes right after the subject, before hadde. | 
-ib11 | gap | If the boss doesn't come to the meeting, we have to talk about it. | Hvis sjefen ^kommer på møtet, må vi snakke om det. | After hvis, ikke goes right after the subject. | 
-ib12 | gap | Even though the neighbour didn't wash the car, it was a nice day. | Selv om naboen ^vasket bilen, var det en fin dag. | After selv om, ikke goes right after the subject. | 
-ib13 | gap | I got worried because I didn't plan the trip. | Jeg ble bekymret fordi jeg ^planla turen. | After fordi, ikke goes right after the subject. | 
-ib14 | gap | When the neighbour doesn't watch the news, I get worried. | Når naboen ^ser nyhetene, blir jeg bekymret. | After når, ikke goes right after the subject. | 
-ib15 | gap | It's odd that she didn't paint the kitchen. | Det er rart at hun ^malte kjøkkenet. | After at, ikke goes right after the subject. | 
-ib16 | gap | Why didn't you water the flowers? | Hvorfor vannet du ^blomstene? | In a question ikke goes right after the subject (du), not after the verb. | 
+ikke8 | gap | I stayed home because I didn't feel well. | Jeg ble hjemme fordi jeg ^følte meg bra. | In the fordi clause ikke goes right after the subject jeg, before the verb. |
+ikke9 | gap | We'll go for a walk if it doesn't rain. | Vi går på tur hvis det ^regner. | After hvis, ikke goes right after the subject det: hvis det ikke regner. |
+ikke10 | gap | He said that he hadn't seen the film. | Han sa at han ^hadde sett filmen. | After at, ikke goes right after the subject han, before hadde. |
+ikke11 | gap | I eat breakfast even if I'm not hungry. | Jeg spiser frokost selv om jeg ^er sulten. | After selv om, ikke goes right after the subject: selv om jeg ikke er sulten. |
+ikke12 | gap | The kids get grumpy when they don't get ice cream. | Barna blir sure når de ^får is. | After når, ikke goes right after the subject de, before the verb. |
+ikke13 | gap | It's a song that I can't forget. | Det er en sang som jeg ^klarer å glemme. | Even in a som clause, ikke goes right after the subject jeg. |
+ikke14 | gap | We were late because the bus didn't come. | Vi kom for sent fordi bussen ^kom. | In the fordi clause: subject bussen, then ikke, then the verb. |
+ikke15 | gap | I know that she doesn't like coffee. | Jeg vet at hun ^liker kaffe. | After at, ikke goes right after the subject hun. |
+ikke16 | gap | The doctor says I shouldn't eat so much sugar. | Legen sier at jeg ^bør spise så mye sukker. | After at, ikke comes right after the subject jeg, before the verb bør. |
+ikke17 | gap | I don't like coffee. | Jeg liker ^kaffe. | A short main clause starting with the subject: ikke comes after the verb (liker ikke). |
+ikke18 | gap | I didn't train yesterday. | I går trente jeg^. | The clause does not start with the subject, so ikke goes right after the subject jeg: trente jeg ikke. |
+ikke19 | gap | Why don't you eat meat? | Hvorfor spiser du ^kjøtt? | In questions ikke also goes right after the subject: spiser du ikke. |
+ikke20 | gap | If I hadn't slept so long, I'd have caught the train. | Hvis jeg ^hadde sovet så lenge, hadde jeg rukket toget. | In the hvis clause ikke goes right after the subject jeg, before hadde. |
+ikke21 | gap | Even though it wasn't cold, I went without a hat. | Selv om det ^var kaldt, gikk jeg uten lue. | After selv om, ikke goes right after the subject det. |
+ikke22 | gap | Why didn't you come to the shop today? | Hvorfor kom du ^til butikken i dag? | In a question ikke goes right after the subject du: kom du ikke. |
+ikke23 | gap | She said she didn't want to go to Italy this summer. | Hun sa at hun ^ville reise til Italia i sommer. | After at, ikke goes right after the subject hun, before ville. |
+ib1 | gap | I think he doesn't buy bread at the shop. | Jeg tror at han ^kjøper brød i butikken. | After at, ikke goes right after the subject. |
+ib2 | gap | He said that I hadn't washed the car. | Han sa at jeg ^hadde vasket bilen. | After at, ikke goes right after the subject, before hadde. |
+ib3 | gap | If my colleagues don't do the homework, we have to talk about it. | Hvis kollegaene mine ^gjør leksene, må vi snakke om det. | After hvis, ikke goes right after the subject. |
+ib4 | gap | Even though the neighbour didn't make dinner, it was a nice evening. | Selv om naboen ^laget middag, var det en fin kveld. | After selv om, ikke goes right after the subject. |
+ib5 | gap | I got worried because he didn't forget the umbrella. | Jeg ble bekymret fordi han ^glemte paraplyen. | After fordi, ikke goes right after the subject. |
+ib6 | gap | When the kids don't tell a joke, I get worried. | Når barna ^forteller en vits, blir jeg bekymret. | After når, ikke goes right after the subject. |
+ib7 | gap | It's odd that the kids didn't call grandma. | Det er rart at barna ^ringte til mormor. | After at, ikke goes right after the subject. |
+ib8 | gap | Why didn't you do the homework? | Hvorfor gjorde du ^leksene? | In a question ikke goes right after the subject (du), not after the verb. |
+ib9 | gap | I think the teacher doesn't answer the email. | Jeg tror at læreren ^svarer på e-posten. | After at, ikke goes right after the subject. |
+ib10 | gap | He said that the kids hadn't packed the suitcase. | Han sa at barna ^hadde pakket kofferten. | After at, ikke goes right after the subject, before hadde. |
+ib11 | gap | If the boss doesn't come to the meeting, we have to talk about it. | Hvis sjefen ^kommer på møtet, må vi snakke om det. | After hvis, ikke goes right after the subject. |
+ib12 | gap | Even though the neighbour didn't wash the car, it was a nice day. | Selv om naboen ^vasket bilen, var det en fin dag. | After selv om, ikke goes right after the subject. |
+ib13 | gap | I got worried because I didn't plan the trip. | Jeg ble bekymret fordi jeg ^planla turen. | After fordi, ikke goes right after the subject. |
+ib14 | gap | When the neighbour doesn't watch the news, I get worried. | Når naboen ^ser nyhetene, blir jeg bekymret. | After når, ikke goes right after the subject. |
+ib15 | gap | It's odd that she didn't paint the kitchen. | Det er rart at hun ^malte kjøkkenet. | After at, ikke goes right after the subject. |
+ib16 | gap | Why didn't you water the flowers? | Hvorfor vannet du ^blomstene? | In a question ikke goes right after the subject (du), not after the verb. |
 rp21 | gap | She said she had no time for coffee. | Hun sa at hun ^hadde tid til kaffe. | In the at-clause ikke stands before the verb (after the subject). | ikke
 rp22 | gap | He said he didn't like fish. | Han sa at han ^likte fisk. | In the at-clause ikke stands before the verb (after the subject). | ikke
 rp23 | gap | Marit said she hadn't seen the film. | Marit sa at hun ^hadde sett filmen. | In the at-clause ikke stands before the verb (after the subject). | ikke

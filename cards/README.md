@@ -30,7 +30,7 @@ Sense cards are the vocab pattern.
 
 ## gap
 
-`id | gap | english | sentence with ^ before the word the adverb follows | why | adv`
+`id | gap | english | sentence with ^ where the adverb goes | why | adv`
 
 ## typed
 

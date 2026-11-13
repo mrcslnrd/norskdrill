@@ -9,11 +9,12 @@ This note is for adding or fixing a card, and for backing up progress, without e
 - `index.html` — the page shell, including Settings.
 - `app.js` — the app: sessions, scoring, storage, export/import.
 - `cards.js` — the card parser. It also works in Node.
-- `style.css`, `effects.css` — look and the blue/red flash.
-- `sw.js` — service worker. `VERSION` is the cache name.
+- `style.css`, `effects.css` — the look (Green, Amber, Day) and the blue/red hit tint.
+- `sw.js` — service worker. `VERSION` is the cache name. `SHELL` must list every file the page loads (the QA checks this).
+- `VERSION` — the app version. It must match `VERSION` at the top of `app.js` (the QA checks this).
 - `cards/` — all drill content. One card is one line.
 - `tools/qa-content.js` — the content check that must pass before a release.
-- `test/` — headless Chrome checks (not part of the site).
+- `test/` — headless Chrome checks (not part of the site). Run them all with `node test/run-all.mjs` (Node 22+ and Google Chrome). CI runs them on every push.
 
 ## Card format
 
@@ -55,7 +56,7 @@ etter14 | mc | After I had eaten breakfast, I went to work. | Etter at jeg ___ f
 
 ### gap (where the adverb goes)
 
-`id | gap | english | sentence with ^ before the word the adverb follows | why | adv`
+`id | gap | english | sentence with ^ where the adverb goes | why | adv`
 
 Leave `adv` empty when the card uses the default (`ikke`). Set it when the adverb is something else:
 
@@ -103,7 +104,7 @@ More detail lives in `cards/README.md`.
 - Vocabulary is context-first: a Norwegian sentence with the target marked, and Norwegian options.
 - One short instruction per item (the `why` field).
 - A wrong answer turns only the wrong words red.
-- The hit is a solid flash: blue `#2563eb` for a fixed miss (a previously missed item now answered right), red `#dc2626` for a mistake. No gradients, glints or fireworks.
+- The hit recolours the palette: it snaps to intense blue for a fixed miss (a previously missed item now answered right) or red for a mistake, holds about 0.6 s, then eases to a softer shade that stays until the next card. No full-screen flash, no shake. The scanlines stay.
 
 ## Add or fix a card
 
@@ -112,13 +113,13 @@ More detail lives in `cards/README.md`.
 
    `node tools/qa-content.js`
 
-   It checks feminine forms, options, and that every sentence can be built from its tiles.
+   It checks feminine forms, options, and that every sentence can be built from its tiles. It also fails on trailing whitespace in `cards/`, a card listed twice in `sequence.txt` or on an unknown pattern, the same exercise twice, a file missing from the service worker's `SHELL`, and an app version that does not match the `VERSION` file.
 3. Bump `VERSION` in `sw.js` to the first 10 characters of:
 
    `cat index.html app.js cards.js style.css effects.css cards/* | sha1sum | cut -c1-10`
 
    The service worker is cache-first: it serves the old copy immediately, then refreshes the cache in the background. A new `VERSION` is what makes the new files show up.
-4. Commit to `main` (or open a pull request and merge it). GitHub Pages deploys from `main` after the same two checks pass (see `.github/workflows/pages.yml`).
+4. Commit to `main` (or open a pull request and merge it). GitHub Pages deploys from `main` after the content check passes (see `.github/workflows/pages.yml`).
 5. Reopen the app twice. The first open still gets the cached copy and refreshes in the background; the second open shows the new version.
 
 Do not change `style.css` or `effects.css` for a card fix. Do not add feminine forms, English sense-options, or a second instruction line on an item.

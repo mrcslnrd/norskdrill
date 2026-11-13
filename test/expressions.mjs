@@ -5,7 +5,7 @@ const PORT = process.env.PORT || '8768';
 const chrome = spawn('/usr/bin/google-chrome', [
   '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
   '--window-size=390,844',
-  '--remote-debugging-port=9235','--user-data-dir=/tmp/chrome-nd-expr','about:blank'
+  '--remote-debugging-port=9235','--user-data-dir=/tmp/chrome-nd-expr-'+process.pid,'about:blank'
 ], {stdio:['ignore','pipe','pipe']});
 let log=''; chrome.stderr.on('data', d => { log += d.toString(); });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -40,7 +40,7 @@ const logic = await send('Runtime.evaluate', {returnByValue:true, expression: `(
   check('alias e77 belongs to e64', nd.EXPR.find(e => e.id==='e77').fam === 'e64');
   check('få til is not receipt', nd.EXPR.find(e => e.id==='e09').why.toLowerCase().indexOf('receiv')>=0 || nd.EXPR.find(e => e.id==='e09').why.indexOf('manage')>=0 || nd.EXPR.find(e => e.id==='e09').en.toLowerCase().indexOf('manage')>=0 || nd.EXPR.find(e => e.id==='e09').en.toLowerCase().indexOf("can't")>=0);
   const mangle = nd.EXPR.filter(e => e.fam==='e88').map(e => e.why).join(' ');
-  check('mangle is not always you are welcome', /not always|does not always/i.test(mangle));
+  check('mangle is not always you are welcome', /not always|does not always|not an all-purpose/i.test(mangle), mangle);
   const lesson = nd.buildLesson('2026-11-08','possessives');
   check('lesson stays 32', lesson.ids.length===32, String(lesson.ids.length));
   const eCount = lesson.ids.filter(isExpr).length;

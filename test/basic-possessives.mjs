@@ -3,10 +3,12 @@
    PORT=8768 node test/basic-possessives.mjs
 */
 import { spawn } from 'node:child_process';
+import fs from 'node:fs';
+const APP_VERSION = fs.readFileSync(new URL('../VERSION', import.meta.url), 'utf8').trim();
 const PORT = process.env.PORT || '8768';
 const chrome = spawn('/usr/bin/google-chrome', [
   '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
-  '--remote-debugging-port=9234','--user-data-dir=/tmp/chrome-nd564','about:blank'
+  '--remote-debugging-port=9234','--user-data-dir=/tmp/chrome-nd564-'+process.pid,'about:blank'
 ], {stdio:['ignore','pipe','pipe']});
 let log=''; chrome.stderr.on('data', d => { log += d.toString(); });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -35,9 +37,9 @@ const expr = `(() => {
   const fail = [];
   function check(name, ok, detail){ if(!ok) fail.push(name + (detail ? ': ' + detail : '')); }
 
-  check('version', nd.VERSION === '5.7.0' && document.getElementById('ver').textContent === 'Norsk drill v5.7.0 · 10 Nov 2026', document.getElementById('ver').textContent);
+  check('version', nd.VERSION === ${JSON.stringify(APP_VERSION)} && document.getElementById('ver').textContent.indexOf('Norsk drill v' + nd.VERSION + ' · ') === 0, document.getElementById('ver').textContent);
   check('excluded count', basic.length === 22, String(basic.length));
-  check('retained count', kept.length === 111, String(kept.length));
+  check('retained count', kept.length === poss.length - 22 && kept.length >= 111, String(kept.length));
   check('po1 basic agreement', nd.basicPoss(nd.ITEMS.find(i => i.id==='po1')));
   check('po32 faren min', nd.basicPoss(nd.ITEMS.find(i => i.id==='po32')));
   check('po73 passordet mitt', nd.basicPoss(nd.ITEMS.find(i => i.id==='po73')));

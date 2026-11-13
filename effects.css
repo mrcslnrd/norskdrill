@@ -24,7 +24,6 @@ html.fixmiss,html.wrongfx,:root.fixmiss,:root.wrongfx{
   --okb:color-mix(in srgb,var(--fx-c) 6%,transparent);
   --s1:color-mix(in srgb,var(--fx-c) 3.5%,transparent);
   --s2:color-mix(in srgb,var(--fx-c) 7%,transparent);
-  --s3:color-mix(in srgb,var(--fx-c) 16%,transparent);
   --ln:color-mix(in srgb,var(--fx-c) 13%,transparent);
   --ln2:color-mix(in srgb,var(--fx-c) 30%,transparent);
   --glow:0 0 6px color-mix(in srgb,var(--fx-c) 38%,transparent),0 0 1px color-mix(in srgb,var(--fx-c) 60%,transparent);

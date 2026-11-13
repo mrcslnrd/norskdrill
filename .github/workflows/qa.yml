@@ -14,3 +14,12 @@ jobs:
           node-version: "20"
       - name: Parse cards and run content QA
         run: node tools/qa-content.js
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Headless Chrome checks
+        run: node test/run-all.mjs
