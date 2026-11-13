@@ -30,10 +30,11 @@ const value = await send('Runtime.evaluate', {returnByValue:true, expression: `(
   const ids = basic.map(i => i.id);
   check('stolt av is out', ids.indexOf('pr16')>=0);
   check('modal bare infinitive is out', ids.indexOf('as27')>=0);
-  check('count', ids.length===56, String(ids.length)+' '+ids.join(','));
+  check('count', ids.length===55, String(ids.length)+' '+ids.join(','));
   ['pr20','pr38','as5','as12','as15','as39','rp35'].forEach(id => check(id+' stays', !nd.basicInf(nd.ITEMS.find(i => i.id===id))));
   check('phrases are not excluded by the å rule', !nd.EXPR.some(nd.basicInf));
-  check('new patterns exist', ['sh-spelling','pt-bridge','b1-clicks'].every(p => nd.PATTERNS.some(x => x.id===p)));
+  check('new patterns exist', ['sh-spelling','b1-clicks'].every(p => nd.PATTERNS.some(x => x.id===p)));
+  check('Portuguese bridge is gone', !nd.PATTERNS.some(x => x.id==='pt-bridge') && !nd.ITEMS.some(i => /^pb\d/.test(i.id) || i.id==='pr35'));
   for (let n=0;n<4;n++){
     const lesson = nd.buildLesson('2026-11-' + String(12+n), 'prep-aa');
     check('lesson has no basic å', lesson.ids.every(id => ids.indexOf(id)<0));
@@ -41,8 +42,8 @@ const value = await send('Runtime.evaluate', {returnByValue:true, expression: `(
     check('phrases still about half', lesson.ids.filter(id => nd.EXPR.some(e => e.id===id)).length>=14);
   }
   const seen = new Set();
-  for (let n=0;n<8;n++) nd.buildSet(40, {pids:['sh-spelling','pt-bridge','b1-clicks']}).ids.forEach(id => seen.add(id));
-  check('new patterns are served', seen.size>=12, String(seen.size));
+  for (let n=0;n<8;n++) nd.buildSet(40, {pids:['sh-spelling','b1-clicks']}).ids.forEach(id => seen.add(id));
+  check('new patterns are served', seen.size>=10, String(seen.size));
   check('drill never serves pr16', !seen.has('pr16'));
   const D = nd.D();
   D.items.pr16 = {seen:3,right:1,wrong:2,streak:0,weak:true,last:4,lastWrong:'i'};
@@ -57,6 +58,23 @@ const value = await send('Runtime.evaluate', {returnByValue:true, expression: `(
   const q=[nd.cur()&&nd.cur().id].concat(nd.S().queue);
   check('resumed queue skips stolt av', q.every(id => id!=='pr16'), q.join(','));
   check('resumed queue keeps the phrase', q.indexOf('e161')>=0);
+  /* v5.8.1: stale progress for deleted cards (pb01) and the deleted pattern (pt-bridge) */
+  const D2 = nd.D();
+  D2.items.pb01 = {seen:5,right:1,wrong:4,streak:0,weak:true,last:5,lastWrong:'et kvalitet'};
+  D2.pat['pt-bridge'] = {n:10,ok:3,run:[],drill:true,mastered:0,hist:[0,0,1,0,0,1,0,0,1,0],hold:0,rv:0,last:5};
+  D2.set.drill = ['pt-bridge','v2-fronted-time'];
+  D2.lesson = {date:t, ids:['pb01','e161','pr20'], rev:['pb01'], cleared:['pb01'], done:false, focus:'pt-bridge'};
+  D2.flog[t] = 'pt-bridge';
+  localStorage.setItem('norskdrill.v1', JSON.stringify(D2));
+  nd.reload();
+  const ex2 = nd.exportText();
+  check('export has no Portuguese', !/Portug|kvalitet/.test(ex2), ex2.slice(0,300));
+  check('stale pattern stats dropped', !nd.D().pat['pt-bridge']);
+  check('stale drill pick dropped', nd.D().set.drill.join()==='v2-fronted-time');
+  check('weak patterns skip deleted', nd.weakPats().indexOf('pt-bridge')<0);
+  document.getElementById('go-day').click();
+  const q2=[nd.cur()&&nd.cur().id].concat(nd.S().queue);
+  check('lesson skips deleted card', q2.every(id => id && id!=='pb01'), q2.join(','));
   return {fail, n: ids.length, ids};
 })()`});
 const ex = events.filter(e => e.method==='Runtime.exceptionThrown').map(e => (e.params.exceptionDetails.exception&&e.params.exceptionDetails.exception.description)||e.params.exceptionDetails.text);

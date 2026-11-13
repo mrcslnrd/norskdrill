@@ -65,7 +65,6 @@ function basicInf(it) {
   const why = it.why || "";
   if (why.indexOf("After a preposition the verb comes as å + infinitive") >= 0) return true;
   if (why.indexOf("After å the verb is always the infinitive") >= 0) return true;
-  if (why.indexOf("uten å = sem + infinitive") >= 0) return true;
   if (why.indexOf("å goes in front of an infinitive, when there is no new subject") >= 0) return true;
   if (why.indexOf("the infinitive comes without å") >= 0) return true;
   if (why.indexOf("adjective + å + infinitive") >= 0) return true;
@@ -75,8 +74,7 @@ function basicInf(it) {
   if (why.indexOf("i stedet for + å + infinitive") >= 0) return true;
   return false;
 }
-function bridgeItem(it) { return !!(it && it.t === "pt-bridge"); }
-function excluded(it) { return basicPoss(it) || basicInf(it) || bridgeItem(it); }
+function excluded(it) { return basicPoss(it) || basicInf(it); }
 
 const FEM = ["døra","boka","jenta","dama","kua","sola","natta","hytta","klokka","jorda","uka","tida","kona","mora","jakka","veska","senga","lua","gata","øya","elva","nøkla","bua","stua","grensa","lomma","handa","trappa","søstra","dattera","hytta"];
 const femRe = new RegExp("(?<![A-Za-zÆØÅæøå])(" + FEM.join("|") + ")(?![A-Za-zÆØÅæøå])", "i");
@@ -163,9 +161,11 @@ function agree(id, prompt, ans, wrong) {
   if (definite && wantsDefinite && !wantsArticle) bad(id, "definite form marked wrong while the prompt is definite");
 }
 
-if (!/function drillOut\(it\)\{return basicPoss\(it\)\|\|basicInf\(it\)\|\|bridgeItem\(it\)\}/.test(html)) {
-  bad("drillOut", "Portuguese bridge items are not excluded from serving");
-}
+/* v5.8.1: no Portuguese anywhere in the cards or patterns (the Portuguese bridge was deleted). */
+const ptRe = /[ãõçÃÕÇ]|portugu|\bpt-bridge\b|\b(sem|pôr|ficar|qualidade|música)\b/i;
+ITEMS.forEach(it => { if (it.t === "pt-bridge" || stringsOf(it, []).concat([it.why || "", it.en || ""]).some(x => ptRe.test(x))) bad(it.id, "Portuguese in a card"); });
+EXPR.forEach(e => { if (stringsOf(e, []).concat([e.why || "", e.en || ""]).some(x => ptRe.test(String(x)))) bad(e.id, "Portuguese in a phrase card"); });
+(parsed.patterns || []).forEach(p => { if (ptRe.test(p.id + " " + p.label + " " + (p.hint || ""))) bad(p.id, "Portuguese pattern"); });
 
 /* English pronouns, negation and numbers must show up in the Norwegian answer. */
 const FN = "in|on|at|to|for|from|with|about|into|over|after|before|of|the|a|an|and|or|but|if|when|that|this|it|him|me|us|them|you|again|too|also|here|there|now|then|today|yesterday|tomorrow|still|just|even|not|so|as|by|up|out|off|away|next|time|well";
@@ -219,7 +219,6 @@ const summary = {
   phrases: EXPR.length,
   basicPoss: ITEMS.filter(basicPoss).length,
   basicInf: ITEMS.filter(basicInf).length,
-  bridge: ITEMS.filter(bridgeItem).length,
   failures: fails.length
 };
 console.log(JSON.stringify(summary, null, 2));
