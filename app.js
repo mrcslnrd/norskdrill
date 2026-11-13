@@ -1,7 +1,7 @@
 function startApp(data){
 "use strict";
 var PATTERNS=data.patterns,ITEMS=data.items,EXPR=data.expr;
-var VERSION="5.8.2",VERSION_NOTE="",VERSION_DATE="13 Nov 2026";
+var VERSION="5.8.3",VERSION_NOTE="",VERSION_DATE="13 Nov 2026";
 var KEY="norskdrill.v1",SESSION_SIZE=16,NEED=3,EXTRA_CAP=8;
 /* v5.6 lesson of the day: 32 items, half on one daily focus pattern, at most 2 mastered reviews, no very short basics */
 var LESSON_SIZE=32,FOCUS_SHARE=0.5,LESSON_REV=2,EASY_WORDS=5,FLOG_KEEP=40;
