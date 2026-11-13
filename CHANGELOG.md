@@ -1,5 +1,8 @@
 # Norsk drill – changelog
 
+## v5.8.3 · 13 Nov 2026
+- Removed the empty gap under "Tap until it clicks" on the home screen.
+
 ## v5.8.2 · 13 Nov 2026
 Cleanup and repairs only. No change to the look or to any card's text, answers, notes or tiles.
 - **Repairs.**

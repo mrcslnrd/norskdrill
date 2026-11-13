@@ -212,7 +212,7 @@ input.sync-in{font-size:15px;margin-top:0}
 .weaklist.tap.on:active{background:var(--s1)}
 .btn.b1line{font-size:14px;font-weight:400;color:var(--mu);min-height:48px}
 .stats.two{grid-template-columns:1fr 1fr;margin-bottom:14px}.stats.two .stat{padding:8px 4px}
-.lead{margin:17px 0 86px;font-size:15px;color:var(--tx)}
+.lead{margin:17px 0 16px;font-size:15px;color:var(--tx)}
 
 #card{position:relative}
 .flag{position:absolute;top:6px;right:8px;width:44px;height:44px;color:var(--dim);opacity:.4;font-size:16px;z-index:2}
