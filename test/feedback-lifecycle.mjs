@@ -32,7 +32,7 @@ const flow = await send('Runtime.evaluate', {returnByValue:true, expression: `((
   const check = (n,ok,d) => { if(!ok) fail.push(n+(d?': '+d:'')); };
   const d=new Date(); const p=n=>String(n).padStart(2,'0');
   const t=d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
-  const queue=['as5','e161','e09','as12','e88r','ck19','e01','sh01','pb01','ck13','e67r'];
+  const queue=['as5','e161','e09','as12','e88r','ck19','e01','sh01','ck13','e67r'];
   nd.D().lesson={date:t, ids:queue.slice(), rev:[], cleared:[], done:false, focus:'at-som-aa'};
   nd.D().flog=nd.D().flog||{}; nd.D().flog[t]='at-som-aa';
   document.getElementById('go-day').click();

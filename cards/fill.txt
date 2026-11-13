@@ -551,44 +551,6 @@ fu12 | fill | I want to be a doctor when I grow up! | Jeg ___ bli lege når jeg 
 fu13 | fill | I promise I'll tidy my room. | Jeg lover at jeg ___ rydde rommet. | skal | vil | skal = something planned, promised or suggested. Hva skal du gjøre? Skal vi gå? | 
 fu14 | fill | The bus is full, so we won't get a seat. | Bussen er full, så vi ___ ikke til å få plass. | kommer | skal | kommer til å = a prediction, something you expect to happen but don't control. Det kommer til å gå bra. ikke / aldri go right after kommer and before til å: kommer ikke til å. Never split til å. | 
 fu15 | fill | I'm going to start training in January, I've decided. | Jeg ___ begynne å trene i januar, det har jeg bestemt. | skal | kommer til å | skal = something planned, promised or suggested. Hva skal du gjøre? Skal vi gå? A decision you control → skal. | 
-pb01 | fill | a situation | a situação → ___ | en situasjon | et situasjon / en stasjon / situasjonen | Words in -sjon are en. Stasjon is a station, a different word. | 
-pb02 | fill | quality | a qualidade → ___ | en kvalitet | et kvalitet / en kvantitet / kvaliteten | -dade becomes -itet, and the noun is en. | 
-pb03 | fill | -mento is almost always et. | o documento → ___ | et dokument | en dokument / et dokumentet / en dokumentasjon | A document. Moment, the instant, is usually øyeblikk, not et moment. | 
-pb04 | fill | a garage | a garagem → ___ | en garasje | et garasje / en garasj / garasjen | -agem becomes -asje, and the noun is en. | 
-pb05 | fill | music | a música → ___ | en musikk | et musikk / en musik / musikken | -ica becomes -ikk, with a doubled k, and the noun is en. | 
-pb06 | fill | a tourist | o turista → ___ | en turist | et turist / en turisme / turisten | -ista becomes -ist, and a person is en. | 
-pb07 | fill | culture | a cultura → ___ | en kultur | et kultur / en kultura / kulturen | -ura becomes -ur, and the noun is en. Portuguese c becomes k. | 
-pb08 | fill | chocolate | o chocolate → ___ | en sjokolade | et sjokolade / en chokolade / sjokoladen | Portuguese ch is sj in Norwegian. | 
-pb09 | fill | a tradition | a tradição → ___ | en tradisjon | et tradisjon / en stasjon / tradisjonen | Another -sjon noun. It is en. | 
-pb10 | fill | a reaction | a reação → ___ | en reaksjon | et reaksjon / en stasjon / reaksjonen | -ção becomes -sjon, and the noun is en. | 
-pb11 | fill | a university | a universidade → ___ | et universitet | en universitet / et universitete / universitetet | The one big exception to -itet: universitet is et, not en. | 
-pb12 | fill | identity | a identidade → ___ | en identitet | et identitet / en universitet / identiteten | Ordinary -itet nouns are en. Universitet is the exception, not this one. | 
-pb13 | fill | an argument | o argumento → ___ | et argument | en argument / et argumentet / argumentet | -ment is et. | 
-pb14 | fill | an instant | o momento, the instant → ___ | et øyeblikk | et moment / en øyeblikk / øyeblikket | The instant is øyeblikk. Et moment means a factor, not a moment in time. | 
-pb15 | fill | a massage | a massagem → ___ | en massasje | et massasje / en massasj / massasjen | -agem becomes -asje. | 
-pb16 | fill | luggage | a bagagem → ___ | en bagasje | et bagasje / en baggasje / bagasjen | -agem becomes -asje, en. | 
-pb17 | fill | a journalist | o jornalista → ___ | en journalist | et journalist / en journalisme / journalisten | -ista becomes -ist, en. | 
-pb18 | fill | tourism | o turismo → ___ | en turisme | et turisme / en turist / turismen | -ismo becomes -isme, en. Turist is the person. | 
-pb19 | fill | literature | a literatura → ___ | en litteratur | et litteratur / en literatur / litteraturen | The consonant doubles after the short vowel: litteratur, with two t's. | 
-pb20 | fill | temperature | a temperatura → ___ | en temperatur | et temperatur / en temperatura / temperaturen | -ura becomes -ur, en. | 
-pb21 | fill | the police | a polícia, the force → ___ | et politi | en politikk / en politi / politiet | Politi is the police, et. Politikk, with two k's, is politics. | 
-pb22 | fill | politics | a política, politics → ___ | en politikk | et politi / en politik / politikken | Politikk is politics. One k would be a different word. | 
-pb23 | fill | a typical example | típico, neuter → et ___ eksempel | typisk | typiskt / typiske / typisket | Adjectives in -isk never take the neuter -t. | 
-pb24 | fill | a practical problem | prático, neuter → et ___ problem | praktisk | praktiskt / praktiske / praktisket | -isk does not add -t in the neuter. | 
-pb25 | fill | a popular place | popular, neuter → et ___ sted | populært | populær / populære / populærte | Adjectives in -ær do take -t: populært. | 
-pb26 | fill | a nervous child | nervoso, neuter → et ___ barn | nervøst | nervøs / nervøse / nervøste | -øs takes the neuter -t: nervøst. | 
-pb27 | fill | a flexible system | flexível, neuter → et ___ system | fleksibelt | fleksibel / fleksibele / fleksible | -ibel takes -t, and the plural later drops the e: fleksible. | 
-pb28 | fill | an important meeting | importante, neuter → et ___ møte | viktig | viktigt / viktige / viktigere | Adjectives in -ig, like -isk, never take the neuter -t. | 
-pb29 | fill | I studied in Bergen last year. | estudar, past → Jeg ___ i Bergen i fjor. | studerte | studerede / studerer / studert | Every -ere verb uses -erte in the past. Not the Portuguese -ede. | 
-pb30 | fill | We have discussed the problem. | discutir, perfect → Vi har ___ problemet. | diskutert | diskutete / diskuterte / diskutere | The perfect participle of an -ere verb is -ert. | 
-pb31 | fill | Can you reserve a table for four? | reservar → Kan du ___ et bord til fire? | reservere | reserverer / reserverte / reservert | After kan the -ere verb stays in the infinitive: reservere. | 
-pb32 | fill | She analysed the text yesterday. | analisar, past → Hun ___ teksten i går. | analyserte | analyserede / analysert / analyserer | Past of analysere is analyserte. | 
-pb33 | fill | He did not accept the plan. | aceitar, past → Han ___ ikke planen. | aksepterte | aksepterede / akseptert / aksepterer | Past of akseptere is aksepterte. | 
-pb34 | fill | Who organised the party? | organizar, past → Hvem ___ festen? | organiserte | organiserede / organisert / organiserer | Past of organisere is organiserte. | 
-pb35 | fill | a likeable colleague | simpático → en ___ kollega | sympatisk | sympatiskt / simpatico / sympatiske | Sympatisk means likeable. It matches simpático, not the English false friend. | 
-pb36 | fill | a strange sound | raro → en ___ lyd | rar | sjelden / raro / rare | Rar means strange. Rare is sjelden. | 
-pb37 | fill | a current matter | atual → en ___ sak | aktuell | faktisk / atual / aktuelle | Aktuell means current or relevant. Actual, as in real, is faktisk. | 
-pb38 | fill | an example | exemplo → et ___ | eksempel | exempel / eksempl / eksempelet | Portuguese x becomes ks: eksempel. | 
 ck01 | fill | It's winter, after all, so of course it's cold. | Det er ___ vinter, så klart det er kaldt. | jo | vel / nok / bare | Jo points at something both of you can already see; English says after all, or a stressed do with other verbs. It is not the word yes. |
 ck02 | fill | You haven't seen my phone, have you? | Du har ___ ikke sett telefonen min? | vel | jo / nok / nemlig | Vel fishes for confirmation. Nok would be you reassuring someone else. | 
 ck03 | fill | Don't worry. It'll sort itself out. | Ikke bekymre deg. Det ordner seg ___. | nok | vel / jo / bare | Nok here reassures. Vel would be asking them to reassure you. | 

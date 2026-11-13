@@ -82,6 +82,14 @@ function normalize(d){
   /* v5.6: daily focus log {date: pattern id}; new patterns simply start as "new" (entries above) */
   d.flog=d.flog&&typeof d.flog==="object"&&!Array.isArray(d.flog)?d.flog:{};
   var fk=Object.keys(d.flog).sort();if(fk.length>FLOG_KEEP)fk.slice(0,fk.length-FLOG_KEEP).forEach(function(k){delete d.flog[k]});
+  /* v5.8.1: cards and patterns can be deleted (the Portuguese bridge). Stored progress for ids that no longer exist is dropped
+     from the pattern stats, the drill selection, the focus log and today's lesson, so nothing stale is served or reported. */
+  Object.keys(d.pat).forEach(function(k){if(!PBY[k])delete d.pat[k]});
+  d.set.drill=d.set.drill.filter(function(p){return !!PBY[p]});
+  Object.keys(d.flog).forEach(function(k){if(!PBY[d.flog[k]])delete d.flog[k]});
+  if(d.lesson&&typeof d.lesson==="object"){var Lk=function(a){return Array.isArray(a)?a.filter(function(id){return !!byId(id)}):[]};
+    if(Array.isArray(d.lesson.ids))d.lesson.ids=Lk(d.lesson.ids);d.lesson.cleared=Lk(d.lesson.cleared);d.lesson.rev=Lk(d.lesson.rev);
+    if(d.lesson.focus&&!PBY[d.lesson.focus])d.lesson.focus=null}
   d.pts=d.pts||{};["total","best","bestStreak","sessions","answers","correct"].forEach(function(k){d.pts[k]=d.pts[k]||0});
   d.v=4;return d;
 }
@@ -130,7 +138,6 @@ function basicInf(it){
   var why=it.why||"";
   if(why.indexOf("After a preposition the verb comes as å + infinitive")>=0)return true;
   if(why.indexOf("After å the verb is always the infinitive")>=0)return true;
-  if(why.indexOf("uten å = sem + infinitive")>=0)return true;
   if(why.indexOf("å goes in front of an infinitive, when there is no new subject")>=0)return true;
   if(why.indexOf("the infinitive comes without å")>=0)return true;
   if(why.indexOf("adjective + å + infinitive")>=0)return true;
@@ -140,8 +147,7 @@ function basicInf(it){
   if(why.indexOf("i stedet for + å + infinitive")>=0)return true;
   return false;
 }
-function bridgeItem(it){return !!(it&&it.t==="pt-bridge")}
-function drillOut(it){return basicPoss(it)||basicInf(it)||bridgeItem(it)}
+function drillOut(it){return basicPoss(it)||basicInf(it)}
 function dropBasicQueue(){
   if(!S||!S.queue)return;
   while(S.queue.length&&drillOut(byId(S.queue[0]))){
@@ -910,7 +916,7 @@ $("drill-go").addEventListener("click",startDrill);
 
 /* ---------- export mistakes ---------- */
 function exportText(){
-  var w=weakItems(),all=ITEMS.filter(function(i){return D.items[i.id]&&D.items[i.id].wrong>0});
+  var w=weakItems(),all=ITEMS.filter(function(i){return D.items[i.id]&&D.items[i.id].wrong>0&&!drillOut(i)});
   all.sort(function(a,b){var x=D.items[a.id],y=D.items[b.id];return(y.weak-x.weak)||(y.wrong-x.wrong)});
   var L=["Norsk drill: my mistakes ("+today()+")","Weak patterns: "+(weakPats().map(function(p){return PBY[p].label}).join(", ")||"none")+" · sentences still wrong: "+w.length+" · ever missed: "+all.length,"Accuracy by pattern: "+PIDS.map(function(p){var a=patAcc(p);return PBY[p].label+" "+(a===null?"–":a+"%")}).join(" · "),""];
   if(!all.length)L.push("No mistakes logged yet.");

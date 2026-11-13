@@ -26,6 +26,5 @@ subordinators | Selv om, fordi, mens, før | fordi, selv om, mens, før, siden, 
 prep-aa | Preposition + å | glad i å, flink til å, redd for å, lei av å, i stedet for å; etter å ha + participle: preposition, then å + infinitive | pr |  | yes
 future | Skal, kommer til å, vil | skal = plan, promise or suggestion; kommer til å = prediction (it will happen); vil = want; ikke right after the first verb: kommer ikke til å | fu | Skal / kommer til å | yes
 sh-spelling | sh spelling | sk, skj, sj, kj, tj and stj: which letters write the sh sound | sh | sh spelling | 1
-pt-bridge | Portuguese bridge | endings from Portuguese, with gender and -ere verbs | pb | Portuguese bridge | 1
 b1-clicks | B1 clicks | tone words, verb traps, prepositions, order and forms | ck | B1 clicks | 1
 vocab | Vivid words | expressive compounds, particles, and lookalikes that do not share a meaning | vc |  | 
