@@ -79,6 +79,16 @@ const value = await send('Runtime.evaluate', {returnByValue:true, expression: `(
   }
   return {fail};
 })()`});
+/* v5.9.1: saved answers on removed få form cards are dropped; answers on kept få cards stay. */
+await send('Runtime.evaluate', {expression: `localStorage.setItem('norskdrill.v1', JSON.stringify({v:4, items:{fa88:{seen:2,right:1,wrong:1,streak:0,weak:true,last:1700000000000,lastWrong:'får'}, fa10:{seen:1,right:1,wrong:0,streak:1,weak:false,last:1700000000000,lastWrong:''}}, stats:{total:3,best:1,days:{},done:{}}, set:{typed:false,drill:[],round:false}})); true`});
+await send('Page.reload', {ignoreCache:true});
+await sleep(1500);
+const gone = await send('Runtime.evaluate', {returnByValue:true, expression: `(() => { const d = window.__nd.D(); const f = [];
+  if (d.items.fa88) f.push('removed få card fa88 still has saved answers');
+  if (!d.items.fa10 || d.items.fa10.right !== 1) f.push('kept få card fa10 lost its answers');
+  if (window.__nd.ITEMS.some(i => i.t === 'faa' && i.type === 'mc')) f.push('pick-the-form card in the få set');
+  return f; })()`});
+if (value.result && value.result.value && value.result.value.fail) value.result.value.fail.push(...((gone.result && gone.result.value) || ['removed cards: no result']));
 const ex = events.filter(e => e.method==='Runtime.exceptionThrown').map(e => (e.params.exceptionDetails.exception&&e.params.exceptionDetails.exception.description)||e.params.exceptionDetails.text);
 const fails = (value.exceptionDetails ? [value.exceptionDetails.exception&&value.exceptionDetails.exception.description||value.exceptionDetails.text] : (value.result&&value.result.value&&value.result.value.fail)||[]).concat(ex);
 console.log(JSON.stringify({fails}, null, 2));

@@ -1,5 +1,10 @@
 # Norsk drill – changelog
 
+## v5.9.1 · 19 Nov 2026
+- **Få drill: meaning, not conjugation.** 23 cards that drilled the form or tense of få are gone: all 13 pick-the-form cards and the 10 tap cards whose answer was får / fikk / fått / få / fås. 8 of them came back as meaning cards under new ids (fa103–fa110: få lov, få noe til å virke, få i gang, Du får hilse, få = few, får ikke røyke, få høre, få barn). Saved answers on the removed ids are dropped. Tenses stay mixed across the cards.
+- **bli / få + participle, two sides of one coin.** 15 new cards (fa111–fa125): bli + participle = it happened to it (passive), få + participle = you got it done. *Bilen ble reparert.* / *Jeg fikk bilen reparert.*, *Huset ble malt.* / *Vi fikk malt huset.* As meaning cards, bli-or-få choices and builds.
+- **Checks.** The content QA fails on a pick-the-form card in the få set, on a choice that is only a form of få against other forms of få, and on fewer than 12 bli / få cards. The browser check confirms saved answers on removed få cards are dropped.
+
 ## v5.9.0 · 19 Nov 2026
 - **Få drill.** A new button on the home screen, right under *Just drill*, starts an endless session of få cards only (no phrase cards in between). 102 new cards in a new pattern, *Få, every use* (ids fa01–fa102): receive, catch a state (få feber, få vondt, få lyst på, få kjeft, få nok av), permission (Får jeg …?), have to (Vi får se, Jeg får vel gå), få + participle (få gjort), få noen til å, få til, få vite / høre / se / øye på, få tak i, få med seg, få seg, få i seg, få tid, få fri, få betalt, få rett, få skylden, få greie / rede på, få bukt med, få øynene opp for, the particles (tilbake, igjen, av, på, opp, inn, ut, fram, ned, bort), få barn, the forms (får, fikk, har fått, fås, the imperative), fixed expressions (Det får holde, Det får være), and få = few as a contrast.
 - Få cards count like any other pattern: misses go to *To practise*, the mistakes export, B1 Progress and the lesson of the day. *Just drill* lists the pattern too.

@@ -68,3 +68,14 @@ fa76 | sense | får jeg igjen | Jeg jobber mye, men hva *får jeg igjen* for det
 fa93 | sense | få | Det var *få* mennesker på stranden i dag. | ikke mange / veldig mange / ingen | Before a noun, få = few. It is not the verb.
 fa98 | sense | det får holde | Det er ikke perfekt, men *det får holde*. | det er godt nok / det må gjøres om / det er for mye | Det får holde = That will have to do.
 fa99 | sense | Det får være | Vi rekker ikke kino i kveld. *Det får være* til en annen gang. | Det må vente / Det er avlyst for alltid / Det er for sent nå | Det får være (til en annen gang) = it will have to wait.
+fa105 | sense | fikk de motoren i gang | Etter en time *fikk de motoren i gang*. | startet de motoren / stoppet de motoren / solgte de motoren | få i gang = get something started.
+fa106 | sense | du får hilse | Takk for i dag, og *du får hilse* til familien! | si hei fra meg / du må besøke dem / du har lov til å ringe dem | Du får hilse (til …) = say hello (from me). A friendly fixed phrase with få.
+fa107 | sense | få | Han er en mann av *få* ord og sier sjelden noe på møtene. | ikke mange / store / vakre | Before a noun, få = few: en mann av få ord. Not the verb.
+fa108 | sense | får | Her inne *får* du ikke røyke, men du kan gå ut på balkongen. | har lov til å / mottar / klarer å | få ikke + infinitive = not be allowed to.
+fa109 | sense | fått høre | Har du *fått høre* at de flytter til Bergen? | blitt fortalt / glemt / bestemt | få høre = hear about, be told.
+fa110 | sense | fikk | Naboene *fikk* en datter i mars, og nå er hun tre måneder. | ble foreldre til / passet på / besøkte | få barn = have a baby: Naboene fikk en datter.
+fa111 | sense | ble reparert | Bilen *ble reparert* på verkstedet i går. | noen reparerte den / vi reparerte den selv / den ble ødelagt | bli + participle = it happened to it (passive). få + participle = you got it done.
+fa112 | sense | fikk bilen reparert | Jeg *fikk bilen reparert* før ferien. | sørget for at noen reparerte den / fikk lov til å reparere den / solgte bilen | bli + participle = it happened to it (passive). få + participle = you got it done.
+fa113 | sense | fikk malt | Vi *fikk malt* huset i sommer. | sørget for at huset ble malt / fikk lov til å male huset / kjøpte maling til huset | bli + participle = it happened to it (passive). få + participle = you got it done.
+fa114 | sense | ble malt | Huset *ble malt* i sommer, og nå er det hvitt. | noen malte det / vi fikk det malt / det ble revet | bli + participle = it happened to it (passive). få + participle = you got it done. Ble malt does not say who did it.
+fa125 | sense | ble skrevet | Rapporten *ble skrevet* av en student i fjor. | en student skrev den / vi skrev den selv / den ble kastet | bli + participle = it happened to it (passive). få + participle = you got it done. av = by.

@@ -154,17 +154,3 @@ sh21 | mc | a star | a star | stjerne / skjerne / sjjerne / kjerne | Stjerne is 
 sh22 | mc | to steal | to steal | stjele / skjele / sjele / kjele | Stjele is spelled stj. Kjele is a kettle. |
 sh23 | mc | Norwegian | Norwegian | norsk / nosk / norskj / norsj | In this spelling, rs is r plus s. It is not an sh sound. |
 sh24 | mc | first | first | først / føsjt / føskj / føst | Først is r plus s, not skj. |
-# v5.9.0: få, every use (pattern faa)
-fa03 | mc | Have you had an answer from the landlord yet? | Har du ___ svar fra utleieren ennå? | fått / fikk / får / få | få = receive. Perfect: har fått. |
-fa21 | mc | I asked, but I wasn't allowed. | Jeg spurte, men jeg ___. | fikk ikke lov / fikk lov ikke / ikke fikk lov / fikk ikke lov til | få lov = be allowed. In a main clause ikke comes right after fikk. |
-fa28 | mc | Well, then you'll just have to wait a bit. | Da ___ du bare vente litt. | får / blir / tar / gir | få = have to: there is nothing else to do. |
-fa31 | mc | We got the house painted last year. | Vi fikk ___ huset i fjor. | malt / maler / malte / å male | få + participle (malt), never å. |
-fa39 | mc | Can you get the printer to work again? | Kan du få skriveren ___ igjen? | til å virke / å virke / virke / til virke | The object can be a thing: få skriveren til å virke. |
-fa46 | mc | We never managed to get the engine started. | Vi fikk aldri motoren ___. | i gang / til gang / på gang / i gangen | få i gang = get started: få + object + i gang. |
-fa50 | mc | I found out that the train was cancelled. | Jeg ___ at toget var innstilt. | fikk vite / fikk vet / fikk å vite / fikk visst | få vite = find out. After få comes the plain infinitive vite. |
-fa87 | mc | She has got a new job in Oslo. | Hun har ___ ny jobb i Oslo. | fått / fikk / få / fåt | få – får – fikk – har fått. |
-fa89 | mc | It would be nice to get some rest. | Det hadde vært fint å ___ litt hvile. | få / får / fikk / fått | After å: the infinitive få. |
-fa91 | mc | Let me see the photos! | ___ se bildene! | Få / Får / Fikk / Fått | Få se! = Let me see! The imperative of få is få. |
-fa95 | mc | He is a man of few words. | Han er en mann av ___ ord. | få / lite / fått / liten | få = few, with countable plural nouns. lite is for things you cannot count. |
-fa97 | mc | We got few answers to the ad. | Vi ___ svar på annonsen. | fikk få / få fikk / fått få / får fått | The verb fikk, then få = few. Same letters, two different words. |
-fa101 | mc | Say hello to your parents from me! | Du ___ hilse til foreldrene dine! | får / fikk / fått / gir | Du får hilse (til …) = say hello (from me). A friendly fixed phrase. |

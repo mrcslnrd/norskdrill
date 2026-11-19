@@ -39,3 +39,9 @@ For checking the få cards only. Not loaded by the app, and not deployed (see `.
 | fixed expressions | 5 | fa98 (sense), fa99 (sense), fa100 (order), fa101 (mc), fa102 (order) |
 
 Particles covered: tilbake, igjen, av (seg), på (seg), opp, inn, ut, fram, ned, bort, i (seg), med (seg). *få over* is left out: it is rare in everyday Bokmål (people say *få overført*, *få noe over seg*).
+
+## v5.9.1 changes
+
+Removed (form or tense of få was the point): fa02, fa03, fa09, fa27, fa28, fa31, fa50, fa87, fa88, fa89, fa90, fa91, fa92, fa94, fa97.
+Reworked into meaning cards under new ids: fa21 → fa103, fa39 → fa104, fa46 → fa105, fa101 → fa106, fa95 → fa107, fa19 → fa108, fa51 → fa109, fa86 → fa110.
+Added bli / få + participle (passive vs get it done): fa111–fa125. Source for the contrast: NorskGrammatikk "Bli og få" (bli + perfektum partisipp = passiv; få + perfektum partisipp = få noe gjort) and flumi (Jeg fikk bilen reparert vs the passive).

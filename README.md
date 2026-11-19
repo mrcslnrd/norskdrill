@@ -125,7 +125,7 @@ More detail lives in `cards/README.md`.
 
 ### Få drill
 
-The *Få drill* button on the home screen (under *Just drill*) runs an endless session of the `faa` pattern only. To add a få card, add it to the usual card file and add `id | faa` to `sequence.txt`. Its note must name the få use (for example *få + participle = get it done*), and the QA checks that the card uses a form of få.
+The *Få drill* button on the home screen (under *Just drill*) runs an endless session of the `faa` pattern only. To add a få card, add it to the usual card file and add `id | faa` to `sequence.txt`. Its note must name the få use (for example *få + participle = get it done*). The få set practises meaning, not conjugation: no pick-the-form cards, and no choice that is only one form of få against others (the QA checks both). bli vs få + participle choices are fine.
 
 Do not change `style.css` or `effects.css` for a card fix. Do not add feminine forms, English sense-options, or a second instruction line on an item.
 
