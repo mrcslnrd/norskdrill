@@ -47,3 +47,24 @@ vc43 | sense | går an | Det *går an* å betale med kort her. | er mulig / ang�
 vc44 | sense | angår | Saken *angår* bare de to som skrev under. | vedkommer / er mulig / er ferdig | Angå means to concern someone. It has nothing to do with gå an.
 vc45 | sense | tatt opp | Spørsmålet ble *tatt opp* i møtet i går. | ble brakt frem / var opptatt / ble glemt | Tatt opp means the topic was raised. It is not the same as being opptatt.
 vc46 | sense | opptatt | Linjen er *opptatt*, så hun ringer igjen om en time. | allerede i bruk / nettopp nevnt / helt ledig | Opptatt means taken or not free. It is not the same as tatt opp.
+# v5.9.0: få, every use (pattern faa)
+fa04 | sense | får | Vi *får* lønn den tjuende hver måned. | mottar / betaler / venter på | få = receive (motta).
+fa06 | sense | få | Unnskyld, kan jeg *få* regningen? | motta / betale / lese | Kan jeg få …? = Can I have …? The polite way to ask for something.
+fa11 | sense | lyst på | Etter alt regnet fikk jeg *lyst på* sol og varme. | begynte å ønske meg / ble lei av / var redd for | få lyst på + thing = start to want it.
+fa15 | sense | fikk sjokk | Hun *fikk sjokk* da hun så regningen. | ble veldig overrasket / ble glad / betalte med en gang | få sjokk = get a shock. få + a feeling: få sjokk, få dårlig samvittighet.
+fa17 | sense | har jeg fått nok | Nå *har jeg fått nok*! Jeg går hjem. | orker jeg ikke mer / har jeg vunnet / er jeg klar til å begynne | Nå har jeg fått nok! = I've had enough!
+fa22 | sense | får | Barna *får* se på TV etter middag. | har lov til å / må / prøver å | få + infinitive often means be allowed to.
+fa25 | sense | får | Det er ingen billetter igjen, så vi *får* prøve igjen neste uke. | må / har lov til å / mottar | Resigned få: there is no other option, so we have to.
+fa26 | sense | Vi får se | Vi vet ikke om det blir sol i morgen. *Vi får se*. | Vi venter og ser / Vi har lov til å se / Vi ser det nå | Vi får se = We'll see (wait and find out).
+fa35 | sense | fått vasket | Jeg har endelig *fått vasket* bilen. | vasket den ferdig / fått lov til å vaske den / kjøpt en ny bil | få + participle = get it done, not permission.
+fa40 | sense | fikk ham til å | Lukten av kaffe *fikk ham til å* stå opp. | gjorde at han ville / hindret ham i å / ga ham lov til å | få noen til å = cause someone to do it.
+fa44 | sense | fikk hun det til | Hun prøvde lenge, og til slutt *fikk hun det til*. | klarte hun det / ga hun opp / glemte hun det | få det til = manage it, succeed.
+fa53 | sense | fikk han øye på | Midt i mengden *fikk han øye på* en gammel venn. | så han plutselig / mistet han / ringte han til | få øye på = suddenly see, spot.
+fa60 | sense | få oss | Skal vi *få oss* en kaffe før møtet? | kjøpe og drikke / lage til andre / la være å drikke | få seg noe = get (and have) something for yourself.
+fa67 | sense | greie på | Hvor fikk du *greie på* det? | vite om / glemme / betale for | få greie på = find out about.
+fa69 | sense | fått bukt med | Kommunen har endelig *fått bukt med* rotteproblemet. | løst / skapt / snakket om | få bukt med = get the better of, get under control.
+fa71 | sense | fått det for seg | Han har *fått det for seg* at alle er sinte på ham. | tror uten grunn / vet helt sikkert / har hørt fra sjefen | få det for seg = get it into your head (often wrongly).
+fa76 | sense | får jeg igjen | Jeg jobber mye, men hva *får jeg igjen* for det? | tjener jeg / mister jeg / betaler jeg | få igjen for = get something in return for.
+fa93 | sense | få | Det var *få* mennesker på stranden i dag. | ikke mange / veldig mange / ingen | Before a noun, få = few. It is not the verb.
+fa98 | sense | det får holde | Det er ikke perfekt, men *det får holde*. | det er godt nok / det må gjøres om / det er for mye | Det får holde = That will have to do.
+fa99 | sense | Det får være | Vi rekker ikke kino i kveld. *Det får være* til en annen gang. | Det må vente / Det er avlyst for alltid / Det er for sent nå | Det får være (til en annen gang) = it will have to wait.

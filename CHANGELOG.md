@@ -1,5 +1,10 @@
 # Norsk drill – changelog
 
+## v5.9.0 · 19 Nov 2026
+- **Få drill.** A new button on the home screen, right under *Just drill*, starts an endless session of få cards only (no phrase cards in between). 102 new cards in a new pattern, *Få, every use* (ids fa01–fa102): receive, catch a state (få feber, få vondt, få lyst på, få kjeft, få nok av), permission (Får jeg …?), have to (Vi får se, Jeg får vel gå), få + participle (få gjort), få noen til å, få til, få vite / høre / se / øye på, få tak i, få med seg, få seg, få i seg, få tid, få fri, få betalt, få rett, få skylden, få greie / rede på, få bukt med, få øynene opp for, the particles (tilbake, igjen, av, på, opp, inn, ut, fram, ned, bort), få barn, the forms (får, fikk, har fått, fås, the imperative), fixed expressions (Det får holde, Det får være), and få = few as a contrast.
+- Få cards count like any other pattern: misses go to *To practise*, the mistakes export, B1 Progress and the lesson of the day. *Just drill* lists the pattern too.
+- **Checks.** The content QA also checks the få set: every card uses a form of få, every note names the få use, alternative word orders use exactly the same tiles, and there are at least 80 cards. A new headless Chrome check (`test/faa-drill.mjs`) starts a session from the button. The sources behind the få cards are in `research/faa-sources.md` (not deployed).
+
 ## v5.8.3 · 13 Nov 2026
 - Removed the empty gap under "Tap until it clicks" on the home screen.
 

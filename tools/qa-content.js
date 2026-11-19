@@ -230,6 +230,29 @@ ITEMS.forEach(it => { if (it.t === "pt-bridge" || stringsOf(it, []).concat([it.w
 EXPR.forEach(e => { if (stringsOf(e, []).concat([e.why || "", e.en || ""]).some(x => ptRe.test(String(x)))) bad(e.id, "Portuguese in a phrase card"); });
 (parsed.patterns || []).forEach(p => { if (ptRe.test(p.id + " " + p.label + " " + (p.hint || ""))) bad(p.id, "Portuguese pattern"); });
 
+/* v5.9.0: the få set. Every card uses a form of få, its note names the få use, alternative orders use exactly the same tiles,
+   and the set stays large enough to cover every use. */
+const FAA_RE = /(?<![A-Za-zÆØÅæøå])(få|får|fikk|fått|fås)(?![A-Za-zÆØÅæøå])/i;
+const faaItems = ITEMS.filter(it => it.t === "faa");
+if (PAT_IDS.has("faa")) {
+  if (faaItems.length < 80) bad("faa", "only " + faaItems.length + " cards (want 80 or more)");
+  ["order", "fill", "mc", "sense"].forEach(t => { if (!faaItems.some(it => it.type === t)) bad("faa", "no " + t + " cards"); });
+  faaItems.forEach(it => {
+    let no = "";
+    if (it.type === "order") no = [it.s].concat(it.alt || []).join(" ");
+    else if (it.type === "fill") no = String(it.s || "").replace("___", it.ans);
+    else if (it.type === "mc") no = String(it.prompt || "").replace("___", (it.options || [])[0] || "");
+    else if (it.type === "sense") no = it.s || "";
+    if (!FAA_RE.test(no)) bad(it.id, "få card without a form of få");
+    if (!/\bfå|fås\b/i.test(it.why || "")) bad(it.id, "få card note does not name the få use");
+    if (it.type === "order") {
+      const k = a => tileWords(a).slice().sort().join(" ");
+      (it.alt || []).forEach(a => { if (k(a) !== k(it.s)) bad(it.id, "alt order uses different tiles: " + a); });
+    }
+    if (it.type === "sense" && !FAA_RE.test(it.s)) bad(it.id, "sense card does not show få");
+  });
+}
+
 /* English pronouns, negation and numbers must show up in the Norwegian answer. */
 const FN = "in|on|at|to|for|from|with|about|into|over|after|before|of|the|a|an|and|or|but|if|when|that|this|it|him|me|us|them|you|again|too|also|here|there|now|then|today|yesterday|tomorrow|still|just|even|not|so|as|by|up|out|off|away|next|time|well";
 const PRON = {
@@ -282,6 +305,7 @@ const summary = {
   phrases: EXPR.length,
   basicPoss: ITEMS.filter(basicPoss).length,
   basicInf: ITEMS.filter(basicInf).length,
+  faa: faaItems.length,
   failures: fails.length
 };
 console.log(JSON.stringify(summary, null, 2));

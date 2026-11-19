@@ -14,6 +14,7 @@ This note is for adding or fixing a card, and for backing up progress, without e
 - `VERSION` — the app version. It must match `VERSION` at the top of `app.js` (the QA checks this).
 - `cards/` — all drill content. One card is one line.
 - `tools/qa-content.js` — the content check that must pass before a release.
+- `research/` — source notes for content checks (for example `faa-sources.md` for the få cards). Not part of the site and not deployed.
 - `test/` — headless Chrome checks (not part of the site). Run them all with `node test/run-all.mjs` (Node 22+ and Google Chrome). CI runs them on every push.
 
 ## Card format
@@ -121,6 +122,10 @@ More detail lives in `cards/README.md`.
    The service worker is cache-first: it serves the old copy immediately, then refreshes the cache in the background. A new `VERSION` is what makes the new files show up.
 4. Commit to `main` (or open a pull request and merge it). GitHub Pages deploys from `main` after the content check passes (see `.github/workflows/pages.yml`).
 5. Reopen the app twice. The first open still gets the cached copy and refreshes in the background; the second open shows the new version.
+
+### Få drill
+
+The *Få drill* button on the home screen (under *Just drill*) runs an endless session of the `faa` pattern only. To add a få card, add it to the usual card file and add `id | faa` to `sequence.txt`. Its note must name the få use (for example *få + participle = get it done*), and the QA checks that the card uses a form of få.
 
 Do not change `style.css` or `effects.css` for a card fix. Do not add feminine forms, English sense-options, or a second instruction line on an item.
 
