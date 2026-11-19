@@ -236,20 +236,27 @@ const FAA_RE = /(?<![A-Za-zÆØÅæøå])(få|får|fikk|fått|fås)(?![A-Za-zÆ�
 const faaItems = ITEMS.filter(it => it.t === "faa");
 if (PAT_IDS.has("faa")) {
   if (faaItems.length < 80) bad("faa", "only " + faaItems.length + " cards (want 80 or more)");
-  ["order", "fill", "mc", "sense"].forEach(t => { if (!faaItems.some(it => it.type === t)) bad("faa", "no " + t + " cards"); });
+  ["order", "fill", "sense"].forEach(t => { if (!faaItems.some(it => it.type === t)) bad("faa", "no " + t + " cards"); });
+  /* v5.9.1: the få set practises the meaning of each pairing, not the conjugation. No pick-the-form cards, and no choice
+     whose answer is a form of få picked against other forms of få. bli vs få (+ participle) is a meaning choice and is allowed. */
+  const FAA_ONLY = /^(å )?(få|får|fikk|fått|fås)$/i;
+  const BLI_FAA = /bli \+ participle/;
+  if (faaItems.filter(it => BLI_FAA.test(it.why || "")).length < 12) bad("faa", "fewer than 12 bli / få + participle cards");
   faaItems.forEach(it => {
     let no = "";
     if (it.type === "order") no = [it.s].concat(it.alt || []).join(" ");
     else if (it.type === "fill") no = String(it.s || "").replace("___", it.ans);
     else if (it.type === "mc") no = String(it.prompt || "").replace("___", (it.options || [])[0] || "");
     else if (it.type === "sense") no = it.s || "";
-    if (!FAA_RE.test(no)) bad(it.id, "få card without a form of få");
+    if (it.type === "mc") bad(it.id, "pick-the-form card in the få set");
+    if (it.type === "fill" && FAA_ONLY.test(String(it.ans).trim()) && (it.wrong || []).some(w => FAA_ONLY.test(String(w).trim()))) bad(it.id, "answer hinges only on a form of få");
+    if (!FAA_RE.test(no) && !BLI_FAA.test(it.why || "")) bad(it.id, "få card without a form of få");
     if (!/\bfå|fås\b/i.test(it.why || "")) bad(it.id, "få card note does not name the få use");
     if (it.type === "order") {
       const k = a => tileWords(a).slice().sort().join(" ");
       (it.alt || []).forEach(a => { if (k(a) !== k(it.s)) bad(it.id, "alt order uses different tiles: " + a); });
     }
-    if (it.type === "sense" && !FAA_RE.test(it.s)) bad(it.id, "sense card does not show få");
+    if (it.type === "sense" && !FAA_RE.test(it.s) && !BLI_FAA.test(it.why || "")) bad(it.id, "sense card does not show få");
   });
 }
 

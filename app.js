@@ -1,7 +1,7 @@
 function startApp(data){
 "use strict";
 var PATTERNS=data.patterns,ITEMS=data.items,EXPR=data.expr;
-var VERSION="5.9.0",VERSION_NOTE="",VERSION_DATE="19 Nov 2026";
+var VERSION="5.9.1",VERSION_NOTE="",VERSION_DATE="19 Nov 2026";
 var KEY="norskdrill.v1",SESSION_SIZE=16,NEED=3,EXTRA_CAP=8;
 /* v5.6 lesson of the day: 32 items, half on one daily focus pattern, at most 2 mastered reviews, no very short basics */
 var LESSON_SIZE=32,FOCUS_SHARE=0.5,LESSON_REV=2,EASY_WORDS=5,FLOG_KEEP=40;
@@ -56,6 +56,7 @@ var mem=null;
 function obj(x){return x&&typeof x==="object"&&!Array.isArray(x)?x:{}}
 /* v5.8.2: ck22 was a second copy of vt73 (same sentence). Its answers are folded into vt73. */
 var ITEM_ALIAS={ck22:"vt73"};
+var FAA_GONE=["fa02","fa03","fa09","fa19","fa21","fa27","fa28","fa31","fa39","fa46","fa50","fa51","fa86","fa87","fa88","fa89","fa90","fa91","fa92","fa94","fa95","fa97","fa101"];
 function normalize(d){
   d=obj(d);
   d.items=obj(d.items);
@@ -64,6 +65,8 @@ function normalize(d){
     if(!b){d.items[to]=a;return}
     var late=(a.last||0)>(b.last||0)?a:b;
     d.items[to]={seen:(a.seen||0)+(b.seen||0),right:(a.right||0)+(b.right||0),wrong:(a.wrong||0)+(b.wrong||0),streak:late.streak||0,weak:!!late.weak,last:late.last||0,lastWrong:a.lastWrong&&(!b.lastWrong||late===a)?a.lastWrong:(b.lastWrong||"")}});
+  /* v5.9.1: få cards that drilled the form of få were removed (some reworked under new ids). Their saved answers are dropped. */
+  FAA_GONE.forEach(function(id){if(!BY[id])delete d.items[id]});
   d.expr=d.expr&&typeof d.expr==="object"&&!Array.isArray(d.expr)?d.expr:{};
   foldExpr(d);
   d.stats=obj(d.stats);d.set=obj(d.set);d.chk=obj(d.chk);

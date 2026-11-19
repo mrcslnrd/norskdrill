@@ -587,16 +587,11 @@ ck39 | fill | She has a permanent job. | Hun har en ___ jobb. | fast | rask / fo
 ck40 | fill | I have lived here for two years. | Jeg har bodd her ___ to år. | i | på / for / siden | A duration up to now is i. For is not this preposition. |
 ck41 | fill | He is very sensitive. | Han er veldig ___. | sensibel | fornuftig / alvorlig / seriøs | Sensibel means sensitive. Sensible, as in reasonable, is fornuftig. |
 # v5.9.0: få, every use (pattern faa)
-fa02 | fill | She got a nice present for her birthday. | Hun ___ en fin gave til bursdagen sin. | fikk | får / fått / fikket | få = receive. Past tense: fikk (få – får – fikk – har fått). |
-fa09 | fill | Half the class got the flu last week. | Halve klassen ___ influensa i forrige uke. | fikk | ble / tok / gjorde | få + illness = catch: fikk influensa. |
 fa10 | fill | I got a headache after the long meeting. | Jeg fikk ___ i hodet etter det lange møtet. | vondt | vond / syk / dårlig | få vondt i = get a pain in. Always vondt, with -t. |
 fa13 | fill | The kids got told off for the mess in the kitchen. | Barna fikk ___ for rotet på kjøkkenet. | kjeft | rett / tak / lov | få kjeft = get told off (everyday word). |
-fa19 | fill | You're not allowed to smoke inside the hotel. | Du ___ ikke røyke inne på hotellet. | får | blir / gjør / lar | få ikke + infinitive = not be allowed to. |
-fa27 | fill | The shop is closed, so we'll have to shop tomorrow. | Butikken er stengt, så vi ___ handle i morgen. | får | fikk / fått / blir | få = have to (no choice). Present tense: får. |
 fa30 | fill | I must get the report finished before Friday. | Jeg må få ___ ferdig rapporten før fredag. | gjort | gjøre / gjør / gjorde | få + participle = get it done. gjøre – gjorde – gjort. |
 fa33 | fill | He never got the car washed before the trip. | Han fikk aldri ___ bilen før turen. | vasket | vasker / vaskes / å vaske | få + participle = get it done: fikk vasket. |
 fa37 | fill | We got the boss to buy a new coffee machine. | Vi fikk sjefen ___ kjøpe en ny kaffemaskin. | til å | å / til / om å | få + person + til å + infinitive. |
-fa51 | fill | Have you heard that they're moving to Bergen? | Har du ___ høre at de flytter til Bergen? | fått | fikk / får / få | få høre = hear about, be told. Perfect: har fått høre. |
 fa54 | fill | Did you get to see the northern lights in Tromsø? | Fikk dere ___ nordlyset i Tromsø? | se | ser / så / å se | få se = get to see, have the chance to see. |
 fa56 | fill | Do you know where I can get hold of cheap tickets? | Vet du hvor jeg kan få ___ i billige billetter? | tak | tid / greie / bukt | få tak i = get hold of, find. |
 fa58 | fill | Did you catch what he said? | Fikk du med ___ hva han sa? | deg | seg / meg / dere | få med seg: the seg word follows the subject, du → deg. |
@@ -609,8 +604,11 @@ fa78 | fill | I can't get my shoes on, they are too small. | Jeg får ikke ___ m
 fa79 | fill | He couldn't get the door open. | Han fikk ikke ___ døren. | opp | på / fram / inne | få opp = get open. |
 fa80 | fill | Can you help me get the sofa in through the door? | Kan du hjelpe meg å få sofaen ___ gjennom døren? | inn | inne / over / fram | få inn = get something in. |
 fa82 | fill | She finally got her message across at the meeting. | Hun fikk endelig ___ budskapet sitt på møtet. | fram | over / bort / ned | få fram = get across, express. (frem is the same word.) |
-fa86 | fill | The neighbours had a baby girl in March. | Naboene ___ en datter i mars. | fikk | fått / ble / tok | få barn = have a baby. Past tense: fikk. |
-fa88 | fill | We will get the keys on Monday. | Vi skal ___ nøklene på mandag. | få | får / fikk / fått | After skal, kan, må, vil: the infinitive få. |
-fa90 | fill | Had you got the message before you left? | Hadde du ___ beskjeden før du dro? | fått | fikk / får / få | hadde + fått: the past perfect. |
-fa92 | fill | You can get the brochure at the entrance. | Brosjyren ___ ved inngangen. | fås | får / fått / fikk | fås = can be had, is available (the -s passive of få). |
-fa94 | fill | Only a few people came to the meeting. | Bare noen ___ mennesker kom på møtet. | få | lite / fått / mye | noen få = a few. Here få describes a noun, it is not the verb. |
+fa103 | fill | I asked, but I wasn't allowed. | Jeg spurte, men jeg fikk ikke ___. | lov | tak / bukt / greie | få lov = be allowed. få ikke lov = not be allowed. |
+fa104 | fill | Can you get the printer to work again? | Kan du få skriveren ___ å virke igjen? | til | om / for / med | få noe til å virke = get something to work. få + object + til å. |
+fa115 | fill | We got the car repaired before the trip. | Vi ___ bilen reparert før turen. | fikk | ble | bli + participle = it happened to it (passive). få + participle = you got it done. |
+fa116 | fill | The car was repaired before the trip. | Bilen ___ reparert før turen. | ble | fikk | bli + participle = it happened to it (passive). få + participle = you got it done. |
+fa117 | fill | The window was broken in the storm. | Vinduet ___ knust i stormen. | ble | fikk | bli + participle = it happened to it (passive). få + participle = you got it done. |
+fa118 | fill | We have finally had the roof fixed. | Vi har endelig ___ fikset taket. | fått | blitt | bli + participle = it happened to it (passive). få + participle = you got it done. |
+fa119 | fill | The letter will be sent tomorrow. | Brevet ___ sendt i morgen. | blir | får | bli + participle = it happened to it (passive). få + participle = you got it done. |
+fa120 | fill | I'll get the car washed tomorrow. | Jeg skal ___ vasket bilen i morgen. | få | bli | bli + participle = it happened to it (passive). få + participle = you got it done. |

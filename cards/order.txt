@@ -790,3 +790,7 @@ fa85 | order | They are having their second child in May. | De skal få sitt and
 fa96 | order | Few people know that the shop has closed. | Få mennesker vet at butikken har stengt. | få = few. Here it describes mennesker; the verb is vet. |  |  |
 fa100 | order | Get yourself some sleep now, you look tired. | Få deg litt søvn nå, du ser trøtt ut. | Få deg … ! = get yourself …: a friendly push. |  |  |
 fa102 | order | If the weather is bad, the trip will have to wait. | Hvis været er dårlig, får turen vente. | X får vente = X will have to wait. |  | Turen får vente hvis været er dårlig. |
+fa121 | order | The house was painted last summer. | Huset ble malt i fjor sommer. | bli + participle = it happened to it (passive). få + participle = you got it done. |  | I fjor sommer ble huset malt. | fikk
+fa122 | order | We had the house painted last summer. | Vi fikk malt huset i fjor sommer. | bli + participle = it happened to it (passive). få + participle = you got it done. |  | Vi fikk huset malt i fjor sommer. // I fjor sommer fikk vi malt huset. // I fjor sommer fikk vi huset malt. | ble
+fa123 | order | The car was repaired at the garage in town. | Bilen ble reparert på verkstedet i byen. | bli + participle = it happened to it (passive). få + participle = you got it done. |  |  | fikk
+fa124 | order | I got the car repaired at the garage in town. | Jeg fikk bilen reparert på verkstedet i byen. | bli + participle = it happened to it (passive). få + participle = you got it done. |  | Jeg fikk reparert bilen på verkstedet i byen. | ble
