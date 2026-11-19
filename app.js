@@ -1,7 +1,7 @@
 function startApp(data){
 "use strict";
 var PATTERNS=data.patterns,ITEMS=data.items,EXPR=data.expr;
-var VERSION="5.8.3",VERSION_NOTE="",VERSION_DATE="13 Nov 2026";
+var VERSION="5.9.0",VERSION_NOTE="",VERSION_DATE="19 Nov 2026";
 var KEY="norskdrill.v1",SESSION_SIZE=16,NEED=3,EXTRA_CAP=8;
 /* v5.6 lesson of the day: 32 items, half on one daily focus pattern, at most 2 mastered reviews, no very short basics */
 var LESSON_SIZE=32,FOCUS_SHARE=0.5,LESSON_REV=2,EASY_WORDS=5,FLOG_KEEP=40;
@@ -636,6 +636,14 @@ function startDrill(){
   if(!genNext()){toast("No sentences available");S=null;return}
   begin();
 }
+/* v5.9.0: the få button: endless, få cards only (no phrase cards in between). Misses and stats go to the faa pattern like any other. */
+var FAA="faa";
+function startFaa(){
+  if(!PBY[FAA]){toast("No få cards available");return}
+  S=newS("drill",[],0);S.patsSel=[FAA];S.noExpr=true;LAST={kind:"faa"};
+  if(!genNext()){toast("No sentences available");S=null;return}
+  begin();
+}
 function queueKeys(){var k={};S.queue.forEach(function(id){k[keyOf(byId(id))]=1});return k}
 /* pick a fresh sentence of the pattern: not shown yet this session; second showing only as a fallback */
 function pickFresh(pid,tag){
@@ -656,7 +664,7 @@ function pickFresh(pid,tag){
   return pickFrom[Math.floor(Math.random()*pickFrom.length)];
 }
 function genNext(){
-  if(EXPR.length&&S.exprTurn){var avoid={};(S.queue||[]).forEach(function(id){avoid[id]=1});Object.keys(S.exprSeen||{}).forEach(function(id){avoid[id]=1});var ex=pickExprs(1,Math.random,avoid);S.exprTurn=false;if(ex.length){S.queue.push(ex[0]);S.exprSeen[ex[0]]=1;return true}}
+  if(EXPR.length&&S.exprTurn&&!S.noExpr){var avoid={};(S.queue||[]).forEach(function(id){avoid[id]=1});Object.keys(S.exprSeen||{}).forEach(function(id){avoid[id]=1});var ex=pickExprs(1,Math.random,avoid);S.exprTurn=false;if(ex.length){S.queue.push(ex[0]);S.exprSeen[ex[0]]=1;return true}}
   var pid;
   if(S.focus&&D.pat[S.focus].drill&&S.patsSel.indexOf(S.focus)>-1)pid=S.focus;
   else{
@@ -669,7 +677,7 @@ function genNext(){
   if(!it){ /* all sentences of this pattern used twice: start a new round */
     ITEMS.forEach(function(x){if(x.t===pid)S.shown[keyOf(x)]=0});it=pickFresh(pid,tg);
   }
-  if(!it)return false;S.queue.push(it.id);S.exprTurn=!!EXPR.length;return true;
+  if(!it)return false;S.queue.push(it.id);S.exprTurn=!!EXPR.length&&!S.noExpr;return true;
 }
 /* after a miss: fresh sentences of the same pattern until 3 right in a row on different sentences */
 function maybeInject(){
@@ -912,6 +920,7 @@ function openDrill(){
   renderDrill();show("v-drill");
 }
 $("go-drill").addEventListener("click",openDrill);
+$("go-faa").addEventListener("click",startFaa);
 $("drill-back").addEventListener("click",function(){renderHome();show("v-home")});
 $("drill-list").addEventListener("click",function(e){var b=e.target.closest(".pcard");if(!b)return;var p=b.dataset.p,i=D.set.drill.indexOf(p);if(i>-1)D.set.drill.splice(i,1);else D.set.drill.push(p);save();renderDrill()});
 $("dr-weak").addEventListener("click",function(){var wp=weakPats();if(!wp.length){toast("No weak patterns right now");return}D.set.drill=wp.slice();save();renderDrill()});
@@ -1250,7 +1259,7 @@ $("go-day").addEventListener("click",startLesson);
 $("go-weak").addEventListener("click",startWeak);
 $("go-weak-h").addEventListener("click",startWeak);
 $("weaklist").addEventListener("click",startWeak);
-$("again").addEventListener("click",function(){var k=LAST.kind;if(k==="drill")startDrill();else if(k==="round")startRound(LAST.pids);else if(k==="weak"&&(weakPats().length||weakItems().length))startWeak();else startRound(PIDS)});
+$("again").addEventListener("click",function(){var k=LAST.kind;if(k==="faa")startFaa();else if(k==="drill")startDrill();else if(k==="round")startRound(LAST.pids);else if(k==="weak"&&(weakPats().length||weakItems().length))startWeak();else startRound(PIDS)});
 $("sum-weak").addEventListener("click",startWeak);
 $("sum-home").addEventListener("click",function(){renderHome();show("v-home")});
 $("exp").addEventListener("click",doExport);$("sum-exp").addEventListener("click",doExport);
@@ -1281,7 +1290,7 @@ function hostBadge(){var x=document.querySelector("ship-page-badge"),on=false;if
 hostBadge();
 try{new MutationObserver(hostBadge).observe(document.body,{childList:true});new MutationObserver(hostBadge).observe(document.documentElement,{childList:true})}catch(e){}
 $("ver").textContent="Norsk drill v"+VERSION+(VERSION_NOTE?" "+VERSION_NOTE:"")+" · "+VERSION_DATE;
-window.__nd={VERSION:VERSION,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,makeProgressFile:makeProgressFile,progressFileName:progressFileName,validateProgressFile:validateProgressFile,importProgressFile:importProgressFile,exportProgressFile:exportProgressFile,fullText:fullText,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);var r=rng(hashStr("norsk-drill|"+t));return{ids:composeSession(r,LESSON_SIZE,function(nn){return buildLesson(r,nn,f)}),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},syncSummary:syncSummary,syncNow:syncNow,syncGet:syncGet,isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS,basicPoss:basicPoss,basicInf:basicInf,drillOut:drillOut,weakExprList:function(){return weakExprList().map(function(e){return e.id})},EXPR:EXPR,pickExprs:pickExprs,composeSession:composeSession};
+window.__nd={VERSION:VERSION,startFaa:startFaa,ITEMS:ITEMS,PATTERNS:PATTERNS,cur:function(){return S&&S.cur},state:function(){return S&&S.state},S:function(){return S},D:function(){return D},exportText:exportText,makeCode:makeCode,makeProgressFile:makeProgressFile,progressFileName:progressFileName,validateProgressFile:validateProgressFile,importProgressFile:importProgressFile,exportProgressFile:exportProgressFile,fullText:fullText,tileWords:tileWords,tileX:tileX,keyOf:keyOf,ensureLesson:ensureLesson,todayFocus:function(t){return todayFocus(t)},buildLesson:function(t,f){t=t||today();f=f||todayFocus(t);var r=rng(hashStr("norsk-drill|"+t));return{ids:composeSession(r,LESSON_SIZE,function(nn){return buildLesson(r,nn,f)}),rev:buildLesson.rev,focus:f}},patStatusAll:function(){var o={};PIDS.forEach(function(p){o[p]=patStatus(p)});return o},isEasy:isEasy,LESSON_SIZE:LESSON_SIZE,tally:tally,tallyTxt:tallyTxt,tagIsWeak:tagIsWeak,patStatus:patStatus,buildSet:function(n,o){return {ids:buildSet(Math.random,n||SESSION_SIZE,o),rev:buildSet.rev}},readCode:readCode,genNext:function(){return genNext()},reload:function(){D=load();renderHome()},syncSummary:syncSummary,syncNow:syncNow,syncGet:syncGet,isOut:isOut,activePids:activePids,toggleOut:function(p){toggleOut(p);renderHome()},purgeLesson:purgeLesson,weakItems:function(){return weakItems().map(function(i){return i.id})},weakPats:weakPats,CHECK:CHECK,CHECK_IDS:CHECK_IDS,basicPoss:basicPoss,basicInf:basicInf,drillOut:drillOut,weakExprList:function(){return weakExprList().map(function(e){return e.id})},EXPR:EXPR,pickExprs:pickExprs,composeSession:composeSession};
 if(location.protocol==="file:")$("filewarn").style.display="block";
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 (function(){var ok=false;try{localStorage.setItem("nd.probe","1");ok=localStorage.getItem("nd.probe")==="1";localStorage.removeItem("nd.probe")}catch(e){}SV.ok=ok;SV.t=Date.now()})();

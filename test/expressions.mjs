@@ -146,8 +146,7 @@ const ui = await send('Runtime.evaluate', {returnByValue:true, expression: `(() 
 })()`});
 
 const shot = await send('Page.captureScreenshot', {format:'png'});
-fs.mkdirSync('/opt/cursor/artifacts', {recursive:true});
-fs.writeFileSync('/opt/cursor/artifacts/expr-reply-mobile.png', Buffer.from(shot.data,'base64'));
+try { fs.mkdirSync('/opt/cursor/artifacts', {recursive:true}); fs.writeFileSync('/opt/cursor/artifacts/expr-reply-mobile.png', Buffer.from(shot.data,'base64')); } catch {}
 fs.writeFileSync('/tmp/expr-reply-mobile.png', Buffer.from(shot.data,'base64'));
 
 const ex = events.filter(e => e.method==='Runtime.exceptionThrown').map(e => (e.params.exceptionDetails.exception&&e.params.exceptionDetails.exception.description)||e.params.exceptionDetails.text);

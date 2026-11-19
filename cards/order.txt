@@ -747,3 +747,46 @@ sw97 | order | She does have a car, so she can drive. | Hun har jo bil, så hun 
 sw98 | order | I did say that it would rain. | Jeg sa jo at det ville regne. | jo marks something you both know. English often says it with a stressed do: Du kjenner ham jo = You do know him. jo comes right after the verb. |  |  |
 sw99 | order | But you do speak Norwegian! | Men du snakker jo norsk! | jo marks something you both know. English often says it with a stressed do: Du kjenner ham jo = You do know him. men doesn't change the order, so jo still follows the verb. |  |  |
 sw100 | order | It's late, after all, so we should go home. | Det er jo sent, så vi bør dra hjem. | jo marks something you both know. When English can't use a stressed do (as with is), it says after all or you know. |  |  |
+# v5.9.0: få, every use (pattern faa)
+fa01 | order | We got a letter from the tax office yesterday. | Vi fikk et brev fra skatteetaten i går. | få = receive. Past tense: fikk. |  | I går fikk vi et brev fra skatteetaten. |
+fa05 | order | Did you have many visitors at the hospital? | Fikk du mye besøk på sykehuset? | få besøk = have visitors (literally: receive a visit). |  |  |
+fa07 | order | What did you get from your grandparents for Christmas? | Hva fikk dere av besteforeldrene til jul? | få = receive. få noe av noen = get something from someone. |  | Hva fikk dere til jul av besteforeldrene? |
+fa08 | order | He got a fever and stayed at home all week. | Han fikk feber og ble hjemme hele uken. | få + illness = catch, come down with: få feber, få influensa. |  |  |
+fa12 | order | Suddenly she felt like going for a swim. | Plutselig fikk hun lyst til å bade. | få lyst til å + infinitive = suddenly feel like doing. |  | Hun fikk plutselig lyst til å bade. |
+fa14 | order | I have had enough of all the noise from the neighbours. | Jeg har fått nok av alt bråket fra naboene. | få nok av = have had enough of, be fed up with. |  |  |
+fa16 | order | He got a bad conscience because he had forgotten her birthday. | Han fikk dårlig samvittighet fordi han hadde glemt bursdagen hennes. | få dårlig samvittighet = start to feel guilty. |  | Fordi han hadde glemt bursdagen hennes, fikk han dårlig samvittighet. |
+fa18 | order | May I borrow your car on Saturday? | Får jeg låne bilen din på lørdag? | Får jeg …? = May I …? A polite request for permission. |  |  |
+fa20 | order | The children were allowed to stay up late on New Year's Eve. | Barna fikk lov til å være oppe lenge på nyttårsaften. | få lov til å = be allowed to. |  | På nyttårsaften fikk barna lov til å være oppe lenge. |
+fa23 | order | The bus has gone, so we'll have to walk. | Bussen har gått, så vi får gå. | få = have to, when there is no other choice. |  |  |
+fa24 | order | I guess I'll have to call him tomorrow then. | Jeg får vel ringe ham i morgen da. | få vel = I suppose I'll have to. vel softens it. |  | I morgen får jeg vel ringe ham da. |
+fa29 | order | We finally got the basement cleaned at the weekend. | Vi fikk endelig ryddet kjelleren i helgen. | få + participle = get it done: fikk ryddet. |  | I helgen fikk vi endelig ryddet kjelleren. // Vi fikk endelig kjelleren ryddet i helgen. |
+fa32 | order | Did you manage to say what you wanted at the meeting? | Fikk du sagt det du ville på møtet? | få sagt = manage to say it. få + participle. |  |  |
+fa34 | order | Have you had the tyres changed yet? | Har du fått skiftet dekkene ennå? | har fått + participle: the perfect of få + participle. |  |  |
+fa36 | order | The film made us laugh the whole evening. | Filmen fikk oss til å le hele kvelden. | få noen til å + infinitive = make or get someone to do it. til must be there. |  |  | la
+fa38 | order | How can we get the children to eat vegetables? | Hvordan kan vi få barna til å spise grønnsaker? | få noen til å = get someone to do something. |  |  |
+fa41 | order | Get him to call me when he gets home! | Få ham til å ringe meg når han kommer hjem! | Imperative: få, the same as the infinitive. Få ham til å …! |  |  |
+fa42 | order | I can't manage to open this jar. | Jeg får ikke til å åpne dette glasset. | få til å = manage to. |  |  |
+fa43 | order | Did you manage the homework yesterday? | Fikk du til leksene i går? | få til noe = manage to do it. The thing can stand before or after til. |  | Fikk du leksene til i går? |
+fa45 | order | Do you think we'll manage it before Christmas? | Tror du vi får det til før jul? | få det til = manage it. |  |  |
+fa47 | order | He couldn't sleep last night because of the noise. | Han fikk ikke sove i natt på grunn av bråket. | få ikke sove = can't get to sleep. Here få means manage. |  | I natt fikk han ikke sove på grunn av bråket. |
+fa48 | order | When will we find out the result? | Når får vi vite resultatet? | få vite = find out, be told. |  |  | vet
+fa49 | order | I found out today that the school is closed on Friday. | Jeg fikk vite i dag at skolen er stengt på fredag. | få vite = find out. |  | I dag fikk jeg vite at skolen er stengt på fredag. |
+fa52 | order | Suddenly she spotted a moose between the trees. | Plutselig fikk hun øye på en elg mellom trærne. | få øye på = spot, catch sight of. |  | Hun fikk plutselig øye på en elg mellom trærne. |
+fa55 | order | I have called the doctor all day, but I can't get hold of her. | Jeg har ringt legen hele dagen, men jeg får ikke tak i henne. | få tak i = get hold of (reach someone, or find something). |  |  |
+fa57 | order | Sorry, I didn't catch the last part. | Unnskyld, jeg fikk ikke med meg den siste delen. | få med seg = catch, take in, not miss. seg changes: meg, deg, oss. |  |  |
+fa59 | order | Their son has finally got himself a job in Bergen. | Sønnen deres har endelig fått seg jobb i Bergen. | få seg + noun = get yourself something (a job, a girlfriend, a coffee). |  |  |
+fa62 | order | I didn't have time to answer the email yesterday. | Jeg fikk ikke tid til å svare på e-posten i går. | få tid til = find time for. |  | I går fikk jeg ikke tid til å svare på e-posten. |
+fa64 | order | We haven't been paid for the extra hours yet. | Vi har ikke fått betalt for de ekstra timene ennå. | få betalt = get paid. |  | Vi har ennå ikke fått betalt for de ekstra timene. |
+fa65 | order | It turned out that she was right after all. | Det viste seg at hun fikk rett likevel. | få rett = turn out to be right. |  |  |
+fa68 | order | The police never found out what had happened. | Politiet fikk aldri rede på hva som hadde skjedd. | få rede på = find out, get to the bottom of (a bit formal). |  |  |
+fa70 | order | She has opened her eyes to how important sleep is. | Hun har fått øynene opp for hvor viktig søvn er. | få øynene opp for = realise, wake up to. |  |  |
+fa73 | order | We got the impression that nobody had read the report. | Vi fikk inntrykk av at ingen hadde lest rapporten. | få inntrykk av = get the impression. |  |  |
+fa74 | order | Can I have back the book you borrowed? | Kan jeg få tilbake boken du lånte? | få tilbake = get back something you lent or gave. |  | Kan jeg få boken du lånte tilbake? |
+fa77 | order | He couldn't get his boots off. | Han fikk ikke av seg støvlene. | få av seg = get clothes or shoes off. |  | Han fikk ikke støvlene av seg. |
+fa81 | order | We have to get the rubbish out before seven. | Vi må få ut søppelet før klokken sju. | få ut = get something out. |  | Vi må få søppelet ut før klokken sju. |
+fa83 | order | I can't get the food down because I'm so nervous. | Jeg får ikke ned maten fordi jeg er så nervøs. | få ned = get food down, manage to swallow. |  | Jeg får ikke maten ned fordi jeg er så nervøs. // Fordi jeg er så nervøs, får jeg ikke ned maten. // Fordi jeg er så nervøs, får jeg ikke maten ned. |
+fa84 | order | We finally got rid of the old sofa at the weekend. | Vi fikk endelig bort den gamle sofaen i helgen. | få bort = get rid of, remove. |  | I helgen fikk vi endelig bort den gamle sofaen. |
+fa85 | order | They are having their second child in May. | De skal få sitt andre barn i mai. | få barn = have a baby. |  | I mai skal de få sitt andre barn. |
+fa96 | order | Few people know that the shop has closed. | Få mennesker vet at butikken har stengt. | få = few. Here it describes mennesker; the verb is vet. |  |  |
+fa100 | order | Get yourself some sleep now, you look tired. | Få deg litt søvn nå, du ser trøtt ut. | Få deg … ! = get yourself …: a friendly push. |  |  |
+fa102 | order | If the weather is bad, the trip will have to wait. | Hvis været er dårlig, får turen vente. | X får vente = X will have to wait. |  | Turen får vente hvis været er dårlig. |
